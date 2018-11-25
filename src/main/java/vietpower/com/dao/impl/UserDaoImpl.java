@@ -4,7 +4,6 @@ import vietpower.com.dao.AbstractDao;
 import vietpower.com.dao.UserDao;
 import vietpower.com.model.User;
 import org.hibernate.Criteria;
-import org.hibernate.Hibernate;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -19,9 +18,6 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
     @Override
     public User findById(int id) {
         User user = getByKey(id);
-        if(user != null){
-            Hibernate.initialize(user.getUserProfiles());
-        }
         return user;
     }
 
@@ -30,9 +26,6 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
         Criteria crit = createEntityCriteria();
         crit.add(Restrictions.eq("ssoId", sso));
         User user = (User)crit.uniqueResult();
-        if(user != null){
-            Hibernate.initialize(user.getUserProfiles());
-        }
         return user;
     }
 

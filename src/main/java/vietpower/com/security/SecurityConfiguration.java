@@ -26,11 +26,7 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
     @Autowired
-    @Qualifier("customUserDetailsService")
     UserDetailsService userDetailsService;
-
-    @Autowired
-    PersistentTokenRepository tokenRepository;
 
     @Autowired
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
@@ -62,10 +58,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .and()
                 .logout().permitAll()
                 .and()
-                .rememberMe().rememberMeParameter("remember-me")
-                .tokenRepository(tokenRepository)
-                .tokenValiditySeconds(86400)
-                .and()
                 .csrf()
                 .and()
                 .exceptionHandling()
@@ -83,12 +75,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public PersistentTokenBasedRememberMeServices getPersistentTokenBasedRememberService(){
-        PersistentTokenBasedRememberMeServices tokenBasedRememberMeServices = new PersistentTokenBasedRememberMeServices("remember-me", userDetailsService, tokenRepository);
-        return tokenBasedRememberMeServices;
     }
 
     @Bean

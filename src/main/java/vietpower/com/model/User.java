@@ -3,70 +3,45 @@ package vietpower.com.model;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Created by HauKute on 8/2/2018.
  */
 @Entity
-@Table(name="app_user")
+@Table(name="User")
 public class User {
 
     @Id
+    @Column(name = "userId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer userId;
 
     @NotEmpty
-    @Column(name = "sso_id", unique = true, nullable = false)
-    private String ssoId;
+    @Column(name = "username", unique = true)
+    private String userName;
 
     @NotEmpty
-    @Column(name = "password", nullable = false)
+    @Column(name = "password")
     private String password;
 
-    @NotEmpty
-    @Column(name = "first_name", nullable = false)
-    private String firstName;
+    @ManyToOne
+    @JoinColumn(name="roleId")
+    private Role role;
 
-    @NotEmpty
-    @Column(name = "last_name", nullable = false)
-    private String lastName;
-
-    @NotEmpty
-    @Column(name = "email", nullable = false)
-    private String email;
-
-    @NotEmpty
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "app_user_user_profile", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "user_profile_id")})
-    private Set<UserProfile> userProfiles = new HashSet<>();
-
-    @Transient
-    private String[] groups;
-
-    public String[] getGroups() {
-        return groups;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setGroups(String[] groups) {
-        this.groups = groups;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    public Integer getId() {
-        return id;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getSsoId() {
-        return ssoId;
-    }
-
-    public void setSsoId(String ssoId) {
-        this.ssoId = ssoId;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {
@@ -77,56 +52,11 @@ public class User {
         this.password = password;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public Role getRole() {
+        return role;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Set<UserProfile> getUserProfiles() {
-        return userProfiles;
-    }
-
-    public void setUserProfiles(Set<UserProfile> userProfiles) {
-        this.userProfiles = userProfiles;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        User user = (User) o;
-
-        if (!id.equals(user.id)) return false;
-        return ssoId.equals(user.ssoId);
-
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((ssoId == null) ? 0 : ssoId.hashCode());
-        return result;
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

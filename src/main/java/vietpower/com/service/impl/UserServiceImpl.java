@@ -36,14 +36,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUser(User user) {
-        User entity = userDao.findById(user.getId());
+        User entity = userDao.findById(user.getUserId());
         if(entity != null){
-            entity.setSsoId(user.getSsoId());
+            entity.setUserName(user.getUserName());
             entity.setPassword(user.getPassword());
-            entity.setFirstName(user.getFirstName());
-            entity.setLastName(user.getLastName());
-            entity.setEmail(user.getEmail());
-            entity.setUserProfiles(user.getUserProfiles());
         }
     }
 
@@ -60,6 +56,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean isUserSSOUnique(Integer id, String sso) {
         User user = findBySSO(sso);
-        return ( user == null || ((id != null) && (user.getId() == id)));
+        return ( user == null || ((id != null) && (user.getUserId() == id)));
     }
 }

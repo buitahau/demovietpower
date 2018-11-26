@@ -1,6 +1,5 @@
 package vietpower.com.controller;
 
-import vietpower.com.dao.UserDao;
 import vietpower.com.model.User;
 import vietpower.com.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

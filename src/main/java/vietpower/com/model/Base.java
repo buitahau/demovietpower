@@ -24,13 +24,6 @@ public class Base {
     @Column(name = "baseName")
     private String baseName;
 
-    @NotEmpty
-    @Column(name = "rbgHex")
-    private String rbgHex;
-
-    @Column(name = "density")
-    private Float density;
-
     @Column(name = "createdDate")
     private Timestamp createdDate;
 
@@ -60,22 +53,6 @@ public class Base {
 
     public void setBaseName(String baseName) {
         this.baseName = baseName;
-    }
-
-    public String getRbgHex() {
-        return rbgHex;
-    }
-
-    public void setRbgHex(String rbgHex) {
-        this.rbgHex = rbgHex;
-    }
-
-    public Float getDensity() {
-        return density;
-    }
-
-    public void setDensity(Float density) {
-        this.density = density;
     }
 
     public Timestamp getCreatedDate() {

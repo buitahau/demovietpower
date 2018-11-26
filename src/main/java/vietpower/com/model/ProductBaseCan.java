@@ -16,22 +16,18 @@ public class ProductBaseCan {
     private Long productBaseCanId;
 
     @ManyToOne
-    @JoinColumn(name="productId", nullable = false)
-    private Product product;
-
-    @ManyToOne
-    @JoinColumn(name="baseId", nullable = false)
-    private Base base;
+    @JoinColumn(name="productBaseId", nullable = false)
+    private ProductBase productBase;
 
     @NotEmpty
-    @Column(name = "volume")
-    private Float volume;
+    @Column(name = "can")
+    private Double can;
 
     @Column(name = "unit")
     private String unit;
 
     @Column(name = "pricePerCan")
-    private Float pricePerCan;
+    private Double pricePerCan;
 
     @Column(name = "barCode")
     private String barCode;
@@ -47,28 +43,20 @@ public class ProductBaseCan {
         this.productBaseCanId = productBaseCanId;
     }
 
-    public Product getProduct() {
-        return product;
+    public ProductBase getProductBase() {
+        return productBase;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setProductBase(ProductBase productBase) {
+        this.productBase = productBase;
     }
 
-    public Base getBase() {
-        return base;
+    public Double getCan() {
+        return can;
     }
 
-    public void setBase(Base base) {
-        this.base = base;
-    }
-
-    public Float getVolume() {
-        return volume;
-    }
-
-    public void setVolume(Float volume) {
-        this.volume = volume;
+    public void setCan(Double can) {
+        this.can = can;
     }
 
     public String getUnit() {
@@ -79,11 +67,11 @@ public class ProductBaseCan {
         this.unit = unit;
     }
 
-    public Float getPricePerCan() {
+    public Double getPricePerCan() {
         return pricePerCan;
     }
 
-    public void setPricePerCan(Float pricePerCan) {
+    public void setPricePerCan(Double pricePerCan) {
         this.pricePerCan = pricePerCan;
     }
 

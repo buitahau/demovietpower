@@ -28,10 +28,10 @@ public class Colourant {
     private String rbgHex;
 
     @Column(name = "density")
-    private Float density;
+    private Double density;
 
     @Column(name = "pricePerUnit")
-    private Float pricePerUnit;
+    private Double pricePerUnit;
 
     @Column(name = "surcharge")
     private Integer surcharge;
@@ -39,11 +39,11 @@ public class Colourant {
     @Column(name = "kind")
     private String kind;
 
-    public long getColourantId() {
+    public Long getColourantId() {
         return colourantId;
     }
 
-    public void setColourantId(long colourantId) {
+    public void setColourantId(Long colourantId) {
         this.colourantId = colourantId;
     }
 
@@ -71,19 +71,19 @@ public class Colourant {
         this.rbgHex = rbgHex;
     }
 
-    public Float getDensity() {
+    public Double getDensity() {
         return density;
     }
 
-    public void setDensity(Float density) {
+    public void setDensity(Double density) {
         this.density = density;
     }
 
-    public Float getPricePerUnit() {
+    public Double getPricePerUnit() {
         return pricePerUnit;
     }
 
-    public void setPricePerUnit(Float pricePerUnit) {
+    public void setPricePerUnit(Double pricePerUnit) {
         this.pricePerUnit = pricePerUnit;
     }
 

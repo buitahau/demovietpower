@@ -61,4 +61,9 @@ public class FormulaServiceImpl implements FormulaService {
     public void deleteFormulaColourant(FormulaColourant formulaColourant) {
         formulaColourantDao.delete(formulaColourant);
     }
+
+    @Override
+    public void saveFormulaColourant(FormulaColourant formulaColourant) {
+        formulaColourantDao.persist(formulaColourant);
+    }
 }

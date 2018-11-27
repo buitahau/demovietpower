@@ -24,4 +24,6 @@ public interface FormulaService {
     List<FormulaColourant> findFormulaColourantByFormulaId(Long formulaId);
 
     void deleteFormulaColourant(FormulaColourant formulaColourant);
+
+    void saveFormulaColourant(FormulaColourant formulaColourant);
 }

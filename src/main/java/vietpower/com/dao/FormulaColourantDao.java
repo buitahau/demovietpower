@@ -11,4 +11,6 @@ public interface FormulaColourantDao {
     List<FormulaColourant> findByFormulaId(Long formulaId);
 
     void delete(FormulaColourant formulaColourant);
+
+    void persist(FormulaColourant formulaColourant);
 }

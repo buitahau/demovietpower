@@ -19,7 +19,6 @@ public class ProductBaseCan {
     @JoinColumn(name="productBaseId", nullable = false)
     private ProductBase productBase;
 
-    @NotEmpty
     @Column(name = "can")
     private Double can;
 

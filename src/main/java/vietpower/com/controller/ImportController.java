@@ -55,7 +55,7 @@ public class ImportController implements Serializable {
             parseSheet_1(mapColourants, workbook.getSheetAt(0));
             parseSheet_2(mapBases, mapProducts, mapProductBase, workbook.getSheetAt(1));
             parseSheet_3(mapProductBase, mapProductBaseCan, workbook.getSheetAt(2));
-//            parseSheet_4(mapColourants, mapProductBase, workbook.getSheetAt(3));
+            parseSheet_4(mapColourants, mapProductBase, workbook.getSheetAt(3));
         }catch (Exception e) {
             e.printStackTrace();
         }
@@ -91,7 +91,18 @@ public class ImportController implements Serializable {
                     mapCollections.put(collectionName, c);
                 }
 
-                String formulaName = currentRow.getCell(2).getStringCellValue();
+                String formulaName = null;
+                if(currentRow.getCell(2).getCellType() == CellType.NUMERIC){
+                    formulaName = String.valueOf(currentRow.getCell(2).getNumericCellValue());
+                }else if(currentRow.getCell(2).getCellType() == CellType.STRING){
+                    formulaName = currentRow.getCell(2).getStringCellValue();
+                }else{
+                    System.out.println("**-----------------------------");
+                    System.out.println("Can not find formula name at row " + row);
+                    row++;
+                    continue;
+                }
+                formulaName = formulaName.replace(".0", "");
                 if(mapFormulas.get(formulaName) == null){
                     Formula formula = new Formula();
                     formula.setCreatedDate(new Timestamp(System.currentTimeMillis()));
@@ -106,11 +117,11 @@ public class ImportController implements Serializable {
                 List<FormulaProductBase> listFormulaProductBaseExists = formulaService.findFormulaProductBaseByFormulaId(formula.getFormulaId());
                 Map<String, FormulaProductBase> mapFormulaProductBaseExists = new HashMap<>();
                 for(FormulaProductBase fpb : listFormulaProductBaseExists){
-                    mapFormulaProductBaseExists.put(fpb.getProductBase().getBase() + "_" + fpb.getProductBase().getProduct().getProductCode() , fpb);
+                    mapFormulaProductBaseExists.put(fpb.getProductBase().getBase().getBaseCode() + "_" + fpb.getProductBase().getProduct().getProductCode() , fpb);
                 }
 
                 String base = currentRow.getCell(5).getStringCellValue();
-                String[] arrayProductCodes = currentRow.getCell(2).getStringCellValue().split(",");
+                String[] arrayProductCodes = currentRow.getCell(1).getStringCellValue().split(",");
                 for(String productCode : arrayProductCodes){
                     String key = base + "_" + productCode;
                     if(mapProductBase.get(key) == null){
@@ -137,36 +148,53 @@ public class ImportController implements Serializable {
                     mapFormulaColourantExists.put(fc.getColourant().getColourantCode(), fc);
                 }
 
-                addColourant(currentRow.getCell(6).getStringCellValue(),
-                        currentRow.getCell(7).getNumericCellValue(),
-                        mapColourants,
-                        mapFormulaColourantExists,
-                        formula);
-                addColourant(currentRow.getCell(8).getStringCellValue(),
-                        currentRow.getCell(9).getNumericCellValue(),
-                        mapColourants,
-                        mapFormulaColourantExists,
-                        formula);
-                addColourant(currentRow.getCell(10).getStringCellValue(),
-                        currentRow.getCell(11).getNumericCellValue(),
-                        mapColourants,
-                        mapFormulaColourantExists,
-                        formula);
-                addColourant(currentRow.getCell(12).getStringCellValue(),
-                        currentRow.getCell(13).getNumericCellValue(),
-                        mapColourants,
-                        mapFormulaColourantExists,
-                        formula);
-                addColourant(currentRow.getCell(14).getStringCellValue(),
-                        currentRow.getCell(15).getNumericCellValue(),
-                        mapColourants,
-                        mapFormulaColourantExists,
-                        formula);
-                addColourant(currentRow.getCell(16).getStringCellValue(),
-                        currentRow.getCell(17).getNumericCellValue(),
-                        mapColourants,
-                        mapFormulaColourantExists,
-                        formula);
+                if(currentRow.getCell(6) != null) {
+                    addColourant(currentRow.getCell(6).getStringCellValue(),
+                            currentRow.getCell(7).getNumericCellValue(),
+                            mapColourants,
+                            mapFormulaColourantExists,
+                            formula);
+                }
+
+                if(currentRow.getCell(8) != null) {
+                    addColourant(currentRow.getCell(8).getStringCellValue(),
+                            currentRow.getCell(9).getNumericCellValue(),
+                            mapColourants,
+                            mapFormulaColourantExists,
+                            formula);
+                }
+
+                if(currentRow.getCell(10) != null) {
+                    addColourant(currentRow.getCell(10).getStringCellValue(),
+                            currentRow.getCell(11).getNumericCellValue(),
+                            mapColourants,
+                            mapFormulaColourantExists,
+                            formula);
+                }
+
+                if(currentRow.getCell(12) != null) {
+                    addColourant(currentRow.getCell(12).getStringCellValue(),
+                            currentRow.getCell(13).getNumericCellValue(),
+                            mapColourants,
+                            mapFormulaColourantExists,
+                            formula);
+                }
+
+                if(currentRow.getCell(14) != null) {
+                    addColourant(currentRow.getCell(14).getStringCellValue(),
+                            currentRow.getCell(15).getNumericCellValue(),
+                            mapColourants,
+                            mapFormulaColourantExists,
+                            formula);
+                }
+
+                if(currentRow.getCell(16) != null) {
+                    addColourant(currentRow.getCell(16).getStringCellValue(),
+                            currentRow.getCell(17).getNumericCellValue(),
+                            mapColourants,
+                            mapFormulaColourantExists,
+                            formula);
+                }
                 for(String keyRemove : mapFormulaColourantExists.keySet()){
                     formulaService.deleteFormulaColourant(mapFormulaColourantExists.get(keyRemove));
                 }
@@ -193,6 +221,7 @@ public class ImportController implements Serializable {
                     formulaColourant.setFormula(formula);
                     formulaColourant.setColourant(mapColourants.get(colorantCode));
                     formulaColourant.setQuantity(quantity);
+                    formulaService.saveFormulaColourant(formulaColourant);
                 }else{
                     mapFormulaColourantExists.remove(colorantCode);
                 }

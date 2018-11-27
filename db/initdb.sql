@@ -3,8 +3,8 @@ CREATE TABLE Colourant(
   colourantCode VARCHAR(100) NOT NULL,
   colourantName VARCHAR(1000) NOT NULL,
   rbgHex VARCHAR(100) NOT NULL,
-  density FLOAT,
-  pricePerUnit FLOAT,
+  density DOUBLE,
+  pricePerUnit DOUBLE,
   surcharge INT,
   kind VARCHAR(100)
 );
@@ -44,7 +44,7 @@ CREATE TABLE ProductBase(
   productBaseId BIGINT AUTO_INCREMENT PRIMARY KEY,
   productId BIGINT NOT NULL,
   baseId BIGINT NOT NULL,
-  density FLOAT,
+  density DOUBLE,
   rbgHex VARCHAR(100) NOT NULL,
   createdDate DATE,
   createBy BIGINT,
@@ -56,9 +56,9 @@ CREATE TABLE ProductBase(
 CREATE TABLE ProductBaseCan(
   productBaseCanId BIGINT AUTO_INCREMENT PRIMARY KEY,
   productBaseId BIGINT NOT NULL,
-  can FLOAT NOT NULL,
+  can DOUBLE NOT NULL,
   unit VARCHAR(100),
-  pricePerCan FLOAT,
+  pricePerCan DOUBLE,
   barCode VARCHAR(1000),
   percentage INT,
   FOREIGN KEY (productBaseId) REFERENCES ProductBase(productBaseId) ON UPDATE CASCADE ON DELETE RESTRICT
@@ -88,7 +88,7 @@ CREATE TABLE FormulaColourant(
   formulaColourantId BIGINT AUTO_INCREMENT PRIMARY KEY,
   formulaId BIGINT NOT NULL,
   colourantId BIGINT,
-  quantity FLOAT NOT NULL,
+  quantity DOUBLE NOT NULL,
   FOREIGN KEY (formulaId) REFERENCES Formula(formulaId) ON UPDATE CASCADE ON DELETE RESTRICT,
   FOREIGN KEY (colourantId) REFERENCES Colourant(colourantId) ON UPDATE CASCADE ON DELETE RESTRICT
 );

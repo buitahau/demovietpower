@@ -29,8 +29,8 @@ public class CustomUserDetailsService implements UserDetailsService {
     private UserService userService;
 
     @Transactional(readOnly = true)
-    public UserDetails loadUserByUsername(String ssoId) throws UsernameNotFoundException {
-        User user = userService.findBySSO(ssoId);
+    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+        User user = userService.findByUserName(userName);
         logger.info("User: {}", user);
         if(user == null){
             logger.info("User not found");
@@ -42,7 +42,9 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     private List<GrantedAuthority> getGrantedAuthorities(User user) {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_" + "ADMIN"));
+        if(user.getRole() != null) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getRole().getRoleName()));
+        }
         logger.info("Authorities: {}", authorities);
         return authorities;
     }

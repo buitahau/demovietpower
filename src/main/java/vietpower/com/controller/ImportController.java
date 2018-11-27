@@ -4,28 +4,23 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import vietpower.com.model.*;
+import vietpower.com.model.Collection;
 import vietpower.com.service.*;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.Serializable;
+import java.io.*;
 import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.awt.Color;
 /**
  * Created by HauKute on 11/25/2018.
  */
 @Controller
 public class ImportController implements Serializable {
-
     private static final String FILE_EXCEL = "X:\\ws_learning\\demovietpower\\db\\DB_Specifications.xlsx";
-
+//    https://spring.io/guides/gs/uploading-files/
     @Autowired
     ColourantService colourantService;
     @Autowired
@@ -37,10 +32,45 @@ public class ImportController implements Serializable {
     @Autowired
     FormulaService formulaService;
 
-    @RequestMapping(value = "/sort/bubble.html", method = RequestMethod.GET)
-    public String sortBubble(){
-        parseFileExcel();
-        return "sort/bubble";
+    @RequestMapping(value = "/import/import.html", method = RequestMethod.GET)
+    public String importPage(){
+        return "import/import";
+    }
+
+    @RequestMapping(value = "/import/uploadFile.html", method = RequestMethod.POST)
+    public @ResponseBody
+    String uploadFileHandler(@RequestParam("name") String name,
+                             @RequestParam("file") MultipartFile file) {
+
+        if (!file.isEmpty()) {
+            try {
+                byte[] bytes = file.getBytes();
+
+                // Creating the directory to store file
+                String rootPath = System.getProperty("catalina.home");
+                File dir = new File(rootPath + File.separator + "tmpFiles");
+                if (!dir.exists())
+                    dir.mkdirs();
+
+                // Create the file on server
+                File serverFile = new File(dir.getAbsolutePath()
+                        + File.separator + name);
+                BufferedOutputStream stream = new BufferedOutputStream(
+                        new FileOutputStream(serverFile));
+                stream.write(bytes);
+                stream.close();
+
+//                logger.info("Server File Location="
+//                        + serverFile.getAbsolutePath());
+
+                return "You successfully uploaded file=" + name;
+            } catch (Exception e) {
+                return "You failed to upload " + name + " => " + e.getMessage();
+            }
+        } else {
+            return "You failed to upload " + name
+                    + " because the file was empty.";
+        }
     }
 
     private void parseFileExcel(){

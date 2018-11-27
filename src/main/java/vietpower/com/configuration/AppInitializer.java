@@ -12,6 +12,8 @@ import java.util.EnumSet;
  * Created by HauKute on 7/18/2018.
  */
 public class AppInitializer implements WebApplicationInitializer {
+    private String TMP_FOLDER = "/tmp";
+    private int MAX_UPLOAD_SIZE = 5 * 1024 * 1024;
     @Override
     public void onStartup(ServletContext container) throws ServletException {
         AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
@@ -30,5 +32,10 @@ public class AppInitializer implements WebApplicationInitializer {
         FilterRegistration.Dynamic siteMesh = container.addFilter("siteMeshFilter", new vietpower.com.filter.SiteMeshFilter());
         EnumSet<DispatcherType> sitemeshDispatcherTypes = EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD);
         siteMesh.addMappingForUrlPatterns(sitemeshDispatcherTypes, true, "/*");
+
+        MultipartConfigElement multipartConfigElement = new MultipartConfigElement(TMP_FOLDER,
+                MAX_UPLOAD_SIZE, MAX_UPLOAD_SIZE * 2, MAX_UPLOAD_SIZE / 2);
+
+        servlet.setMultipartConfig(multipartConfigElement);
     }
 }

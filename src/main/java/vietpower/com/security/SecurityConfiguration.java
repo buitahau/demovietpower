@@ -26,6 +26,7 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
     @Autowired
+    @Qualifier("customUserDetailsService")
     UserDetailsService userDetailsService;
 
     @Autowired
@@ -36,9 +37,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.sessionManagement().sessionFixation().newSession()
-                .invalidSessionUrl("/login?message=timeout")
-                .maximumSessions(1).expiredUrl("/login?message=max_session").maxSessionsPreventsLogin(true);
+//        http.sessionManagement().sessionFixation().newSession()
+//                .invalidSessionUrl("/login?message=timeout")
+//                .maximumSessions(1).expiredUrl("/login?message=max_session").maxSessionsPreventsLogin(true);
 
         http.authorizeRequests()
                 .antMatchers("/static/**").permitAll()
@@ -48,7 +49,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .access("hasRole('ADMIN')")
                 .antMatchers("/edit-user-*")
                 .access("hasRole('ADMIN') or hasRole('DBA')")
-                .antMatchers("/", "/sort/**").permitAll()
+                .antMatchers("/", "/sort/**", "/import/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login").permitAll()

@@ -7,6 +7,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.Ordered;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.*;
@@ -23,7 +26,6 @@ import org.springframework.web.servlet.view.JstlView;
 @EnableAspectJAutoProxy
 @ComponentScan(basePackages = "vietpower.com")
 public class AppConfig extends WebMvcConfigurerAdapter{
-
 
     @Bean
     public ViewResolver viewResolver(){
@@ -76,4 +78,14 @@ public class AppConfig extends WebMvcConfigurerAdapter{
         registry.setOrder( Ordered.HIGHEST_PRECEDENCE );
         super.addViewControllers( registry );
     }
+
+    @Bean(name = "multipartResolver")
+    public MultipartResolver getMultipartResolver() {
+        CommonsMultipartResolver resover = new CommonsMultipartResolver();
+        // 1MB
+        resover.setMaxUploadSize(1 * 1024 * 1024);
+
+        return resover;
+    }
+
 }

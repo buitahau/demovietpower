@@ -28,10 +28,7 @@
         <table class="table table-hover">
             <thead>
             <tr>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>Email</th>
-                <th>SSO ID</th>
+                <th>UserName</th>
                 <th width="100"></th>
                 <th width="100"></th>
             </tr>
@@ -39,14 +36,11 @@
             <tbody>
             <c:forEach items="${users}" var="user">
                 <tr>
-                    <td>${user.firstName}</td>
-                    <td>${user.lastName}</td>
-                    <td>${user.email}</td>
-                    <td>${user.ssoId}</td>
-                    <td><a href="<c:url value='/edit-user-${user.ssoId}' />" class="btn btn-success
+                    <td>${user.userName}</td>
+                    <td><a href="<c:url value='/edit-user-${user.userId}' />" class="btn btn-success
 
 custom-width">edit</a></td>
-                    <td><a href="<c:url value='/delete-user-${user.ssoId}' />" class="btn btn-danger
+                    <td><a href="<c:url value='/delete-user-${user.userId}' />" class="btn btn-danger
 
 custom-width">delete</a></td>
                 </tr>

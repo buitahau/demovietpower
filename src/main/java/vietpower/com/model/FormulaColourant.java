@@ -22,7 +22,7 @@ public class FormulaColourant {
     private Colourant colourant;
 
     @Column(name = "quantity")
-    private Float quantity;
+    private Double quantity;
 
     public Long getFormulaColourantId() {
         return formulaColourantId;
@@ -48,11 +48,11 @@ public class FormulaColourant {
         this.colourant = colourant;
     }
 
-    public Float getQuantity() {
+    public Double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Float quantity) {
+    public void setQuantity(Double quantity) {
         this.quantity = quantity;
     }
 }

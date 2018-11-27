@@ -32,6 +32,10 @@ public class ImportController implements Serializable {
     BaseService baseService;
     @Autowired
     ProductService productService;
+    @Autowired
+    CollectionService collectionService;
+    @Autowired
+    FormulaService formulaService;
 
     @RequestMapping(value = "/sort/bubble.html", method = RequestMethod.GET)
     public String sortBubble(){
@@ -51,7 +55,7 @@ public class ImportController implements Serializable {
             parseSheet_1(mapColourants, workbook.getSheetAt(0));
             parseSheet_2(mapBases, mapProducts, mapProductBase, workbook.getSheetAt(1));
             parseSheet_3(mapProductBase, mapProductBaseCan, workbook.getSheetAt(2));
-            parseSheet_4(mapColourants, mapProductBase, workbook.getSheetAt(3));
+//            parseSheet_4(mapColourants, mapProductBase, workbook.getSheetAt(3));
         }catch (Exception e) {
             e.printStackTrace();
         }
@@ -61,7 +65,139 @@ public class ImportController implements Serializable {
                               Map<String, ProductBase> mapProductBase,
                               Sheet datatypeSheet) {
         Map<String, Collection> mapCollections = new HashMap<>();
-        Map<String, Formula> mapFormula = new HashMap<>();
+        List<Collection> listCollectionExists = collectionService.findAll();
+        for(Collection c : listCollectionExists){
+            mapCollections.put(c.getCollectionName(), c);
+        }
+
+        Map<String, Formula> mapFormulas = new HashMap<>();
+        List<Formula> listFormulaExists = formulaService.findAll();
+        for(Formula f : listFormulaExists){
+            mapFormulas.put(f.getFormulaName(), f);
+        }
+
+        Iterator<Row> iterator = datatypeSheet.iterator();
+        int row = 0;
+        while (iterator.hasNext()) {
+            Row currentRow = iterator.next();
+            if (row > 0) { // bo qua row 1
+                String collectionName = currentRow.getCell(0).getStringCellValue();
+                if(mapCollections.get(collectionName) == null){
+                    Collection c = new Collection();
+                    c.setCollectionName(collectionName);
+                    c.setDescription(collectionName);
+                    c.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+                    collectionService.save(c);
+                    mapCollections.put(collectionName, c);
+                }
+
+                String formulaName = currentRow.getCell(2).getStringCellValue();
+                if(mapFormulas.get(formulaName) == null){
+                    Formula formula = new Formula();
+                    formula.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+                    formula.setCollection(mapCollections.get(collectionName));
+                    formula.setFormulaCode(formulaName);
+                    formula.setFormulaName(formulaName);
+                    formulaService.save(formula);
+                    mapFormulas.put(formulaName, formula);
+                }
+
+                Formula formula = mapFormulas.get(formulaName);
+                List<FormulaProductBase> listFormulaProductBaseExists = formulaService.findFormulaProductBaseByFormulaId(formula.getFormulaId());
+                Map<String, FormulaProductBase> mapFormulaProductBaseExists = new HashMap<>();
+                for(FormulaProductBase fpb : listFormulaProductBaseExists){
+                    mapFormulaProductBaseExists.put(fpb.getProductBase().getBase() + "_" + fpb.getProductBase().getProduct().getProductCode() , fpb);
+                }
+
+                String base = currentRow.getCell(5).getStringCellValue();
+                String[] arrayProductCodes = currentRow.getCell(2).getStringCellValue().split(",");
+                for(String productCode : arrayProductCodes){
+                    String key = base + "_" + productCode;
+                    if(mapProductBase.get(key) == null){
+                        System.out.println("**-----------------------------");
+                        System.out.println("Can not find product base - " + key);
+                    }else{
+                        if(mapFormulaProductBaseExists.get(key) == null){
+                            FormulaProductBase fpb = new FormulaProductBase();
+                            fpb.setFormula(formula);
+                            fpb.setProductBase(mapProductBase.get(key));
+                            formulaService.saveFormulaProductBase(fpb);
+                        }else{
+                            mapFormulaProductBaseExists.remove(key);
+                        }
+                    }
+                }
+                for(String keyRemove : mapFormulaProductBaseExists.keySet()){
+                    formulaService.deleteFormulaProductBase(mapFormulaProductBaseExists.get(keyRemove));
+                }
+
+                List<FormulaColourant> listFormulaColourantExists = formulaService.findFormulaColourantByFormulaId(formula.getFormulaId());
+                Map<String, FormulaColourant> mapFormulaColourantExists = new HashMap<>();
+                for(FormulaColourant fc : listFormulaColourantExists){
+                    mapFormulaColourantExists.put(fc.getColourant().getColourantCode(), fc);
+                }
+
+                addColourant(currentRow.getCell(6).getStringCellValue(),
+                        currentRow.getCell(7).getNumericCellValue(),
+                        mapColourants,
+                        mapFormulaColourantExists,
+                        formula);
+                addColourant(currentRow.getCell(8).getStringCellValue(),
+                        currentRow.getCell(9).getNumericCellValue(),
+                        mapColourants,
+                        mapFormulaColourantExists,
+                        formula);
+                addColourant(currentRow.getCell(10).getStringCellValue(),
+                        currentRow.getCell(11).getNumericCellValue(),
+                        mapColourants,
+                        mapFormulaColourantExists,
+                        formula);
+                addColourant(currentRow.getCell(12).getStringCellValue(),
+                        currentRow.getCell(13).getNumericCellValue(),
+                        mapColourants,
+                        mapFormulaColourantExists,
+                        formula);
+                addColourant(currentRow.getCell(14).getStringCellValue(),
+                        currentRow.getCell(15).getNumericCellValue(),
+                        mapColourants,
+                        mapFormulaColourantExists,
+                        formula);
+                addColourant(currentRow.getCell(16).getStringCellValue(),
+                        currentRow.getCell(17).getNumericCellValue(),
+                        mapColourants,
+                        mapFormulaColourantExists,
+                        formula);
+                for(String keyRemove : mapFormulaColourantExists.keySet()){
+                    formulaService.deleteFormulaColourant(mapFormulaColourantExists.get(keyRemove));
+                }
+            }
+            row ++;
+        }
+    }
+
+    private void addColourant(String colorantCode,
+                              Double quantity,
+                              Map<String, Colourant> mapColourants,
+                              Map<String, FormulaColourant> mapFormulaColourantExists,
+                              Formula formula){
+        if(colorantCode != null && colorantCode.trim().length() > 0){
+            if(mapColourants.get(colorantCode) == null){
+                System.out.println("**-----------------------------");
+                System.out.println("Can not find colourant - " + colorantCode);
+            }else if (quantity == null){
+                System.out.println("**-----------------------------");
+                System.out.println("Can not parseQuantity - " + colorantCode);
+            }else{
+                if(mapFormulaColourantExists.get(colorantCode) == null){
+                    FormulaColourant formulaColourant = new FormulaColourant();
+                    formulaColourant.setFormula(formula);
+                    formulaColourant.setColourant(mapColourants.get(colorantCode));
+                    formulaColourant.setQuantity(quantity);
+                }else{
+                    mapFormulaColourantExists.remove(colorantCode);
+                }
+            }
+        }
     }
 
     private void parseSheet_3(Map<String, ProductBase> mapProductBase,
@@ -93,13 +229,14 @@ public class ImportController implements Serializable {
                         pbc.setCan(can);
                         pbc.setPricePerCan(currentRow.getCell(4).getNumericCellValue());
                         pbc.setPercentage(Double.valueOf(currentRow.getCell(5).getNumericCellValue()).intValue());
-                        pbc.setBarCode(currentRow.getCell(6).getStringCellValue());
+                        pbc.setBarCode(Double.valueOf(currentRow.getCell(6).getNumericCellValue()).toString());
                         productService.saveProductBaseCan(pbc);
                         mapProductBaseCan.put(key, pbc);
                     }
                 }
 
             }
+            row ++;
         }
     }
 
@@ -133,7 +270,7 @@ public class ImportController implements Serializable {
 
         List<ProductBase> listProductBaseExists = baseService.findAllProductBases();
         for(ProductBase productBase : listProductBaseExists){
-            mapProductBase.put(productBase.getBase().getBaseCode() + productBase.getProduct().getProductCode(), productBase);
+            mapProductBase.put(productBase.getBase().getBaseCode() + "_" + productBase.getProduct().getProductCode(), productBase);
         }
 
         Iterator<Row> iterator = datatypeSheet.iterator();
@@ -141,7 +278,14 @@ public class ImportController implements Serializable {
         while (iterator.hasNext()) {
             Row currentRow = iterator.next();
             if (row > 0) { // bo qua row 1
-                String baseCode = currentRow.getCell(0).getStringCellValue().trim();
+
+                if(currentRow == null || currentRow.getCell(0) == null){
+                    System.out.println("Row " + row);
+                    continue;
+                }
+                String baseCode = currentRow.getCell(0).getStringCellValue();
+
+                baseCode = baseCode.trim();
                 if(mapBases.get(baseCode) == null){
                     Base base = new Base();
                     base.setCreatedDate(new Timestamp(System.currentTimeMillis()));

@@ -79,13 +79,9 @@ public class AppConfig extends WebMvcConfigurerAdapter{
         super.addViewControllers( registry );
     }
 
-    @Bean(name = "multipartResolver")
-    public MultipartResolver getMultipartResolver() {
-        CommonsMultipartResolver resover = new CommonsMultipartResolver();
-        // 1MB
-        resover.setMaxUploadSize(1 * 1024 * 1024);
-
-        return resover;
+    @Bean
+    public MultipartResolver multipartResolver() {
+        return new StandardServletMultipartResolver();
     }
 
 }

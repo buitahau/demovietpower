@@ -8,22 +8,14 @@
 <%--<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>--%>
 
 <html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Upload One File</title>
-</head>
+
 <body>
+<h1>Spring MVC file upload example</h1>
 
-
-<h3>Upload One File:</h3>
-
-<!-- MyUploadForm -->
-<form method="POST" action="/import/uploadFile.html" enctype="multipart/form-data">
-    File to upload: <input type="file" name="file"><br />
-    Name: <input type="text" name="name"><br /> <br />
-    <input type="submit" value="Upload"> Press here to upload the file!
+<form method="POST" action="/import/upload.html" enctype="multipart/form-data">
+    <input type="file" name="file" /><br/>
+    <input type="submit" value="Submit" />
 </form>
 
 </body>
-
 </html>

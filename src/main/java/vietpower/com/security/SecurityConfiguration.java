@@ -9,14 +9,11 @@ import org.springframework.security.authentication.AuthenticationTrustResolverIm
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
-import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 /**
  * Created by HauKute on 8/7/2018.
@@ -43,7 +40,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
         http.authorizeRequests()
                 .antMatchers("/static/**").permitAll()
-                .antMatchers("/", "/import/**").permitAll()
+                .antMatchers("/", "/import/**", "/server/api/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login").permitAll()
@@ -76,5 +73,4 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     public AuthenticationTrustResolver getAuthenticationTrustResolver(){
         return new AuthenticationTrustResolverImpl();
     }
-
 }

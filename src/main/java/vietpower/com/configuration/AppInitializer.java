@@ -33,6 +33,11 @@ public class AppInitializer implements WebApplicationInitializer {
         EnumSet<DispatcherType> sitemeshDispatcherTypes = EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD);
         siteMesh.addMappingForUrlPatterns(sitemeshDispatcherTypes, true, "/*");
 
+
+        FilterRegistration.Dynamic cors = container.addFilter("corsFilter", new vietpower.com.filter.SimpleCORSFilter());
+        EnumSet<DispatcherType> corsDispatcherTypes = EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD);
+        cors.addMappingForUrlPatterns(corsDispatcherTypes, true, "/*");
+//
         // upload temp file will put here
         File uploadDirectory = new File("X:\\upload");
 

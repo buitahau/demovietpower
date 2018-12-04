@@ -39,9 +39,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 //                .maximumSessions(1).expiredUrl("/login?message=max_session").maxSessionsPreventsLogin(true);
 
         http.authorizeRequests()
-                .antMatchers("/static/**").permitAll()
-                .antMatchers("/", "/import/**", "/server/api/**").permitAll()
-                .anyRequest().authenticated()
+//                .antMatchers("/static/**").permitAll()
+//                .antMatchers("/", "/import/**", "/server/api/**").permitAll()
+                .anyRequest().permitAll()
                 .and()
                 .formLogin().loginPage("/login").permitAll()
                 .loginProcessingUrl("/login")

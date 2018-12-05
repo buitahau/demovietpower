@@ -23,7 +23,7 @@ public class RestAPIController implements Serializable{
     @Autowired
     BaseService baseService;
 
-    @RequestMapping(value = "/server/api/getAllFormula", method = RequestMethod.GET)
+    @RequestMapping(value = "/server/api/formula/getAll", method = RequestMethod.GET)
     @ResponseBody
     public List getAllFormula(){
         List<Formula> formulars = formulaService.findAll();

@@ -30,7 +30,7 @@ public class RestAPIController implements Serializable{
         return formulars;
     }
 
-    @RequestMapping(value = "/server/api/getAllBase", method = RequestMethod.GET)
+    @RequestMapping(value = "/server/api/base/getAll", method = RequestMethod.GET)
     @ResponseBody
     public List getAllBase(){
         List<Base> bases = baseService.findAll();

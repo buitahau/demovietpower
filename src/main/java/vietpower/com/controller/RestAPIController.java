@@ -6,8 +6,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import vietpower.com.model.Base;
+import vietpower.com.model.Colourant;
 import vietpower.com.model.Formula;
 import vietpower.com.service.BaseService;
+import vietpower.com.service.ColourantService;
 import vietpower.com.service.FormulaService;
 
 import java.io.Serializable;
@@ -23,6 +25,9 @@ public class RestAPIController implements Serializable{
     @Autowired
     BaseService baseService;
 
+    @Autowired
+    ColourantService colourantService;
+
     @RequestMapping(value = "/server/api/formula/getAll", method = RequestMethod.GET)
     @ResponseBody
     public List getAllFormula(){
@@ -35,5 +40,13 @@ public class RestAPIController implements Serializable{
     public List getAllBase(){
         List<Base> bases = baseService.findAll();
         return bases;
+    }
+
+
+    @RequestMapping(value = "/server/api/colourant/getAll", method = RequestMethod.GET)
+    @ResponseBody
+    public List getAllColourant(){
+        List<Colourant> colourants = colourantService.findAll();
+        return colourants;
     }
 }

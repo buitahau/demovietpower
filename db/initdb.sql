@@ -101,4 +101,14 @@ CREATE TABLE FormulaProductBase(
   FOREIGN KEY (productBaseId) REFERENCES ProductBase(productBaseId) ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
+CREATE TABLE Users(
+  userId BIGINT AUTO_INCREMENT PRIMARY KEY,
+  userName VARCHAR(100) NOT NULL,
+  password VARCHAR(20) NOT NULL
+);
 
+
+INSERT INTO Users (userName, password) VALUES ('admin', '123456');
+INSERT INTO Users (userName, password) VALUES ('shop', '123456');
+INSERT INTO Users (userName, password) VALUES ('operator', '123456');
+INSERT INTO Users (userName, password) VALUES ('maintenance', '123456');

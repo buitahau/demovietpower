@@ -26,14 +26,12 @@ public class RestAPIController implements Serializable{
     @RequestMapping(value = "/server/api/formula/getAll", method = RequestMethod.GET)
     @ResponseBody
     public List getAllFormula(){
-        List<Formula> formulars = formulaService.findAll();
-        return formulars;
+        return formulaService.findAll();
     }
 
     @RequestMapping(value = "/server/api/base/getAll", method = RequestMethod.GET)
     @ResponseBody
     public List getAllBase(){
-        List<Base> bases = baseService.findAll();
-        return bases;
+        return baseService.findAll();
     }
 }

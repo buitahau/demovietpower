@@ -5,14 +5,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import vietpower.com.model.Base;
-import vietpower.com.model.Collection;
-import vietpower.com.model.Colourant;
-import vietpower.com.model.Formula;
-import vietpower.com.service.BaseService;
-import vietpower.com.service.CollectionService;
-import vietpower.com.service.ColourantService;
-import vietpower.com.service.FormulaService;
+import vietpower.com.model.*;
+import vietpower.com.service.*;
 
 import java.io.Serializable;
 import java.util.List;
@@ -32,6 +26,9 @@ public class RestAPIController implements Serializable{
 
     @Autowired
     CollectionService collectionService;
+
+    @Autowired
+    ProductService productService;
 
     @RequestMapping(value = "/server/api/formula/getAll", method = RequestMethod.GET)
     @ResponseBody
@@ -54,10 +51,18 @@ public class RestAPIController implements Serializable{
         List<Colourant> colourants = colourantService.findAll();
         return colourants;
     }
+
     @RequestMapping(value = "/server/api/collection/getAll", method = RequestMethod.GET)
     @ResponseBody
     public List getAllCollection(){
         List<Collection> collections = collectionService.findAll();
         return collections;
+    }
+
+    @RequestMapping(value = "/server/api/product/getAll", method = RequestMethod.GET)
+    @ResponseBody
+    public List getAllProduct(){
+        List<Product> listtItems = productService.findAll();
+        return listtItems;
     }
 }

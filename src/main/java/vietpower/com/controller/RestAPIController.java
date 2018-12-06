@@ -1,15 +1,14 @@
 package vietpower.com.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import vietpower.com.model.*;
 import vietpower.com.service.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by HauKute on 12/3/2018.
@@ -62,5 +61,11 @@ public class RestAPIController implements Serializable{
     public List getAllProduct(){
         List<Product> listtItems = productService.findAll();
         return listtItems;
+    }
+
+    @RequestMapping(value="/server/api/product/view-detail/{productId}", method=RequestMethod.GET)
+    @ResponseBody
+    public String byParameter(@PathVariable String productId) {
+        return "Test bind data to url : " + productId;
     }
 }

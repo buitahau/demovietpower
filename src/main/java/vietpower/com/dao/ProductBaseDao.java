@@ -13,4 +13,6 @@ public interface ProductBaseDao {
     void persist(ProductBase pb);
 
     void update(ProductBase pb);
+
+    List<ProductBase> findByProductId(Long productId);
 }

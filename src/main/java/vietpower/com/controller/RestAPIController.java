@@ -1,5 +1,8 @@
 package vietpower.com.controller;
 
+
+
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import vietpower.com.model.*;
@@ -17,14 +20,21 @@ import java.util.Map;
 public class RestAPIController implements Serializable{
     @Autowired
     FormulaService formulaService;
+
     @Autowired
     BaseService baseService;
+
     @Autowired
     ColourantService colourantService;
+
     @Autowired
     CollectionService collectionService;
+
     @Autowired
     ProductService productService;
+
+    @Autowired
+    ProductBaseService productBaseService;
 
     @RequestMapping(value = "/server/api/formula/getAll", method = RequestMethod.GET)
     @ResponseBody
@@ -67,7 +77,8 @@ public class RestAPIController implements Serializable{
 
     @RequestMapping(value="/server/api/product/view-detail/{productId}", method=RequestMethod.GET)
     @ResponseBody
-    public String byParameter(@PathVariable String productId) {
-        return "Test bind data to url : " + productId;
+    public List byParameter(@PathVariable Long productId) {
+        List<ProductBase> result = productBaseService.findByProductId(productId);
+        return result;
     }
 }

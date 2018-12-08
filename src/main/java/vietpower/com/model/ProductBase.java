@@ -38,6 +38,17 @@ public class ProductBase {
     @JoinColumn(name="createBy")
     private User createBy;
 
+//    @OneToMany(mappedBy="productBase", fetch = FetchType.LAZY)
+//    private List<ProductBaseCan> productBaseCans;
+//
+//    public List<ProductBaseCan> getProductBaseCans() {
+//        return productBaseCans;
+//    }
+//
+//    public void setProductBaseCans(List<ProductBaseCan> productBaseCans) {
+//        this.productBaseCans = productBaseCans;
+//    }
+
     public Long getProductBaseId() {
         return productBaseId;
     }

@@ -11,4 +11,8 @@ public interface ProductBaseCanDao {
     List<ProductBaseCan> findAll();
 
     void persist(ProductBaseCan pbc);
+
+    List<ProductBaseCan> findByProductAndBase(Long productId, Long baseId);
+
+    List<ProductBaseCan> findByProductBase(Long productBaseId);
 }

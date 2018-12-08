@@ -19,13 +19,10 @@ public class RestAPIController implements Serializable{
     FormulaService formulaService;
     @Autowired
     BaseService baseService;
-
     @Autowired
     ColourantService colourantService;
-
     @Autowired
     CollectionService collectionService;
-
     @Autowired
     ProductService productService;
 
@@ -33,6 +30,11 @@ public class RestAPIController implements Serializable{
     @ResponseBody
     public List getAllFormula(){
         return formulaService.findAll();
+    }
+
+    @RequestMapping(value = "/server/api/formula_product_base/getAll", method = RequestMethod.GET)
+    public List getAllFormulaProductBase(){
+        return formulaService.findFormulaProductBaseByFormulaId(null);
     }
 
     @RequestMapping(value = "/server/api/base/getAll", method = RequestMethod.GET)

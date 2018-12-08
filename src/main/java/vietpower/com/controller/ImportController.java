@@ -42,6 +42,7 @@ public class ImportController implements Serializable {
 
     @RequestMapping("/import/upload.html")
     public String uploadForm(){
+        parseFileExcel();
         return "import/import";
     }
 

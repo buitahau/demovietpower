@@ -4,6 +4,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by HauKute on 11/25/2018.
@@ -34,6 +36,17 @@ public class Formula {
     @ManyToOne
     @JoinColumn(name="createBy")
     private User createBy;
+
+//    @OneToMany(mappedBy="formula", fetch = FetchType.LAZY)
+//    private Set<FormulaProductBase> productBases = new HashSet<>();
+//
+//    public Set<FormulaProductBase> getProductBases() {
+//        return productBases;
+//    }
+//
+//    public void setProductBases(Set<FormulaProductBase> productBases) {
+//        this.productBases = productBases;
+//    }
 
     public Long getFormulaId() {
         return formulaId;

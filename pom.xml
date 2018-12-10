@@ -222,13 +222,13 @@
                     <version>2.4</version>
                     <configuration>
                         <warSourceDirectory>src/main/webapp</warSourceDirectory>
-                        <warName>SpringHibernateExample</warName>
+                        <warName>demoson</warName>
                         <failOnMissingWebXml>false</failOnMissingWebXml>
                     </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
-        <finalName>SpringHibernateExample</finalName>
+        <finalName>demoson</finalName>
     </build>
 
 </project>

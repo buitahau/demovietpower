@@ -26,7 +26,7 @@ import java.awt.Color;
  */
 @Controller
 public class ImportController implements Serializable {
-    private static final String FILE_EXCEL = "X:\\ws_learning\\demovietpower\\db\\DB_Specifications.xlsx";
+    private static final String FILE_EXCEL = "../resources/DB_Specifications.xlsx";
 
     private static String UPLOADED_FOLDER = "F://temp//";
     @Autowired

@@ -1,6 +1,6 @@
 package vietpower.com.model;
 
-import org.hibernate.validator.constraints.NotEmpty;
+//import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 
@@ -16,11 +16,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userId;
 
-    @NotEmpty
+    //@NotEmpty
     @Column(name = "username", unique = true)
     private String userName;
 
-    @NotEmpty
+    //@NotEmpty
     @Column(name = "password")
     private String password;
 

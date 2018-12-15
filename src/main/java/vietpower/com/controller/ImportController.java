@@ -26,7 +26,7 @@ import java.awt.Color;
  */
 @Controller
 public class ImportController implements Serializable {
-    private static final String FILE_EXCEL = "X:\\ws_learning\\demovietpower\\db\\DB_Specifications.xlsx";
+    private static final String FILE_EXCEL = "DB_Specifications.xlsx";
 
     private static String UPLOADED_FOLDER = "F://temp//";
     @Autowired
@@ -69,7 +69,7 @@ public class ImportController implements Serializable {
 
     private void parseFileExcel(){
         try {
-            FileInputStream excelFile = new FileInputStream(new File(FILE_EXCEL));
+            FileInputStream excelFile = new FileInputStream(new File(this.getClass().getClassLoader().getResource(FILE_EXCEL).getPath()));
             Workbook workbook = new XSSFWorkbook(excelFile);
             Map<String, Colourant> mapColourants = new HashMap<>();
             Map<String, Base> mapBases = new HashMap<>();

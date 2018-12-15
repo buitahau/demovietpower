@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
+//import javax.validation.Valid;
 import java.util.List;
 import java.util.Locale;
 
@@ -66,7 +66,7 @@ public class UserController {
      * saving user in database. It also validates the user input
      */
     @RequestMapping(value = { "/newuser" }, method = RequestMethod.POST)
-    public String saveUser(@Valid User user, BindingResult result,
+    public String saveUser(User user, BindingResult result,
                            ModelMap model) {
 
         if (result.hasErrors()) {
@@ -117,7 +117,7 @@ validation
      * updating user in database. It also validates the user input
      */
     @RequestMapping(value = { "/edit-user-{ssoId}" }, method = RequestMethod.POST)
-    public String updateUser(@Valid User user, BindingResult result,
+    public String updateUser(User user, BindingResult result,
                              ModelMap model, @PathVariable String ssoId) {
 
         if (result.hasErrors()) {

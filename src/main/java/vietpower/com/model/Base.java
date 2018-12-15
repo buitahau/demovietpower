@@ -1,6 +1,6 @@
 package vietpower.com.model;
 
-import org.hibernate.validator.constraints.NotEmpty;
+//import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -16,11 +16,11 @@ public class Base {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long baseId;
 
-    @NotEmpty
+    //@NotEmpty
     @Column(name = "baseCode", unique = true)
     private String baseCode;
 
-    @NotEmpty
+    //@NotEmpty
     @Column(name = "baseName")
     private String baseName;
 

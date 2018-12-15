@@ -1,6 +1,6 @@
 package vietpower.com.model;
 
-import org.hibernate.validator.constraints.NotEmpty;
+//import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -18,11 +18,11 @@ public class Formula {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long formulaId;
 
-    @NotEmpty
+    //@NotEmpty
     @Column(name = "formulaCode", unique = true)
     private String formulaCode;
 
-    @NotEmpty
+    //@NotEmpty
     @Column(name = "formulaName")
     private String formulaName;
 

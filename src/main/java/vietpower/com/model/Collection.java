@@ -1,6 +1,6 @@
 package vietpower.com.model;
 
-import org.hibernate.validator.constraints.NotEmpty;
+//import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -16,7 +16,7 @@ public class Collection {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long collectionId;
 
-    @NotEmpty
+    //@NotEmpty
     @Column(name = "collectionName", unique = true)
     private String collectionName;
 

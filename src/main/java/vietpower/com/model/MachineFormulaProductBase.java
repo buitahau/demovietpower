@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 @Table(name="MachineFormulaProductBase")
 public class MachineFormulaProductBase {
     @Id
-    @Column(name = "machineId", nullable = false)
+    @Column(name = "machineFormulaId", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long machineFormulaProductBaseId;
 

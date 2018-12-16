@@ -1,7 +1,5 @@
 package vietpower.com.model;
 
-//import org.hibernate.validator.constraints.NotEmpty;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -16,20 +14,14 @@ public class Base {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long baseId;
 
-    //@NotEmpty
     @Column(name = "baseCode", unique = true)
     private String baseCode;
 
-    //@NotEmpty
     @Column(name = "baseName")
     private String baseName;
 
     @Column(name = "createdDate")
     private Timestamp createdDate;
-
-    @ManyToOne
-    @JoinColumn(name="createBy")
-    private User createBy;
 
     public Long getBaseId() {
         return baseId;
@@ -61,13 +53,5 @@ public class Base {
 
     public void setCreatedDate(Timestamp createdDate) {
         this.createdDate = createdDate;
-    }
-
-    public User getCreateBy() {
-        return createBy;
-    }
-
-    public void setCreateBy(User createBy) {
-        this.createBy = createBy;
     }
 }

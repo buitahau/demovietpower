@@ -1,7 +1,5 @@
 package vietpower.com.model;
 
-//import org.hibernate.validator.constraints.NotEmpty;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -24,7 +22,6 @@ public class ProductBase {
     @JoinColumn(name="baseId")
     private Base base;
 
-    //@NotEmpty
     @Column(name = "rbgHex")
     private String rbgHex;
 

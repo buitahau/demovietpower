@@ -1,7 +1,5 @@
 package vietpower.com.model;
 
-//import org.hibernate.validator.constraints.NotEmpty;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -16,7 +14,6 @@ public class Collection {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long collectionId;
 
-    //@NotEmpty
     @Column(name = "collectionName", unique = true)
     private String collectionName;
 
@@ -27,8 +24,8 @@ public class Collection {
     private Timestamp createdDate;
 
     @ManyToOne
-    @JoinColumn(name="createBy")
-    private User createBy;
+    @JoinColumn(name="machineId")
+    private Machine machine;
 
     public Long getCollectionId() {
         return collectionId;
@@ -62,11 +59,11 @@ public class Collection {
         this.createdDate = createdDate;
     }
 
-    public User getCreateBy() {
-        return createBy;
+    public Machine getMachine() {
+        return machine;
     }
 
-    public void setCreateBy(User createBy) {
-        this.createBy = createBy;
+    public void setMachine(Machine machine) {
+        this.machine = machine;
     }
 }

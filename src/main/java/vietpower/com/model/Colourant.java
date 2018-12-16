@@ -1,7 +1,5 @@
 package vietpower.com.model;
 
-//import org.hibernate.validator.constraints.NotEmpty;
-
 import javax.persistence.*;
 
 /**
@@ -15,15 +13,12 @@ public class Colourant {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long colourantId;
 
-    //@NotEmpty
     @Column(name = "colourantCode", unique = true)
     private String colourantCode;
 
-    //@NotEmpty
     @Column(name = "colourantName")
     private String colourantName;
 
-    //@NotEmpty
     @Column(name = "rbgHex")
     private String rbgHex;
 

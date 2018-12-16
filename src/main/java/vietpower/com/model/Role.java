@@ -1,7 +1,5 @@
 package vietpower.com.model;
 
-//import org.hibernate.validator.constraints.NotEmpty;
-
 import javax.persistence.*;
 
 /**
@@ -15,7 +13,6 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long roleId;
 
-    //@NotEmpty
     @Column(name = "roleName", unique = true)
     private String roleName;
 

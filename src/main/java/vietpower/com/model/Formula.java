@@ -1,7 +1,5 @@
 package vietpower.com.model;
 
-//import org.hibernate.validator.constraints.NotEmpty;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.HashSet;
@@ -18,11 +16,9 @@ public class Formula {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long formulaId;
 
-    //@NotEmpty
     @Column(name = "formulaCode", unique = true)
     private String formulaCode;
 
-    //@NotEmpty
     @Column(name = "formulaName")
     private String formulaName;
 
@@ -34,8 +30,11 @@ public class Formula {
     private Timestamp createdDate;
 
     @ManyToOne
-    @JoinColumn(name="createBy")
-    private User createBy;
+    @JoinColumn(name="machineId")
+    private Machine machine;
+
+    @Column(name = "baseOnCan")
+    private Double baseOnCan;
 
 //    @OneToMany(mappedBy="formula", fetch = FetchType.LAZY)
 //    private Set<FormulaProductBase> productBases = new HashSet<>();
@@ -88,11 +87,19 @@ public class Formula {
         this.createdDate = createdDate;
     }
 
-    public User getCreateBy() {
-        return createBy;
+    public Machine getMachine() {
+        return machine;
     }
 
-    public void setCreateBy(User createBy) {
-        this.createBy = createBy;
+    public void setMachine(Machine machine) {
+        this.machine = machine;
+    }
+
+    public Double getBaseOnCan() {
+        return baseOnCan;
+    }
+
+    public void setBaseOnCan(Double baseOnCan) {
+        this.baseOnCan = baseOnCan;
     }
 }

@@ -1,7 +1,5 @@
 package vietpower.com.model;
 
-//import org.hibernate.validator.constraints.NotEmpty;
-
 import javax.persistence.*;
 
 /**
@@ -16,17 +14,19 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userId;
 
-    //@NotEmpty
     @Column(name = "username", unique = true)
     private String userName;
 
-    //@NotEmpty
     @Column(name = "password")
     private String password;
 
     @ManyToOne
     @JoinColumn(name="roleId")
     private Role role;
+
+    @ManyToOne
+    @JoinColumn(name="machineId")
+    private Machine machine;
 
     public Integer getUserId() {
         return userId;
@@ -58,5 +58,13 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public Machine getMachine() {
+        return machine;
+    }
+
+    public void setMachine(Machine machine) {
+        this.machine = machine;
     }
 }

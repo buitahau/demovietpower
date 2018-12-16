@@ -1,7 +1,5 @@
 package vietpower.com.model;
 
-//import org.hibernate.validator.constraints.NotEmpty;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -16,11 +14,9 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
 
-    //@NotEmpty
     @Column(name = "productCode", unique = true)
     private String productCode;
 
-    //@NotEmpty
     @Column(name = "productName")
     private String productName;
 

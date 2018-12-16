@@ -13,4 +13,8 @@ public interface FormulaProductBaseDao {
     void persist(FormulaProductBase fpb);
 
     void delete(FormulaProductBase formulaProductBase);
+
+    FormulaProductBase findById(Long formulaProductBaseId);
+
+
 }

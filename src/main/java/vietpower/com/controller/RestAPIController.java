@@ -36,6 +36,12 @@ public class RestAPIController implements Serializable{
     @Autowired
     ProductBaseService productBaseService;
 
+    @Autowired
+    FormulaProductBaseService formulaProductBaseService;
+
+    @Autowired
+    FormulaColorantService formulaColorantService;
+
     @RequestMapping(value = "/server/api/formula/getAll", method = RequestMethod.GET)
     @ResponseBody
     public List getAllFormula(){
@@ -45,6 +51,21 @@ public class RestAPIController implements Serializable{
     @RequestMapping(value = "/server/api/formula_product_base/getAll", method = RequestMethod.GET)
     public List getAllFormulaProductBase(){
         return formulaService.findFormulaProductBaseByFormulaId(null);
+    }
+
+    @RequestMapping(value = "/server/api/formula_product_base/findById/{formulaProductBaseId}", method = RequestMethod.GET)
+    public FormulaProductBase getAllFormulaProductBase(@PathVariable Long formulaProductBaseId){
+        return formulaProductBaseService.findById(formulaProductBaseId);
+    }
+
+    @RequestMapping(value = "/server/api/formula_product_base/findByFormula/{formulaId}", method = RequestMethod.GET)
+    public List getFormulaProductBaseByFormulaId(@PathVariable Long formulaId){
+        return formulaService.findFormulaProductBaseByFormulaId(formulaId);
+    }
+
+    @RequestMapping(value = "/server/api/formula/getColourants/{formulaId}", method = RequestMethod.GET)
+    public List getFormulaColorant(@PathVariable Long formulaId){
+        return formulaColorantService.findByFormulaId(formulaId);
     }
 
     @RequestMapping(value = "/server/api/base/getAll", method = RequestMethod.GET)

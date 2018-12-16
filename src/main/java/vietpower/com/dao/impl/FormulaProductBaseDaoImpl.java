@@ -22,4 +22,18 @@ public class FormulaProductBaseDaoImpl extends AbstractDao<Integer, FormulaProdu
         }
         return (List<FormulaProductBase>) criteria.list();
     }
+
+    @Override
+    public FormulaProductBase findById(Long formulaProductBaseId) {
+        Criteria criteria = createEntityCriteria();
+        if(formulaProductBaseId != null) {
+            criteria.add(Restrictions.eq("formulaProductBaseId", formulaProductBaseId));
+        }
+        List<FormulaProductBase> result = (List<FormulaProductBase>) criteria.list();
+        if(result != null && result.size() > 0){
+            return result.get(0);
+        } else {
+            return null;
+        }
+    }
 }

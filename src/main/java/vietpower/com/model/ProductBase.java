@@ -31,10 +31,6 @@ public class ProductBase {
     @Column(name = "createdDate")
     private Timestamp createdDate;
 
-    @ManyToOne
-    @JoinColumn(name="createBy")
-    private User createBy;
-
 //    @OneToMany(mappedBy="productBase", fetch = FetchType.LAZY)
 //    private List<ProductBaseCan> productBaseCans;
 //
@@ -92,13 +88,5 @@ public class ProductBase {
 
     public void setCreatedDate(Timestamp createdDate) {
         this.createdDate = createdDate;
-    }
-
-    public User getCreateBy() {
-        return createBy;
-    }
-
-    public void setCreateBy(User createBy) {
-        this.createBy = createBy;
     }
 }

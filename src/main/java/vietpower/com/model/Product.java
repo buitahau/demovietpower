@@ -23,10 +23,6 @@ public class Product {
     @Column(name = "createdDate")
     private Timestamp createdDate;
 
-    @ManyToOne
-    @JoinColumn(name="createBy")
-    private User createBy;
-
     public Long getProductId() {
         return productId;
     }
@@ -57,13 +53,5 @@ public class Product {
 
     public void setCreatedDate(Timestamp createdDate) {
         this.createdDate = createdDate;
-    }
-
-    public User getCreateBy() {
-        return createBy;
-    }
-
-    public void setCreateBy(User createBy) {
-        this.createBy = createBy;
     }
 }

@@ -1,17 +1,11 @@
 package vietpower.com.controller;
-
-
-
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import vietpower.com.model.*;
 import vietpower.com.service.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by HauKute on 12/3/2018.
@@ -48,6 +42,12 @@ public class RestAPIController implements Serializable{
         return formulaService.findAll();
     }
 
+    @RequestMapping(value = "/server/api/formula/get/{formulaId}", method = RequestMethod.GET)
+    @ResponseBody
+    public Object getFormula(@PathVariable String formulaId){
+        return formulaId;
+    }
+
     @RequestMapping(value = "/server/api/formula_product_base/getAll", method = RequestMethod.GET)
     public List getAllFormulaProductBase(){
         return formulaService.findFormulaProductBaseByFormulaId(null);
@@ -73,7 +73,6 @@ public class RestAPIController implements Serializable{
     public List getAllBase(){
         return baseService.findAll();
     }
-
 
     @RequestMapping(value = "/server/api/colourant/getAll", method = RequestMethod.GET)
     @ResponseBody
@@ -101,5 +100,12 @@ public class RestAPIController implements Serializable{
     public List byParameter(@PathVariable Long productId) {
         List<ProductBase> result = productBaseService.findByProductId(productId);
         return result;
+    }
+
+    @RequestMapping(value = "/server/api/login", method = RequestMethod.POST)
+    @ResponseBody
+    public Object login(@RequestBody String userInfo){
+        System.out.println(userInfo);
+        return userInfo;
     }
 }

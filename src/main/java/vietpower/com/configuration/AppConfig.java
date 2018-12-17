@@ -83,4 +83,9 @@ public class AppConfig extends WebMvcConfigurerAdapter{
         CommonsMultipartResolver resolver = new CommonsMultipartResolver();
         return resolver;
     }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**").allowedOrigins("*");
+    }
 }

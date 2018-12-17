@@ -7,16 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 import vietpower.com.model.*;
 import vietpower.com.model.Collection;
 import vietpower.com.service.*;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.sql.Timestamp;
 import java.util.*;
@@ -133,6 +128,7 @@ public class ImportController implements Serializable {
                     formula.setCollection(mapCollections.get(collectionName));
                     formula.setFormulaCode(formulaName);
                     formula.setFormulaName(formulaName);
+                    formula.setBaseOnCan(currentRow.getCell(3).getNumericCellValue());
                     formulaService.save(formula);
                     mapFormulas.put(formulaName, formula);
                 }

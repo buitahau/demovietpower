@@ -108,4 +108,11 @@ public class RestAPIController implements Serializable{
         System.out.println(userInfo);
         return userInfo;
     }
+
+    @RequestMapping(value = "/server/api/login_test", method = RequestMethod.POST)
+    @ResponseBody
+    public Object login1(@RequestBody User userInfo){
+        System.out.println(userInfo);
+        return userInfo;
+    }
 }

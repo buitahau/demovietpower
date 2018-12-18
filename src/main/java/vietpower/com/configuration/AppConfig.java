@@ -73,7 +73,7 @@ public class AppConfig extends WebMvcConfigurerAdapter{
     // cau hinh welcome file
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("forward:/import/import.html");
+        registry.addViewController("/").setViewName("forward:/import/upload.html");
         registry.setOrder( Ordered.HIGHEST_PRECEDENCE );
         super.addViewControllers( registry );
     }
@@ -82,10 +82,5 @@ public class AppConfig extends WebMvcConfigurerAdapter{
     public MultipartResolver getMultipartResolver() {
         CommonsMultipartResolver resolver = new CommonsMultipartResolver();
         return resolver;
-    }
-
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").allowedOrigins("*");
     }
 }

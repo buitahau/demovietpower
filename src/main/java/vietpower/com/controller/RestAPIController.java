@@ -11,6 +11,7 @@ import java.util.List;
  * Created by HauKute on 12/3/2018.
  */
 @RestController
+@CrossOrigin
 public class RestAPIController implements Serializable{
     @Autowired
     FormulaService formulaService;

@@ -64,6 +64,12 @@ public class RestAPIController implements Serializable{
         return formulaService.findFormulaProductBaseByFormulaId(formulaId);
     }
 
+
+    @RequestMapping(value = "/server/api/product_base_can/findById/{productBaseCanId}", method = RequestMethod.GET)
+    public List getProductBaseCan(@PathVariable Long productBaseCanId){
+        return formulaService.findFormulaProductBaseCanByFormulaId(productBaseCanId);
+    }
+
     @RequestMapping(value = "/server/api/formula/getColourants/{formulaId}", method = RequestMethod.GET)
     public List getFormulaColorant(@PathVariable Long formulaId){
         return formulaColorantService.findByFormulaId(formulaId);

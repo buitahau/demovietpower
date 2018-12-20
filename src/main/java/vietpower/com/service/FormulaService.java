@@ -3,6 +3,7 @@ package vietpower.com.service;
 import vietpower.com.model.Formula;
 import vietpower.com.model.FormulaColourant;
 import vietpower.com.model.FormulaProductBase;
+import vietpower.com.model.ProductBaseCan;
 
 import java.util.List;
 import java.util.Map;
@@ -26,4 +27,6 @@ public interface FormulaService {
     void deleteFormulaColourant(FormulaColourant formulaColourant);
 
     void saveFormulaColourant(FormulaColourant formulaColourant);
+
+    List<ProductBaseCan> findFormulaProductBaseCanByFormulaId(Long formulaId);
 }

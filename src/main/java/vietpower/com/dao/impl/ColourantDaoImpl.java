@@ -25,4 +25,9 @@ public class ColourantDaoImpl extends AbstractDao<Integer, Colourant> implements
     public void save(Colourant colourant) {
         persist(colourant);
     }
+
+    @Override
+    public Colourant findById(Long colourantId) {
+        return getByKey(colourantId.intValue());
+    }
 }

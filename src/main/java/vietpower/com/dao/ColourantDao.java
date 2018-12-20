@@ -16,4 +16,6 @@ public interface ColourantDao {
     void update(Colourant colourant);
 
     void persist(Colourant colourant);
+
+    Colourant findById(Long colourantId);
 }

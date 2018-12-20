@@ -38,6 +38,13 @@ public class RestAPIController implements Serializable{
     FormulaColorantService formulaColorantService;
 
     @Autowired
+    UserService userService;
+
+
+    @Autowired
+    MachineColourantService machineColourantService;
+
+    @Autowired
     MachineService machineService;
 
     @RequestMapping(value = "/server/api/formula/getAll", method = RequestMethod.GET)
@@ -121,9 +128,18 @@ public class RestAPIController implements Serializable{
 
     @RequestMapping(value = "/server/api/login_test", method = RequestMethod.POST)
     @ResponseBody
-    public Object login_test(@RequestBody User userInfo){
-        System.out.println(userInfo);
-        return userInfo;
+    public Object login1(@RequestBody User userInfo){
+        User loginUser = userService.findByUserName(userInfo.getUserName());
+        if(loginUser.getPassword().equals(userInfo.getPassword())){
+            return loginUser;
+        } else {
+            return null;
+        }
+    }
+
+    @RequestMapping(value = "/server/api/machine/getColourants/{machineId}", method = RequestMethod.GET)
+    public List getMachineColourants(@PathVariable Long machineId){
+        return machineColourantService.findByMachineId(machineId);
     }
 
     @RequestMapping(value = "/server/api/machine_colour", method = RequestMethod.POST)

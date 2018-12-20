@@ -10,6 +10,8 @@ import java.util.List;
 public interface MachineColourantDao {
     MachineColourant findByMachineAndColour(Long machineId, Long colourantId);
 
+    List<MachineColourant> findByMachineId(Long machineId);
+
     void persist(MachineColourant machineColourant);
 
     void update(MachineColourant machineColourant);

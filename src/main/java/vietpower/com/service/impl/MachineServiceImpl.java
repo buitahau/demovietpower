@@ -68,7 +68,7 @@ public class MachineServiceImpl implements MachineService{
 
     @Override
     public List<MachineColourant> getAllMachineColourant(Long machineId) {
-        return machineColourantDao.getByMachine(machineId);
+        return machineColourantDao.findByMachineId(machineId);
     }
 
     @Override

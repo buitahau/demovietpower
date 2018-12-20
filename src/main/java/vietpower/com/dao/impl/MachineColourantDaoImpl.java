@@ -7,6 +7,8 @@ import vietpower.com.dao.AbstractDao;
 import vietpower.com.dao.MachineColourantDao;
 import vietpower.com.model.MachineColourant;
 
+import java.util.List;
+
 /**
  * Created by HauKute on 12/20/2018.
  */

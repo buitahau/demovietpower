@@ -15,6 +15,4 @@ public interface MachineColourantDao {
     void persist(MachineColourant machineColourant);
 
     void update(MachineColourant machineColourant);
-
-    List<MachineColourant> getByMachine(Long machineId);
 }

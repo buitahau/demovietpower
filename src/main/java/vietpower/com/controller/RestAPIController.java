@@ -129,13 +129,14 @@ public class RestAPIController implements Serializable{
     @RequestMapping(value = "/server/api/machine_colour", method = RequestMethod.POST)
     @ResponseBody
     public Object machineColour(@RequestBody MachineColourant machineColourant){
-//        machineService.subtractColour(machineColourant);
+        machineService.subtractColour(machineColourant);
         return machineColourant;
     }
 
     @RequestMapping(value = "/server/api/machine_formula", method = RequestMethod.POST)
     @ResponseBody
     public Object machineFormula(@RequestBody MachineFormulaProductBase machineFormulaProductBase){
+        machineService.saveFormulaProductBase(machineFormulaProductBase);
         return machineFormulaProductBase;
     }
 }

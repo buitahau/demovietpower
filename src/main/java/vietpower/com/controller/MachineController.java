@@ -24,11 +24,19 @@ public class MachineController {
 
     @RequestMapping(value = "/machine/{machineId}/colour")
     public String machineColour(@PathVariable Long machineId,  ModelMap modelMap){
-        return "machine/detail_colour";
+        modelMap.addAttribute("machineColourants", machineService.getAllMachineColourant(machineId));
+        return "machine/machine_colour";
+    }
+
+    @RequestMapping(value = "/machine/colour/detail/{machineColourId}")
+    public String machineColourDetail(@PathVariable Long machineColourId,  ModelMap modelMap){
+        modelMap.addAttribute("logs", machineService.getAllMachineColourantLog(machineColourId));
+        return "machine/machine_colour_detail";
     }
 
     @RequestMapping(value = "/machine/{machineId}/formula")
     public String machineFormula(@PathVariable Long machineId,  ModelMap modelMap){
-        return "machine/detail_formula";
+        modelMap.addAttribute("machinefpbs", machineService.getAllMachineFormulaProductBase(machineId));
+        return "machine/machine_formula";
     }
 }

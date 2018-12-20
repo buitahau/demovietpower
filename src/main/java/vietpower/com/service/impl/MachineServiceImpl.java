@@ -65,4 +65,19 @@ public class MachineServiceImpl implements MachineService{
         machineFormulaProductBase.setCreatedDate(new Timestamp(System.currentTimeMillis()));
         machineFormulaProductBaseDao.persist(machineFormulaProductBase);
     }
+
+    @Override
+    public List<MachineColourant> getAllMachineColourant(Long machineId) {
+        return machineColourantDao.getByMachine(machineId);
+    }
+
+    @Override
+    public List<MachineColourantLog> getAllMachineColourantLog(Long machineColourantLogId) {
+        return machineColourantLogDao.getByMachineColourant(machineColourantLogId);
+    }
+
+    @Override
+    public List<MachineFormulaProductBase> getAllMachineFormulaProductBase(Long machineId) {
+        return machineFormulaProductBaseDao.getByMachine(machineId);
+    }
 }

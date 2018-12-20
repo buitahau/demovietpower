@@ -7,6 +7,8 @@ import vietpower.com.dao.AbstractDao;
 import vietpower.com.dao.MachineColourantDao;
 import vietpower.com.model.MachineColourant;
 
+import java.util.List;
+
 /**
  * Created by HauKute on 12/20/2018.
  */
@@ -18,6 +20,14 @@ public class MachineColourantDaoImpl extends AbstractDao<Integer, MachineColoura
         crit.add(Restrictions.eq("machine.machineId", machineId));
         crit.add(Restrictions.eq("colourant.colourantId", colourantId));
         MachineColourant machineColourant = (MachineColourant)crit.uniqueResult();
+        return machineColourant;
+    }
+
+    @Override
+    public List<MachineColourant> getByMachine(Long machineId) {
+        Criteria crit = createEntityCriteria();
+        crit.add(Restrictions.eq("machine.machineId", machineId));
+        List<MachineColourant> machineColourant = (List<MachineColourant>)crit.list();
         return machineColourant;
     }
 }

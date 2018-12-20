@@ -2,6 +2,7 @@ package vietpower.com.service;
 
 import vietpower.com.model.Machine;
 import vietpower.com.model.MachineColourant;
+import vietpower.com.model.MachineColourantLog;
 import vietpower.com.model.MachineFormulaProductBase;
 
 import java.util.List;
@@ -15,4 +16,10 @@ public interface MachineService {
     void subtractColour(MachineColourant machineColourant);
 
     void saveFormulaProductBase(MachineFormulaProductBase machineFormulaProductBase);
+
+    List<MachineColourant> getAllMachineColourant(Long machineId);
+
+    List<MachineColourantLog> getAllMachineColourantLog(Long machineColourantLogId);
+
+    List<MachineFormulaProductBase> getAllMachineFormulaProductBase(Long machineId);
 }

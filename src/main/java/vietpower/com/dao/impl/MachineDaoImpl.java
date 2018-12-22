@@ -1,5 +1,7 @@
 package vietpower.com.dao.impl;
 
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import vietpower.com.dao.AbstractDao;
 import vietpower.com.dao.MachineDao;
@@ -19,6 +21,9 @@ public class MachineDaoImpl extends AbstractDao<Integer, Machine> implements Mac
 
     @Override
     public Machine findById(Long machineId) {
-        return getByKey(machineId.intValue());
+        Criteria crit = createEntityCriteria();
+        crit.add(Restrictions.eq("machineId", machineId));
+        Machine machine = (Machine)crit.uniqueResult();
+        return machine;
     }
 }

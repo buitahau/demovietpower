@@ -149,6 +149,13 @@ public class RestAPIController implements Serializable{
         return machineColourant;
     }
 
+    @RequestMapping(value = "/server/api/machine_colour/update", method = RequestMethod.POST)
+    @ResponseBody
+    public List updateMachineColourantAmount(@RequestBody MachineColourant machineColourant){
+        machineService.updateMachineColourant(machineColourant);
+        return machineColourantService.findByMachineId(machineColourant.getMachine().getMachineId());
+    }
+
     @RequestMapping(value = "/server/api/machine_formula", method = RequestMethod.POST)
     @ResponseBody
     public Object machineFormula(@RequestBody MachineFormulaProductBase machineFormulaProductBase){

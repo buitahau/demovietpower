@@ -22,4 +22,8 @@ public interface MachineService {
     List<MachineColourantLog> getAllMachineColourantLog(Long machineColourantLogId);
 
     List<MachineFormulaProductBase> getAllMachineFormulaProductBase(Long machineId);
+
+    void updateMachineColourant(MachineColourant machineColourant);
+
+    Machine findById(Long machineId);
 }

@@ -2,6 +2,7 @@ package vietpower.com.dao.impl;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import vietpower.com.dao.AbstractDao;
 import vietpower.com.dao.ColourantDao;
@@ -28,6 +29,9 @@ public class ColourantDaoImpl extends AbstractDao<Integer, Colourant> implements
 
     @Override
     public Colourant findById(Long colourantId) {
-        return getByKey(colourantId.intValue());
+        Criteria crit = createEntityCriteria();
+        crit.add(Restrictions.eq("colourantId", colourantId));
+        Colourant c = (Colourant)crit.uniqueResult();
+        return c;
     }
 }

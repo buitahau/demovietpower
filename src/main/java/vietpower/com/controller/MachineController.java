@@ -5,7 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import vietpower.com.model.MachineColourantLog;
 import vietpower.com.service.MachineService;
+
+import java.util.List;
 
 /**
  * Created by HauKute on 12/20/2018.
@@ -30,7 +33,11 @@ public class MachineController {
 
     @RequestMapping(value = "/machine/colour/detail/{machineColourId}")
     public String machineColourDetail(@PathVariable Long machineColourId,  ModelMap modelMap){
-        modelMap.addAttribute("logs", machineService.getAllMachineColourantLog(machineColourId));
+        List<MachineColourantLog> logs = machineService.getAllMachineColourantLog(machineColourId);
+        modelMap.addAttribute("logs", logs);
+        if(logs.size() > 0) {
+            modelMap.addAttribute("machineId", logs.get(0).getMachineColourant().getMachine().getMachineId());
+        }
         return "machine/machine_colour_detail";
     }
 

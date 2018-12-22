@@ -28,9 +28,10 @@
             <table class="table table-hover">
                 <thead>
                 <tr>
+                    <th>Colour Code</th>
                     <th>Colour Name</th>
                     <th>Action</th>
-                    <th>Created Date</th>
+                    <th>Date</th>
                     <th>Quantity</th>
                 </tr>
                 </thead>
@@ -38,6 +39,7 @@
                 <c:forEach items="${logs}" var="l">
                     <tr>
                         <td>${l.machineColourant.colourant.colourantCode}</td>
+                        <td>${l.machineColourant.colourant.colourantName}</td>
                         <td>${l.action}</td>
                         <td>${l.createdDate}</td>
                         <td>${l.quantity}</td>

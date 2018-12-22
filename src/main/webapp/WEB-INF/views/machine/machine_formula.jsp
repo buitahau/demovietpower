@@ -30,7 +30,7 @@
                         <th>Formula</th>
                         <th>Product</th>
                         <th>Base</th>
-                        <th>Created Date</th>
+                        <th>Date</th>
                         <th>Quantity</th>
                     </tr>
                 </thead>

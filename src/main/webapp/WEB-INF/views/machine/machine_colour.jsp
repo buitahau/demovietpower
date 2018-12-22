@@ -27,6 +27,7 @@
             <table class="table table-hover">
                 <thead>
                 <tr>
+                    <th>Colour Code</th>
                     <th>Colour Name</th>
                     <th>Quantity</th>
                     <th width="100"></th>
@@ -35,6 +36,7 @@
                 <tbody>
                 <c:forEach items="${machineColourants}" var="c">
                     <tr>
+                        <td>${c.colourant.colourantCode}</td>
                         <td>${c.colourant.colourantName}</td>
                         <td>${c.quantity}</td>
                         <td><a href="<c:url value='/machine/colour/detail/${c.machineColourantId}' />" class="btn btn-success custom-width">Detail</a></td>

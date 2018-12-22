@@ -80,4 +80,21 @@ public class MachineServiceImpl implements MachineService{
     public List<MachineFormulaProductBase> getAllMachineFormulaProductBase(Long machineId) {
         return machineFormulaProductBaseDao.getByMachine(machineId);
     }
+
+    @Override
+    public void updateMachineColourant(MachineColourant machineColourant) {
+        Long machineId = machineColourant.getMachine().getMachineId();
+        Long colourantId = machineColourant.getColourant().getColourantId();
+
+        MachineColourant dbItem = machineColourantDao.findByMachineAndColour(machineId, colourantId);
+        if(dbItem != null){
+            dbItem.setQuantity(dbItem.getQuantity() + machineColourant.getQuantity());
+            machineColourantDao.persist(machineColourant);
+        }
+    }
+
+    @Override
+    public Machine findById(Long machineId) {
+        return this.machineDao.findById(machineId);
+    }
 }

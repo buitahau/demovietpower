@@ -142,7 +142,7 @@ public class RestAPIController implements Serializable{
         return machineColourantService.findByMachineId(machineId);
     }
 
-    @RequestMapping(value = "/server/api/machine_colour", method = RequestMethod.POST)
+    @RequestMapping(value = "/server/api/machine_colour/subtraction", method = RequestMethod.POST)
     @ResponseBody
     public Object machineColour(@RequestBody MachineColourant machineColourant){
         machineService.subtractColour(machineColourant);

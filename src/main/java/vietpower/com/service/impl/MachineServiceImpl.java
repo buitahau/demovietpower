@@ -89,7 +89,7 @@ public class MachineServiceImpl implements MachineService{
         MachineColourant dbItem = machineColourantDao.findByMachineAndColour(machineId, colourantId);
         if(dbItem != null){
             dbItem.setQuantity(dbItem.getQuantity() + machineColourant.getQuantity());
-            machineColourantDao.persist(machineColourant);
+            machineColourantDao.persist(dbItem);
         }
     }
 

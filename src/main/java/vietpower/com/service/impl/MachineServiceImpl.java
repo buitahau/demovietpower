@@ -86,11 +86,26 @@ public class MachineServiceImpl implements MachineService{
         Long machineId = machineColourant.getMachine().getMachineId();
         Long colourantId = machineColourant.getColourant().getColourantId();
 
+        Machine machine = machineDao.findById(machineId);
+        Colourant colourant = colourantDao.findById(colourantId);
+
         MachineColourant dbItem = machineColourantDao.findByMachineAndColour(machineId, colourantId);
-        if(dbItem != null){
-            dbItem.setQuantity(dbItem.getQuantity() + machineColourant.getQuantity());
+        if(dbItem == null){
+            dbItem.setMachine(machine);
+            dbItem.setColourant(colourant);
+            dbItem.setQuantity(machineColourant.getQuantity());
             machineColourantDao.persist(dbItem);
         }
+
+        dbItem.setQuantity(dbItem.getQuantity() + machineColourant.getQuantity());
+        machineColourantDao.update(dbItem);
+
+        MachineColourantLog log = new MachineColourantLog();
+        log.setQuantity(machineColourant.getQuantity());
+        log.setAction("add");
+        log.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+        log.setMachineColourant(dbItem);
+        machineColourantLogDao.persist(log);
     }
 
     @Override

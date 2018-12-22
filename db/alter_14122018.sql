@@ -1,4 +1,5 @@
 ALTER TABLE Formula ADD COLUMN baseOnCan DOUBLE;
+UPDATE Formula Set baseOnCan = 1;
 CREATE TABLE Machine(
   machineId BIGINT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(100) NOT NULL,
@@ -19,7 +20,7 @@ CREATE TABLE MachineColourantLog(
   machineColourantId BIGINT NOT NULL,
   action VARCHAR(100),
   quantity DOUBLE ,
-  createdDate DATE,
+  createdDate DATETIME,
   CONSTRAINT FK_MachineColourantLog_MachineColourant FOREIGN KEY (machineColourantId) REFERENCES MachineColourant(machineColourantId)
 );
 
@@ -29,7 +30,7 @@ CREATE TABLE MachineFormulaProductBase(
   formulaProductBaseId BIGINT NOT NULL,
   userId BIGINT,
   quantity DOUBLE,
-  createdDate DATE,
+  createdDate DATETIME,
   CONSTRAINT FK_MachineFormula_Machine FOREIGN KEY (machineId) REFERENCES Machine(machineId),
   CONSTRAINT FK_MachineFormula_FormulaProductBase FOREIGN KEY (formulaProductBaseId) REFERENCES FormulaProductBase(formulaProductBaseId),
   CONSTRAINT FK_MachineFormula_User FOREIGN KEY (userId) REFERENCES User(userId)

@@ -101,3 +101,9 @@ INSERT INTO User (userName, password, roleId) VALUES ('maintenance', '123456', (
 
 INSERT INTO Machine (name, code) VALUES ('M1', 'ABCDEF');
 UPDATE User SET machineId = (SELECT machineId FROM Machine WHERE name = 'M1');
+
+
+ALTER TABLE Machine ADD COLUMN minQuantity DOUBLE;
+ALTER TABLE Machine ADD COLUMN maxQuantity DOUBLE;
+
+UPDATE Machine SET minQuantity = 500, maxQuantity = 3000;

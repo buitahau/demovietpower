@@ -156,7 +156,7 @@ public class RestAPIController implements Serializable{
         return machineColourantService.findByMachineId(machineColourant.getMachine().getMachineId());
     }
 
-    @RequestMapping(value = "/server/api/machine_formula", method = RequestMethod.POST)
+    @RequestMapping(value = "/server/api/machine_formula/record", method = RequestMethod.POST)
     @ResponseBody
     public Object machineFormula(@RequestBody MachineFormulaProductBase machineFormulaProductBase){
         machineService.saveFormulaProductBase(machineFormulaProductBase);

@@ -12,7 +12,7 @@
     <title>Detail Formula</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="/static/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all">
+    <link href="<c:url value="/static/css/bootstrap.min.css"/>" rel="stylesheet" type="text/css" media="all">
     <script type="text/javascript" src="<c:url value="/static/js/jquery-3.3.1.min.js"/>"></script>
     <script type="text/javascript" src="<c:url value="/static/js/bootstrap.min.js"/>"></script>
 </head>

@@ -1,6 +1,7 @@
 package vietpower.com.dao;
 
 import vietpower.com.model.MachineColourantLog;
+import vietpower.com.model.MachineFormulaProductBase;
 
 import java.util.List;
 
@@ -11,4 +12,6 @@ public interface MachineColourantLogDao {
     void persist(MachineColourantLog log);
 
     List<MachineColourantLog> getByMachineColourant(Long machineColourantLogId);
+
+    MachineFormulaProductBase findById(Long machineFormulaProductBaseId);
 }

@@ -61,9 +61,21 @@ public class MachineServiceImpl implements MachineService{
     }
 
     @Override
-    public void saveFormulaProductBase(MachineFormulaProductBase machineFormulaProductBase) {
-        machineFormulaProductBase.setCreatedDate(new Timestamp(System.currentTimeMillis()));
-        machineFormulaProductBaseDao.persist(machineFormulaProductBase);
+    public MachineFormulaProductBase saveFormulaProductBase(MachineFormulaProductBase machineFormulaProductBase) {
+        if (machineFormulaProductBase.getMachineFormulaProductBaseId() != null && machineFormulaProductBase.getMachineFormulaProductBaseId() > 0) {
+            MachineFormulaProductBase dbItem = this.machineColourantLogDao.findById(machineFormulaProductBase.getMachineFormulaProductBaseId());
+            dbItem.setStatus(machineFormulaProductBase.getStatus());
+
+            if ("DONE".equals(dbItem.getStatus())) {
+                dbItem.setFinishedDate(new Timestamp(System.currentTimeMillis()));
+            }
+            machineFormulaProductBaseDao.persist(dbItem);
+            return dbItem;
+        } else {
+            machineFormulaProductBase.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+            machineFormulaProductBaseDao.persist(machineFormulaProductBase);
+            return machineFormulaProductBase;
+        }
     }
 
     @Override
@@ -111,5 +123,10 @@ public class MachineServiceImpl implements MachineService{
     @Override
     public Machine findById(Long machineId) {
         return this.machineDao.findById(machineId);
+    }
+
+    @Override
+    public MachineFormulaProductBase getMachineFormulaProductBaseLog(Long taskId) {
+        return machineColourantLogDao.findById(taskId);
     }
 }

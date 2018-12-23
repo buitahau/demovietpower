@@ -29,8 +29,14 @@ public class MachineFormulaProductBase {
     @Column(name = "quantity")
     private Double quantity;
 
+    @Column(name = "status")
+    private String status;
+
     @Column(name = "createdDate")
     private Timestamp createdDate;
+
+    @Column(name = "finishedDate")
+    private Timestamp finishedDate;
 
     public Long getMachineFormulaProductBaseId() {
         return machineFormulaProductBaseId;
@@ -72,11 +78,27 @@ public class MachineFormulaProductBase {
         this.quantity = quantity;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public Timestamp getCreatedDate() {
         return createdDate;
     }
 
     public void setCreatedDate(Timestamp createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public Timestamp getFinishedDate() {
+        return finishedDate;
+    }
+
+    public void setFinishedDate(Timestamp finishedDate) {
+        this.finishedDate = finishedDate;
     }
 }

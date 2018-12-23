@@ -15,7 +15,7 @@ public interface MachineService {
 
     void subtractColour(MachineColourant machineColourant);
 
-    void saveFormulaProductBase(MachineFormulaProductBase machineFormulaProductBase);
+    MachineFormulaProductBase saveFormulaProductBase(MachineFormulaProductBase machineFormulaProductBase);
 
     List<MachineColourant> getAllMachineColourant(Long machineId);
 
@@ -26,4 +26,6 @@ public interface MachineService {
     void updateMachineColourant(MachineColourant machineColourant);
 
     Machine findById(Long machineId);
+
+    MachineFormulaProductBase getMachineFormulaProductBaseLog(Long taskId);
 }

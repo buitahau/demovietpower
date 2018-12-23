@@ -107,3 +107,7 @@ ALTER TABLE Machine ADD COLUMN minQuantity DOUBLE;
 ALTER TABLE Machine ADD COLUMN maxQuantity DOUBLE;
 
 UPDATE Machine SET minQuantity = 500, maxQuantity = 3000;
+
+ALTER TABLE MachineFormulaProductBase ADD COLUMN status VARCHAR(100);
+
+ALTER TABLE MachineFormulaProductBase ADD COLUMN finishedDate DATE;

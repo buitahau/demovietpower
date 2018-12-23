@@ -137,6 +137,8 @@ public class RestAPIController implements Serializable{
         }
     }
 
+
+    // tracking data pumping colourant data
     @RequestMapping(value = "/server/api/machine/getColourants/{machineId}", method = RequestMethod.GET)
     public List getMachineColourants(@PathVariable Long machineId){
         return machineColourantService.findByMachineId(machineId);
@@ -156,10 +158,22 @@ public class RestAPIController implements Serializable{
         return machineColourantService.findByMachineId(machineColourant.getMachine().getMachineId());
     }
 
+
+    // tracking Dispense task data
+
     @RequestMapping(value = "/server/api/machine_formula/record", method = RequestMethod.POST)
     @ResponseBody
     public Object machineFormula(@RequestBody MachineFormulaProductBase machineFormulaProductBase){
-        machineService.saveFormulaProductBase(machineFormulaProductBase);
-        return machineFormulaProductBase;
+        return machineService.saveFormulaProductBase(machineFormulaProductBase);
+    }
+
+    @RequestMapping(value = "/server/api/machine_formula/findAll/{machineId}", method = RequestMethod.GET)
+    public List getListLogFormulaDispenseForMachine(@PathVariable Long machineId){
+        return machineService.getAllMachineFormulaProductBase(machineId);
+    }
+
+    @RequestMapping(value = "/server/api/machine_formula/findById/{taskId}", method = RequestMethod.GET)
+    public Object getDetailLogFormulaDispenseForMachine(@PathVariable Long taskId){
+        return machineService.getMachineFormulaProductBaseLog(taskId);
     }
 }

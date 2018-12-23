@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import vietpower.com.dao.AbstractDao;
 import vietpower.com.dao.MachineColourantLogDao;
 import vietpower.com.model.MachineColourantLog;
+import vietpower.com.model.MachineFormulaProductBase;
 
 import java.util.List;
 
@@ -20,5 +21,13 @@ public class MachineColourantLogDaoImpl extends AbstractDao<Integer, MachineColo
         crit.add(Restrictions.eq("machineColourant.machineColourantId", machineColourantLogId));
         List<MachineColourantLog> res = (List<MachineColourantLog>)crit.list();
         return res;
+    }
+
+    @Override
+    public MachineFormulaProductBase findById(Long machineFormulaProductBaseId) {
+        Criteria crit = createEntityCriteria();
+        crit.add(Restrictions.eq("machineFormulaProductBaseId", machineFormulaProductBaseId));
+        MachineFormulaProductBase machineLog = (MachineFormulaProductBase)crit.uniqueResult();
+        return machineLog;
     }
 }

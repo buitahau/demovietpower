@@ -164,7 +164,8 @@ public class RestAPIController implements Serializable{
     @RequestMapping(value = "/server/api/machine_formula/record", method = RequestMethod.POST)
     @ResponseBody
     public Object machineFormula(@RequestBody MachineFormulaProductBase machineFormulaProductBase){
-        return machineService.saveFormulaProductBase(machineFormulaProductBase);
+        MachineFormulaProductBase savingItem =  machineService.saveFormulaProductBase(machineFormulaProductBase);
+        return this.machineService.getMachineFormulaProductBaseLog(savingItem.getMachineFormulaProductBaseId());
     }
 
     @RequestMapping(value = "/server/api/machine_formula/findAll/{machineId}", method = RequestMethod.GET)

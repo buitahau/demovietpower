@@ -127,6 +127,6 @@ public class MachineServiceImpl implements MachineService{
 
     @Override
     public MachineFormulaProductBase getMachineFormulaProductBaseLog(Long taskId) {
-        return machineColourantLogDao.findById(taskId);
+        return machineFormulaProductBaseDao.findById(taskId);
     }
 }

@@ -5,6 +5,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import vietpower.com.dao.AbstractDao;
 import vietpower.com.dao.MachineFormulaProductBaseDao;
+import vietpower.com.model.Machine;
 import vietpower.com.model.MachineFormulaProductBase;
 
 import java.util.List;
@@ -20,5 +21,13 @@ public class MachineFormulaProductBaseDaoImpl extends AbstractDao<Integer, Machi
         crit.add(Restrictions.eq("machine.machineId", machineId));
         List<MachineFormulaProductBase> res = (List<MachineFormulaProductBase>)crit.list();
         return res;
+    }
+
+    @Override
+    public MachineFormulaProductBase findById(Long taskId) {
+        Criteria crit = createEntityCriteria();
+        crit.add(Restrictions.eq("machineFormulaProductBaseId", taskId));
+        MachineFormulaProductBase record = (MachineFormulaProductBase)crit.uniqueResult();
+        return record;
     }
 }

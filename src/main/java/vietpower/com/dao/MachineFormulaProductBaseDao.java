@@ -11,4 +11,6 @@ public interface MachineFormulaProductBaseDao {
     void persist(MachineFormulaProductBase machineFormulaProductBase);
 
     List<MachineFormulaProductBase> getByMachine(Long machineId);
+
+    MachineFormulaProductBase findById(Long taskId);
 }

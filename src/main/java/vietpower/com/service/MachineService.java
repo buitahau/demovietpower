@@ -13,19 +13,26 @@ import java.util.List;
 public interface MachineService {
     List<Machine> findAllMachine();
 
-    void subtractColour(MachineColourant machineColourant);
+    Machine findById(Long machineId);
 
-    MachineFormulaProductBase saveFormulaProductBase(MachineFormulaProductBase machineFormulaProductBase);
+
+    // colourant tracking
+    void subtractColour(MachineColourant machineColourant);
 
     List<MachineColourant> getAllMachineColourant(Long machineId);
 
     List<MachineColourantLog> getAllMachineColourantLog(Long machineColourantLogId);
 
-    List<MachineFormulaProductBase> getAllMachineFormulaProductBase(Long machineId);
 
     void updateMachineColourant(MachineColourant machineColourant);
 
-    Machine findById(Long machineId);
+
+
+
+//    formula product base tracking
+    List<MachineFormulaProductBase> getAllMachineFormulaProductBase(Long machineId);
+
+    MachineFormulaProductBase saveFormulaProductBase(MachineFormulaProductBase machineFormulaProductBase);
 
     MachineFormulaProductBase getMachineFormulaProductBaseLog(Long taskId);
 }

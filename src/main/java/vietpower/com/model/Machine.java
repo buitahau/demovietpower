@@ -19,6 +19,12 @@ public class Machine {
     @Column(name = "code", unique = true)
     private String code;
 
+    @Column(name = "minQuantity")
+    private Integer minQuantity;
+
+    @Column(name = "maxQuantity")
+    private Integer maxQuantity;
+
     public Long getMachineId() {
         return machineId;
     }
@@ -41,5 +47,21 @@ public class Machine {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public Integer getMinQuantity() {
+        return minQuantity;
+    }
+
+    public void setMinQuantity(Integer minQuantity) {
+        this.minQuantity = minQuantity;
+    }
+
+    public Integer getMaxQuantity() {
+        return maxQuantity;
+    }
+
+    public void setMaxQuantity(Integer maxQuantity) {
+        this.maxQuantity = maxQuantity;
     }
 }

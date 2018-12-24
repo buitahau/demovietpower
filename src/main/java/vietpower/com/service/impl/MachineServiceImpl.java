@@ -63,7 +63,7 @@ public class MachineServiceImpl implements MachineService{
     @Override
     public MachineFormulaProductBase saveFormulaProductBase(MachineFormulaProductBase machineFormulaProductBase) {
         if (machineFormulaProductBase.getMachineFormulaProductBaseId() != null && machineFormulaProductBase.getMachineFormulaProductBaseId() > 0) {
-            MachineFormulaProductBase dbItem = this.machineColourantLogDao.findById(machineFormulaProductBase.getMachineFormulaProductBaseId());
+            MachineFormulaProductBase dbItem = this.machineFormulaProductBaseDao.findById(machineFormulaProductBase.getMachineFormulaProductBaseId());
             dbItem.setStatus(machineFormulaProductBase.getStatus());
 
             if ("DONE".equals(dbItem.getStatus())) {

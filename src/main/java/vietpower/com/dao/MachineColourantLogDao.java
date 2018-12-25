@@ -12,6 +12,4 @@ public interface MachineColourantLogDao {
     void persist(MachineColourantLog log);
 
     List<MachineColourantLog> getByMachineColourant(Long machineColourantLogId);
-
-    MachineFormulaProductBase findById(Long machineFormulaProductBaseId);
 }

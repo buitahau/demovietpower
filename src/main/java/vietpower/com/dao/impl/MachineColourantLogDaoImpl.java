@@ -23,11 +23,4 @@ public class MachineColourantLogDaoImpl extends AbstractDao<Integer, MachineColo
         return res;
     }
 
-    @Override
-    public MachineFormulaProductBase findById(Long machineFormulaProductBaseId) {
-        Criteria crit = createEntityCriteria();
-        crit.add(Restrictions.eq("machineFormulaProductBaseId", machineFormulaProductBaseId));
-        MachineFormulaProductBase machineLog = (MachineFormulaProductBase)crit.uniqueResult();
-        return machineLog;
-    }
 }

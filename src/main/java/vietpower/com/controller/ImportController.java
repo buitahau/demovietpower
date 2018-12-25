@@ -410,6 +410,7 @@ public class ImportController implements Serializable {
                 colourant.setRbgHex(convertRBG2Hex(Double.valueOf(currentRow.getCell(3).getNumericCellValue()).intValue(),
                         Double.valueOf(currentRow.getCell(4).getNumericCellValue()).intValue(),
                         Double.valueOf(currentRow.getCell(5).getNumericCellValue()).intValue()));
+                System.out.println("Colour " + colourant.getColourantName() + ' ' + colourant.getRbgHex());
                 colourant.setDensity(currentRow.getCell(8).getNumericCellValue());
                 colourant.setSurcharge(Double.valueOf(currentRow.getCell(9).getNumericCellValue()).intValue());
                 colourant.setKind(currentRow.getCell(10).getStringCellValue());
@@ -433,11 +434,7 @@ public class ImportController implements Serializable {
      * @return
      */
     private String convertRBG2Hex(Integer red, Integer green, Integer blue){
-        Color color = new Color(red, green ,blue);
-        String hex = Integer.toHexString(color.getRGB() & 0xffffff);
-        if (hex.length() < 6) {
-            hex = "0" + hex;
-        }
-        return "#" + hex;
+        String hex = String.format("#%02x%02x%02x", red, green, blue);
+        return hex;
     }
 }

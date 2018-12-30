@@ -1,6 +1,7 @@
 package vietpower.com.dao;
 
 import vietpower.com.model.Machine;
+import vietpower.com.model.MachineColourant;
 
 import java.util.List;
 
@@ -11,4 +12,6 @@ public interface MachineDao {
     List<Machine> findAll();
 
     Machine findById(Long machineId);
+
+    void update(Machine machine);
 }

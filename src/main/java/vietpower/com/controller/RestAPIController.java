@@ -177,4 +177,13 @@ public class RestAPIController implements Serializable{
     public Object getDetailLogFormulaDispenseForMachine(@PathVariable Long taskId){
         return machineService.getMachineFormulaProductBaseLog(taskId);
     }
+
+
+    // machine api
+    @RequestMapping(value = "/server/api/machine/update", method = RequestMethod.POST)
+    @ResponseBody
+    public Object updateMachine(@RequestBody Machine machine){
+        return machineService.updateMachine(machine);
+    }
+
 }

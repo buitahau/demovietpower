@@ -129,4 +129,13 @@ public class MachineServiceImpl implements MachineService{
     public MachineFormulaProductBase getMachineFormulaProductBaseLog(Long taskId) {
         return machineFormulaProductBaseDao.findById(taskId);
     }
+
+    @Override
+    public Machine updateMachine(Machine machine) {
+        Machine dbItem = this.machineDao.findById(machine.getMachineId());
+        dbItem.setMinQuantity(machine.getMinQuantity());
+        dbItem.setWarningQuantity(machine.getWarningQuantity());
+        machineDao.update(dbItem);
+        return dbItem;
+    }
 }

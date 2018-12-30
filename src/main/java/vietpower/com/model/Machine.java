@@ -22,6 +22,9 @@ public class Machine {
     @Column(name = "minQuantity")
     private Integer minQuantity;
 
+    @Column(name = "warningQuantity")
+    private Integer warningQuantity;
+
     @Column(name = "maxQuantity")
     private Integer maxQuantity;
 
@@ -63,5 +66,13 @@ public class Machine {
 
     public void setMaxQuantity(Integer maxQuantity) {
         this.maxQuantity = maxQuantity;
+    }
+
+    public Integer getWarningQuantity() {
+        return warningQuantity;
+    }
+
+    public void setWarningQuantity(Integer warningQuantity) {
+        this.warningQuantity = warningQuantity;
     }
 }

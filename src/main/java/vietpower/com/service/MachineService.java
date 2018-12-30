@@ -35,4 +35,6 @@ public interface MachineService {
     MachineFormulaProductBase saveFormulaProductBase(MachineFormulaProductBase machineFormulaProductBase);
 
     MachineFormulaProductBase getMachineFormulaProductBaseLog(Long taskId);
+
+    Machine updateMachine(Machine machine);
 }

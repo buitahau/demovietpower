@@ -186,4 +186,26 @@ public class RestAPIController implements Serializable{
         return machineService.updateMachine(machine);
     }
 
+
+
+    @RequestMapping(value = "/server/api/collection/findById/{collectionId}", method = RequestMethod.GET)
+    public Object findCollectionById(@PathVariable Long collectionId){
+        return collectionService.findById(collectionId);
+    }
+
+    @RequestMapping(value = "/server/api/collection/delete/{collectionId}", method = RequestMethod.GET)
+    public Object deleteCollection(@PathVariable Long collectionId){
+        try{
+            collectionService.deleteCollection(collectionId);
+            return new ResponseMessage(ResponseMessage.RESPONSE_SUCCESS_TYPE, "Delete collection successful!!");
+        } catch (Exception e){
+            return new ResponseMessage(ResponseMessage.RESPONSE_ERROR_TYPE, "Cannot delete collection!!!");
+        }
+    }
+
+    @RequestMapping(value = "/server/api/collection/save", method = RequestMethod.POST)
+    @ResponseBody
+    public Object addOrUpdateCollection(@RequestBody Collection collection){
+        return collectionService.addOrUpdate(collection);
+    }
 }

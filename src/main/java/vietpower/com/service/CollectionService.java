@@ -11,4 +11,10 @@ public interface CollectionService {
     List<Collection> findAll();
 
     void save(Collection c);
+
+    Collection addOrUpdate(Collection collection);
+
+    Collection findById(Long collectionId);
+
+    void deleteCollection(Long collectionId);
 }

@@ -186,4 +186,17 @@ public class RestAPIController implements Serializable{
         return machineService.updateMachine(machine);
     }
 
+
+
+    @RequestMapping(value = "/server/api/machine/collection/findById/{collectionId}", method = RequestMethod.GET)
+    public Object findCollectionById(@PathVariable Long collectionId){
+        return collectionService.findById(collectionId);
+    }
+
+
+    @RequestMapping(value = "/server/api/collection/save", method = RequestMethod.POST)
+    @ResponseBody
+    public Object addOrUpdateCollection(@RequestBody Collection collection){
+        return collectionService.addOrUpdate(collection);
+    }
 }

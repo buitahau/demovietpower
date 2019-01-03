@@ -11,4 +11,8 @@ public interface CollectionDao {
     List<Collection> findAll();
 
     void persist(Collection c);
+
+    void update(Collection collection);
+
+    Collection findById(Long collectionId);
 }

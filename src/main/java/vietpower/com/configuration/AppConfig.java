@@ -73,7 +73,7 @@ public class AppConfig extends WebMvcConfigurerAdapter{
     // cau hinh welcome file
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("forward:/machine/list");
+        registry.addViewController("/").setViewName("redirect:/admin/machine/list");
         registry.setOrder( Ordered.HIGHEST_PRECEDENCE );
         super.addViewControllers( registry );
     }

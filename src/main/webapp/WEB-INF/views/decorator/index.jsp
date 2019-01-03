@@ -6,7 +6,6 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%--<%@ taglib prefix="sitemesh" uri="http://www.opensymphony.com/sitemesh/decorator" %>--%>
 <!DOCTYPE html>
 <html lang="">
 <head>
@@ -14,11 +13,16 @@
     <%@ include file="/WEB-INF/views/decorator/header.jsp" %>
 </head>
 <body>
-    <%@ include file="/WEB-INF/views/decorator/navigation.jsp" %>
-    <main id="page-wrapper5">
-        <div class="container-fluid">
-            <sitemesh:write property="body" />
+    <div class="container-scroller">
+        <%@ include file="/WEB-INF/views/decorator/top_title.jsp" %>
+        <div class="container-fluid page-body-wrapper">
+            <%@ include file="/WEB-INF/views/decorator/navigation.jsp" %>
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <sitemesh:write property="body" />
+                </div>
+            </div>
         </div>
-    </main>
+    </div>
 </body>
 </html>

@@ -15,7 +15,6 @@ public interface MachineService {
 
     Machine findById(Long machineId);
 
-
     // colourant tracking
     void subtractColour(MachineColourant machineColourant);
 
@@ -23,11 +22,7 @@ public interface MachineService {
 
     List<MachineColourantLog> getAllMachineColourantLog(Long machineColourantLogId);
 
-
     void updateMachineColourant(MachineColourant machineColourant);
-
-
-
 
 //    formula product base tracking
     List<MachineFormulaProductBase> getAllMachineFormulaProductBase(Long machineId);

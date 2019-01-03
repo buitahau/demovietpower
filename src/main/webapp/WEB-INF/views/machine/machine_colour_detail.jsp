@@ -21,7 +21,7 @@
 <div class="container-fluid">
     <div class="row content mt-5">
         <div class="col-sm-2">
-            <a href="<c:url value='/machine/${machineId}/colour'/>">Back</a>
+            <a href="<c:url value='/admin/machine/${machineId}/colour'/>">Back</a>
         </div>
         <div class="col-sm-8">
             <h4><small>Machine Colour Detail</small></h4>

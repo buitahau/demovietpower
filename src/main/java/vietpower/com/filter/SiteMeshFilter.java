@@ -11,6 +11,6 @@ import javax.servlet.annotation.WebFilter;
 public class SiteMeshFilter extends ConfigurableSiteMeshFilter {
     @Override
     protected void applyCustomConfiguration(SiteMeshFilterBuilder builder) {
-        builder.addDecoratorPath("/sort/**", "/WEB-INF/views/decorator/index.jsp");
+        builder.addDecoratorPath("/admin/**", "/WEB-INF/views/decorator/index.jsp");
     }
 }

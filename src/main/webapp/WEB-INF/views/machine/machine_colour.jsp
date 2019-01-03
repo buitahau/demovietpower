@@ -39,7 +39,7 @@
                         <td>${c.colourant.colourantCode}</td>
                         <td>${c.colourant.colourantName}</td>
                         <td>${c.quantity}</td>
-                        <td><a href="<c:url value='/machine/colour/detail/${c.machineColourantId}' />" class="btn btn-success custom-width">Detail</a></td>
+                        <td><a href="<c:url value='/admin/machine/colour/detail/${c.machineColourantId}' />" class="btn btn-success custom-width">Detail</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>

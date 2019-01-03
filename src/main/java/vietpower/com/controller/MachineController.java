@@ -14,6 +14,7 @@ import java.util.List;
  * Created by HauKute on 12/20/2018.
  */
 @Controller
+@RequestMapping("/admin")
 public class MachineController {
 
     @Autowired

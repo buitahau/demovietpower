@@ -1,5 +1,6 @@
 package vietpower.com.service.impl;
 
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -54,5 +55,11 @@ public class CollectionServiceImp implements CollectionService {
     @Override
     public Collection findById(Long collectionId) {
         return collectionDao.findById(collectionId);
+    }
+
+    @Override
+    public void deleteCollection(Long collectionId) {
+        Collection dbItem = this.collectionDao.findById(collectionId);
+        collectionDao.delete(dbItem);
     }
 }

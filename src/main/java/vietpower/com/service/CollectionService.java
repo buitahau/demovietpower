@@ -15,4 +15,6 @@ public interface CollectionService {
     Collection addOrUpdate(Collection collection);
 
     Collection findById(Long collectionId);
+
+    void deleteCollection(Long collectionId);
 }

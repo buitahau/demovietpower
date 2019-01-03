@@ -15,4 +15,6 @@ public interface CollectionDao {
     void update(Collection collection);
 
     Collection findById(Long collectionId);
+
+    void delete(Collection collection);
 }

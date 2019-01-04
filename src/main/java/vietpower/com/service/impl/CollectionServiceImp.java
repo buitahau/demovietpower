@@ -62,4 +62,9 @@ public class CollectionServiceImp implements CollectionService {
         Collection dbItem = this.collectionDao.findById(collectionId);
         collectionDao.delete(dbItem);
     }
+
+    @Override
+    public List<Collection> find(Collection collection) {
+        return collectionDao.find(collection);
+    }
 }

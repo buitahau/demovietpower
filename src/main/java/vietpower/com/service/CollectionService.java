@@ -17,4 +17,6 @@ public interface CollectionService {
     Collection findById(Long collectionId);
 
     void deleteCollection(Long collectionId);
+
+    List<Collection> find(Collection collection);
 }

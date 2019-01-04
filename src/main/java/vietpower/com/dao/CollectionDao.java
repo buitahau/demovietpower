@@ -17,4 +17,6 @@ public interface CollectionDao {
     Collection findById(Long collectionId);
 
     void delete(Collection collection);
+
+    List<Collection> find(Collection collection);
 }

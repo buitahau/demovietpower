@@ -18,7 +18,11 @@
     <div class="col-lg-12 grid-margin">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Detail Formula</h4>
+                <h4 class="card-title">Detail Formula
+                    <a  class="btn btn-icons btn-rounded btn-primary" href="<c:url value='/'/>">
+                        Back
+                    </a>
+                </h4>
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>

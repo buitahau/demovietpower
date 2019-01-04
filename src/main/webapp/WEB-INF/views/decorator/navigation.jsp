@@ -2,6 +2,12 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
         <li class="nav-item">
+            <a class="nav-link" href="<c:url value="/admin/collection/list"/>">
+                <i class="menu-icon mdi mdi-table"></i>
+                <span class="menu-title">Collections</span>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="<c:url value="/admin/machine/list"/>">
                 <i class="menu-icon mdi mdi-television"></i>
                 <span class="menu-title">List Machine</span>

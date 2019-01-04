@@ -1,5 +1,6 @@
 package vietpower.com.dao.impl;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -25,5 +26,16 @@ public class CollectionDaoImpl extends AbstractDao<Integer, Collection> implemen
         crit.add(Restrictions.eq("collectionId", collectionId));
         Collection collection = (Collection)crit.uniqueResult();
         return collection;
+    }
+
+    @Override
+    public List<Collection> find(Collection collection) {
+        Criteria crit = createEntityCriteria();
+        if (collection != null){
+            if(StringUtils.isNotBlank(collection.getCollectionName())){
+                crit.add(Restrictions.ilike("collectionName", "%" + collection.getCollectionName() + "%"));
+            }
+        }
+        return (List<Collection>) crit.list();
     }
 }

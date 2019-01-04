@@ -22,9 +22,25 @@
                     <div class="card-body">
                         <h4 class="card-title">Search</h4>
                         <form:form method="POST" modelAttribute="collection" class="form-forms-sample">
-                            <div class="form-group">
-                                <label for="collectionName">Name</label>
-                                <form:input type="text" path="collectionName" id="collectionName" class="form-control" placeholder="Enter collection name"/>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="collectionName">Name</label>
+                                        <form:input type="text" path="collectionName" id="collectionName" class="form-control" placeholder="Enter collection name"/>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="machine">Machine</label>
+                                        <form:select path="machine.machineId" cssClass="form-control" id="machine">
+                                            <form:option value="" label="All"/>
+                                            <form:option value="-1" label="Default"/>
+                                            <c:forEach items="${listMachines}" var="m">
+                                                <form:option value="${m.machineId}" label="${m.name}"/>
+                                            </c:forEach>
+                                        </form:select>
+                                    </div>
+                                </div>
                             </div>
                             <button type="submit" class="btn btn-success mr-2">Search</button>
                         </form:form>
@@ -54,7 +70,7 @@
                             <tr>
                                 <td>${collection.collectionName}</td>
                                 <td>${collection.description}</td>
-                                <td></td>
+                                <td>${collection.machine.name}</td>
                                 <td></td>
                             </tr>
                         </c:forEach>

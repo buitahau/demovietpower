@@ -35,6 +35,13 @@ public class CollectionDaoImpl extends AbstractDao<Integer, Collection> implemen
             if(StringUtils.isNotBlank(collection.getCollectionName())){
                 crit.add(Restrictions.ilike("collectionName", "%" + collection.getCollectionName() + "%"));
             }
+            if(collection.getMachine() != null && collection.getMachine().getMachineId() != null){
+                if(collection.getMachine().getMachineId() == -1){
+                    crit.add(Restrictions.isNull("machine"));
+                }else{
+                    crit.add(Restrictions.eq("machine.machineId", collection.getMachine().getMachineId()));
+                }
+            }
         }
         return (List<Collection>) crit.list();
     }

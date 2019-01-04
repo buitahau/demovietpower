@@ -21,6 +21,11 @@
                 <div class="content-wrapper">
                     <sitemesh:write property="body" />
                 </div>
+                <footer class="footer">
+                    <div class="container-fluid clearfix">
+                        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2018</span>
+                    </div>
+                </footer>
             </div>
         </div>
     </div>

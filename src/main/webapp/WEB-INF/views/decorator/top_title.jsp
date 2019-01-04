@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
     <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
     </div>
@@ -8,7 +9,7 @@
                     <span class="profile-text">Hello, Administrator !</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
-                    <a class="dropdown-item">
+                    <a class="dropdown-item mt-2" href="<c:url value="/logout"/>">
                         Sign Out
                     </a>
                 </div>

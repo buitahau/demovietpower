@@ -11,4 +11,6 @@ public interface FormulaDao {
     List<Formula> findAll();
 
     void persist(Formula formula);
+
+    List<Formula> findByCollection(Long collectionId);
 }

@@ -78,4 +78,9 @@ public class FormulaServiceImpl implements FormulaService {
     public List<ProductBaseCan> findFormulaProductBaseCanByFormulaId(Long productBaseId) {
         return productBaseCanDao.findByProductBase(productBaseId);
     }
+
+    @Override
+    public List<Formula> findByCollection(Long collectionId) {
+        return formulaDao.findByCollection(collectionId);
+    }
 }

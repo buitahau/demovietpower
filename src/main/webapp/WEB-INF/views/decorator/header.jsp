@@ -9,7 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Hau Bui</title>
+    <title>VietPower</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="<c:url value="/static/theme/vendors/iconfonts/mdi/css/materialdesignicons.min.css"/>" rel="stylesheet" type="text/css" media="all">
     <link href="<c:url value="/static/theme/vendors/css/vendor.bundle.base.css"/>" rel="stylesheet" type="text/css" media="all">

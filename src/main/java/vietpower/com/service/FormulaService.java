@@ -29,4 +29,6 @@ public interface FormulaService {
     void saveFormulaColourant(FormulaColourant formulaColourant);
 
     List<ProductBaseCan> findFormulaProductBaseCanByFormulaId(Long formulaId);
+
+    List<Formula> findByCollection(Long collectionId);
 }

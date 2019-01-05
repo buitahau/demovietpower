@@ -71,7 +71,7 @@
                                 <td>${collection.collectionName}</td>
                                 <td>${collection.description}</td>
                                 <td>${collection.machine.name}</td>
-                                <td></td>
+                                <td><a href="<c:url value='/admin/collection/${collection.collectionId}/formula' />" class="btn btn-success custom-width">Detail</a></td>
                             </tr>
                         </c:forEach>
                         </tbody>

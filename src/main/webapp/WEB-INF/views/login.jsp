@@ -33,17 +33,17 @@
                     </c:if>
                     <spring:message code="label.userName" var="labelUserName"></spring:message>
                     <div class="input-group input-sm">
-                        <label class="input-group-addon" for="username"><i class="fa fa-user"></i></label>
+                        <label class="input-group-addon mr-2" for="username"><i class="fa fa-user"></i></label>
                         <input type="text" class="form-control" id="username" name="ssoId" placeholder="${labelUserName}" required>
                     </div>
                     <spring:message code="label.password" var="labelPassword"></spring:message>
-                    <div class="input-group input-sm">
-                        <label class="input-group-addon" for="password"><i class="fa fa-lock"></i></label>
+                    <div class="input-group input-sm mt-2">
+                        <label class="input-group-addon mr-2" for="password"><i class="fa fa-lock"></i></label>
                         <input type="password" class="form-control" id="password" name="password" placeholder="${labelPassword}" required>
                     </div>
                     <input type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}" />
                     <spring:message code="label.submit" var="labelSubmit"></spring:message>
-                    <div class="form-actions">
+                    <div class="form-actions mt-2">
                         <input type="submit"
                                class="btn btn-block btn-primary btn-default" value="${labelSubmit}">
                     </div>

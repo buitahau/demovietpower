@@ -208,4 +208,11 @@ public class RestAPIController implements Serializable{
     public Object addOrUpdateCollection(@RequestBody Collection collection){
         return collectionService.addOrUpdate(collection);
     }
+
+
+    @RequestMapping(value = "/server/api/product-base/findByProduct/{productId}", method = RequestMethod.GET)
+    public Object findBaseFromProduct(@PathVariable Long productId){
+        return productBaseService.findByProductId(productId);
+    }
+
 }

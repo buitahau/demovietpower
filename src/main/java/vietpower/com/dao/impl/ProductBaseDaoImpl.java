@@ -5,6 +5,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import vietpower.com.dao.AbstractDao;
 import vietpower.com.dao.ProductBaseDao;
+import vietpower.com.model.Base;
 import vietpower.com.model.ProductBase;
 
 import java.util.List;
@@ -22,6 +23,15 @@ public class ProductBaseDaoImpl extends AbstractDao<Integer, ProductBase> implem
 
     @Override
     public List<ProductBase> findByProductId(Long productId) {
+        Criteria criteria = createEntityCriteria();
+        if(productId != null) {
+            criteria.add(Restrictions.eq("product.productId", productId));
+        }
+        return (List<ProductBase>) criteria.list();
+    }
+
+    @Override
+    public List<ProductBase> findByProduct(Long productId) {
         Criteria criteria = createEntityCriteria();
         if(productId != null) {
             criteria.add(Restrictions.eq("product.productId", productId));

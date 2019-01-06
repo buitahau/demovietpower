@@ -1,5 +1,6 @@
 package vietpower.com.dao;
 
+import vietpower.com.model.Base;
 import vietpower.com.model.ProductBase;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface ProductBaseDao {
     void update(ProductBase pb);
 
     List<ProductBase> findByProductId(Long productId);
+
+    List<ProductBase> findByProduct(Long productId);
 }

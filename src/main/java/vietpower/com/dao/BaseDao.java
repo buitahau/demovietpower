@@ -1,6 +1,7 @@
 package vietpower.com.dao;
 
 import vietpower.com.model.Base;
+import vietpower.com.model.Product;
 
 import java.util.List;
 

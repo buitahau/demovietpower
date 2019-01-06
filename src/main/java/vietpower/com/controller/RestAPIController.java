@@ -45,6 +45,9 @@ public class RestAPIController implements Serializable{
     MachineColourantService machineColourantService;
 
     @Autowired
+    SavingFormulaProductBaseService saveOrUpdateFormulaProductBase;
+
+    @Autowired
     MachineService machineService;
 
     @RequestMapping(value = "/server/api/formula/getAll", method = RequestMethod.GET)
@@ -213,6 +216,14 @@ public class RestAPIController implements Serializable{
     @RequestMapping(value = "/server/api/product-base/findByProduct/{productId}", method = RequestMethod.GET)
     public Object findBaseFromProduct(@PathVariable Long productId){
         return productBaseService.findByProductId(productId);
+    }
+
+
+
+    @RequestMapping(value = "/server/api/machine_formula/saveOrUpdate", method = RequestMethod.POST)
+    @ResponseBody
+    public Object updateMachineColourantAmount(@RequestBody SavingFormulaProductBase savingFormulaProductBase){
+        return saveOrUpdateFormulaProductBase.saveOrUpdateFormulaProductBase(savingFormulaProductBase);
     }
 
 }

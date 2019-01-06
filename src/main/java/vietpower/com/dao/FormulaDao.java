@@ -13,4 +13,6 @@ public interface FormulaDao {
     void persist(Formula formula);
 
     List<Formula> findByCollection(Long collectionId);
+
+    void update(Formula dbItem);
 }

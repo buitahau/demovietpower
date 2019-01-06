@@ -10,11 +10,11 @@ import java.util.List;
 public interface FormulaProductBaseDao {
     List<FormulaProductBase> findByFormulaId(Long formulaId);
 
+    FormulaProductBase findById(Long formulaProductBaseId);
+
     void persist(FormulaProductBase fpb);
 
     void delete(FormulaProductBase formulaProductBase);
 
-    FormulaProductBase findById(Long formulaProductBaseId);
-
-
+    void update(FormulaProductBase dbItem);
 }

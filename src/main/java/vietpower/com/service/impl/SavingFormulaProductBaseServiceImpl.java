@@ -73,11 +73,12 @@ public class SavingFormulaProductBaseServiceImpl implements SavingFormulaProduct
 //                newProductBase = saveProductBase(productBase);
 //            }
             dbItem.setFormula(newFormula);
+            dbItem.setProductBase(formulaProductBase.getProductBase());
             formulaProductBaseDao.update(dbItem);
             return dbItem;
         } else {
             newFormula = saveFormula(formula, machine);
-            formulaProductBase.setFormula(formula);
+            formulaProductBase.setFormula(newFormula);
             formulaProductBase.setProductBase(productBase);
             this.formulaProductBaseDao.persist(formulaProductBase);
             return formulaProductBase;

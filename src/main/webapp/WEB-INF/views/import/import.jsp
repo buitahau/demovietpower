@@ -21,7 +21,7 @@
                         <h4 class="card-title">Import</h4>
                         <form method="post" enctype="multipart/form-data" action="<c:url value="/admin/import/savefile"/>" class="">
                             <div class="form-group">
-                                <label>File upload</label>
+                                <label>File upload. Please upload file excel (xls, xlsx).</label>
                                 <div class="input-group col-xs-12">
                                     <input type="file" name="file" class="form-control file-upload-info" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" >
                                 </div>
@@ -40,14 +40,14 @@
             bootoast.toast({
                 message: 'Upload success.',
                 type: 'success',
-                position: 'top-center'
+                position: 'top-right'
             });
         </c:if>
         <c:if test="${error}">
             bootoast.toast({
                 message: 'Upload error.',
                 type: 'danger',
-                position: 'top-center'
+                position: 'top-right'
             });
         </c:if>
 

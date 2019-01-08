@@ -27,7 +27,7 @@ public class MachineController {
     }
 
     @RequestMapping(value = "/machine/{machineId}/colour")
-    public String machineColour(@PathVariable Long machineId,  ModelMap modelMap){
+    public String machineColour(@PathVariable Long machineId, ModelMap modelMap){
         modelMap.addAttribute("machineColourants", machineService.getAllMachineColourant(machineId));
         return "machine/machine_colour";
     }

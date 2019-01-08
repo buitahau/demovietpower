@@ -13,6 +13,9 @@
     <%@ include file="/WEB-INF/views/decorator/header.jsp" %>
 </head>
 <body>
+    <div id="loader_container" class="row hide_loader">
+        <div class="loader"></div>
+    </div>
     <div class="container-scroller">
         <%@ include file="/WEB-INF/views/decorator/top_title.jsp" %>
         <div class="container-fluid page-body-wrapper">

@@ -13,5 +13,11 @@
                 <span class="menu-title">List Machine</span>
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="<c:url value="/admin/import/upload"/>">
+                <i class="menu-icon mdi mdi-sticker"></i>
+                <span class="menu-title">Import</span>
+            </a>
+        </li>
     </ul>
 </nav>

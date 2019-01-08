@@ -4,10 +4,12 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import vietpower.com.model.*;
 import vietpower.com.model.Collection;
 import vietpower.com.service.*;
@@ -20,6 +22,7 @@ import java.awt.Color;
  * Created by HauKute on 11/25/2018.
  */
 @Controller
+@RequestMapping("/admin")
 public class ImportController implements Serializable {
     private static final String FILE_EXCEL = "DB_Specifications.xlsx";
 
@@ -35,49 +38,46 @@ public class ImportController implements Serializable {
     @Autowired
     FormulaService formulaService;
 
-    @RequestMapping("/import/upload.html")
+    @RequestMapping("/import/upload")
     public String uploadForm(){
-        parseFileExcel();
         return "import/import";
     }
 
-    @RequestMapping(value="/import/savefile.html", method=RequestMethod.POST )
-    public  String singleSave(@RequestParam("file") MultipartFile file, @RequestParam("desc") String desc ){
-        System.out.println("File Description:" + desc);
-        String fileName = null;
+    @RequestMapping(value="/import/savefile", method=RequestMethod.POST )
+    public String singleSave(@RequestParam("file") MultipartFile file, ModelMap modelMap, RedirectAttributes redirectAttributes){
         if (!file.isEmpty()) {
             try {
-                fileName = file.getOriginalFilename();
-                byte[] bytes = file.getBytes();
-                BufferedOutputStream buffStream =
-                        new BufferedOutputStream(new FileOutputStream(new File("F:/cp/" + fileName)));
-                buffStream.write(bytes);
-                buffStream.close();
-                return "You have successfully uploaded " + fileName;
+                File convFile = new File( file.getOriginalFilename());
+                file.transferTo(convFile);
+                parseFileExcel(convFile);
+                redirectAttributes.addFlashAttribute("success", true);
             } catch (Exception e) {
-                return "You failed to upload " + fileName + ": " + e.getMessage();
+                redirectAttributes.addFlashAttribute("error", true);
             }
-        } else {
-            return "Unable to upload. File is empty.";
         }
+        return "redirect:/admin/import/upload";
     }
 
     private void parseFileExcel(){
         try {
-            FileInputStream excelFile = new FileInputStream(new File(this.getClass().getClassLoader().getResource(FILE_EXCEL).getPath()));
-            Workbook workbook = new XSSFWorkbook(excelFile);
-            Map<String, Colourant> mapColourants = new HashMap<>();
-            Map<String, Base> mapBases = new HashMap<>();
-            Map<String, Product> mapProducts = new HashMap<>();
-            Map<String, ProductBase> mapProductBase = new HashMap<>();
-            Map<String, ProductBaseCan> mapProductBaseCan = new HashMap<>();
-            parseSheet_1(mapColourants, workbook.getSheetAt(0));
-            parseSheet_2(mapBases, mapProducts, mapProductBase, workbook.getSheetAt(1));
-            parseSheet_3(mapProductBase, mapProductBaseCan, workbook.getSheetAt(2));
-            parseSheet_4(mapColourants, mapProductBase, workbook.getSheetAt(3));
+            parseFileExcel(new File(this.getClass().getClassLoader().getResource(FILE_EXCEL).getPath()));
         }catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void parseFileExcel(File file) throws IOException {
+        FileInputStream excelFile = new FileInputStream(file);
+        Workbook workbook = new XSSFWorkbook(excelFile);
+        Map<String, Colourant> mapColourants = new HashMap<>();
+        Map<String, Base> mapBases = new HashMap<>();
+        Map<String, Product> mapProducts = new HashMap<>();
+        Map<String, ProductBase> mapProductBase = new HashMap<>();
+        Map<String, ProductBaseCan> mapProductBaseCan = new HashMap<>();
+        parseSheet_1(mapColourants, workbook.getSheetAt(0));
+        parseSheet_2(mapBases, mapProducts, mapProductBase, workbook.getSheetAt(1));
+        parseSheet_3(mapProductBase, mapProductBaseCan, workbook.getSheetAt(2));
+        parseSheet_4(mapColourants, mapProductBase, workbook.getSheetAt(3));
     }
 
     private void parseSheet_4(Map<String, Colourant> mapColourants,

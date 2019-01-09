@@ -129,6 +129,9 @@ public class ImportController implements Serializable {
                     formula.setFormulaCode(formulaName);
                     formula.setFormulaName(formulaName);
                     formula.setBaseOnCan(currentRow.getCell(3).getNumericCellValue());
+                    formula.setApproximateColor(convertDecimalToColor((int) currentRow.getCell(20).getNumericCellValue()));
+                    formula.setComment(currentRow.getCell(21).getStringCellValue());
+                    formula.setSubstrate(currentRow.getCell(22).getStringCellValue());
                     formulaService.save(formula);
                     mapFormulas.put(formulaName, formula);
                 }
@@ -221,6 +224,14 @@ public class ImportController implements Serializable {
             }
             row ++;
         }
+    }
+
+    private static String convertDecimalToColor(int decimalNumber){
+        Color color = new Color(decimalNumber);
+        int red = color.getRed();
+        int green = color.getGreen();
+        int blue = color.getBlue();
+        return convertRBG2Hex(red, green, blue);
     }
 
     private void addColourant(String colorantCode,
@@ -433,8 +444,10 @@ public class ImportController implements Serializable {
      * @param blue
      * @return
      */
-    private String convertRBG2Hex(Integer red, Integer green, Integer blue){
+    private static String convertRBG2Hex(Integer red, Integer green, Integer blue){
         String hex = String.format("#%02x%02x%02x", red, green, blue);
         return hex;
     }
 }
+
+

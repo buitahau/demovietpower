@@ -36,16 +36,14 @@ public class Formula {
     @Column(name = "baseOnCan")
     private Double baseOnCan;
 
-//    @OneToMany(mappedBy="formula", fetch = FetchType.LAZY)
-//    private Set<FormulaProductBase> productBases = new HashSet<>();
-//
-//    public Set<FormulaProductBase> getProductBases() {
-//        return productBases;
-//    }
-//
-//    public void setProductBases(Set<FormulaProductBase> productBases) {
-//        this.productBases = productBases;
-//    }
+    @Column(name = "ApproximateColor")
+    private String approximateColor;
+
+    @Column(name = "Substrate")
+    private String substrate;
+
+    @Column(name = "Comment")
+    private String comment;
 
     public Long getFormulaId() {
         return formulaId;
@@ -101,5 +99,29 @@ public class Formula {
 
     public void setBaseOnCan(Double baseOnCan) {
         this.baseOnCan = baseOnCan;
+    }
+
+    public String getApproximateColor() {
+        return approximateColor;
+    }
+
+    public void setApproximateColor(String approximateColor) {
+        this.approximateColor = approximateColor;
+    }
+
+    public String getSubstrate() {
+        return substrate;
+    }
+
+    public void setSubstrate(String substrate) {
+        this.substrate = substrate;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }

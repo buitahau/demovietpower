@@ -83,4 +83,9 @@ public class FormulaServiceImpl implements FormulaService {
     public List<Formula> findByCollection(Long collectionId) {
         return formulaDao.findByCollection(collectionId);
     }
+
+    @Override
+    public void update(Formula formula) {
+        formulaDao.update(formula);
+    }
 }

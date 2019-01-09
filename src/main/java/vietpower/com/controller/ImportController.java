@@ -110,7 +110,7 @@ public class ImportController implements Serializable {
                     mapCollections.put(collectionName, c);
                 }
 
-                String formulaName = null;
+                String formulaName = null; // tìm formula
                 if(currentRow.getCell(2).getCellType() == CellType.NUMERIC){
                     formulaName = String.valueOf(currentRow.getCell(2).getNumericCellValue());
                 }else if(currentRow.getCell(2).getCellType() == CellType.STRING){
@@ -122,24 +122,30 @@ public class ImportController implements Serializable {
                     continue;
                 }
                 formulaName = formulaName.replace(".0", "");
-                if(mapFormulas.get(formulaName) == null){
+                if(mapFormulas.get(formulaName) == null){ // init nếu chua tồn tại
                     Formula formula = new Formula();
                     formula.setCreatedDate(new Timestamp(System.currentTimeMillis()));
-                    formula.setCollection(mapCollections.get(collectionName));
                     formula.setFormulaCode(formulaName);
                     formula.setFormulaName(formulaName);
-                    formula.setBaseOnCan(currentRow.getCell(3).getNumericCellValue());
-                    formula.setApproximateColor(convertDecimalToColor((int) currentRow.getCell(20).getNumericCellValue()));
-                    formula.setComment(currentRow.getCell(21).getStringCellValue());
-                    formula.setSubstrate(currentRow.getCell(22).getStringCellValue());
-                    formulaService.save(formula);
                     mapFormulas.put(formulaName, formula);
                 }
 
                 Formula formula = mapFormulas.get(formulaName);
+                formula.setCollection(mapCollections.get(collectionName));
+                formula.setBaseOnCan(currentRow.getCell(3).getNumericCellValue());
+                formula.setApproximateColor(convertDecimalToColor((int) currentRow.getCell(20).getNumericCellValue()));
+                formula.setComment(currentRow.getCell(21).getStringCellValue());
+                formula.setSubstrate(currentRow.getCell(22).getStringCellValue());
+                if(formula.getFormulaId() == null){ // save or update
+                    formulaService.save(formula);
+                }else{
+                    formulaService.update(formula);
+                }
+
+
                 List<FormulaProductBase> listFormulaProductBaseExists = formulaService.findFormulaProductBaseByFormulaId(formula.getFormulaId());
                 Map<String, FormulaProductBase> mapFormulaProductBaseExists = new HashMap<>();
-                for(FormulaProductBase fpb : listFormulaProductBaseExists){
+                for(FormulaProductBase fpb : listFormulaProductBaseExists){ // map formula product base cũ
                     mapFormulaProductBaseExists.put(fpb.getProductBase().getBase().getBaseCode() + "_" + fpb.getProductBase().getProduct().getProductCode() , fpb);
                 }
 
@@ -151,22 +157,22 @@ public class ImportController implements Serializable {
                         System.out.println("**-----------------------------");
                         System.out.println("Can not find product base - " + key);
                     }else{
-                        if(mapFormulaProductBaseExists.get(key) == null){
+                        if(mapFormulaProductBaseExists.get(key) == null){ // save mới formula product base
                             FormulaProductBase fpb = new FormulaProductBase();
                             fpb.setFormula(formula);
                             fpb.setProductBase(mapProductBase.get(key));
                             formulaService.saveFormulaProductBase(fpb);
                         }else{
-                            mapFormulaProductBaseExists.remove(key);
+                            mapFormulaProductBaseExists.remove(key); // nếu có sẵn thì xóa key trong map
                         }
                     }
                 }
-                for(String keyRemove : mapFormulaProductBaseExists.keySet()){
+                for(String keyRemove : mapFormulaProductBaseExists.keySet()){ // key formula product base nào cũ còn lại thì xóa đi
                     formulaService.deleteFormulaProductBase(mapFormulaProductBaseExists.get(keyRemove));
                 }
 
                 List<FormulaColourant> listFormulaColourantExists = formulaService.findFormulaColourantByFormulaId(formula.getFormulaId());
-                Map<String, FormulaColourant> mapFormulaColourantExists = new HashMap<>();
+                Map<String, FormulaColourant> mapFormulaColourantExists = new HashMap<>(); // tương tự cho formula colourant
                 for(FormulaColourant fc : listFormulaColourantExists){
                     mapFormulaColourantExists.put(fc.getColourant().getColourantCode(), fc);
                 }
@@ -218,7 +224,7 @@ public class ImportController implements Serializable {
                             mapFormulaColourantExists,
                             formula);
                 }
-                for(String keyRemove : mapFormulaColourantExists.keySet()){
+                for(String keyRemove : mapFormulaColourantExists.keySet()){ // xóa key formula colourant cũ còn tồn tại đi
                     formulaService.deleteFormulaColourant(mapFormulaColourantExists.get(keyRemove));
                 }
             }

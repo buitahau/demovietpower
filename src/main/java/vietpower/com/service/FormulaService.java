@@ -31,4 +31,6 @@ public interface FormulaService {
     List<ProductBaseCan> findFormulaProductBaseCanByFormulaId(Long formulaId);
 
     List<Formula> findByCollection(Long collectionId);
+
+    void update(Formula formula);
 }

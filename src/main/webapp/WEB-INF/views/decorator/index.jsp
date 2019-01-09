@@ -13,6 +13,19 @@
     <%@ include file="/WEB-INF/views/decorator/header.jsp" %>
 </head>
 <body>
+    <div id="loader_container" class="row hide_loader">
+        <div id="loader">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="lading"></div>
+        </div>
+    </div>
     <div class="container-scroller">
         <%@ include file="/WEB-INF/views/decorator/top_title.jsp" %>
         <div class="container-fluid page-body-wrapper">

@@ -15,6 +15,9 @@
     <link href="<c:url value="/static/theme/vendors/css/vendor.bundle.base.css"/>" rel="stylesheet" type="text/css" media="all">
     <link href="<c:url value="/static/theme/vendors/css/vendor.bundle.addons.css"/>" rel="stylesheet" type="text/css" media="all">
     <link href="<c:url value="/static/theme/css/style.css"/>" rel="stylesheet" type="text/css" media="all">
+    <link href="<c:url value="/static/theme/vendors/iconfonts/font-awesome/css/font-awesome.css"/>" rel="stylesheet" type="text/css" media="all">
+    <link href="<c:url value="/static/css/bootoast.css"/>" rel="stylesheet" type="text/css" media="all">
+    <link href="<c:url value="/static/css/loader.css"/>" rel="stylesheet" type="text/css" media="all">
     <link rel="shortcut icon" href="<c:url value="/static/theme/images/favicon.png"/>" />
     <%--<link href="<c:url value="/static/theme/css/bootstrap.min.css"/>" rel="stylesheet" type="text/css" media="all">--%>
     <script type="text/javascript" src="<c:url value="/static/theme/vendors/js/vendor.bundle.base.js"/>"></script>
@@ -22,6 +25,7 @@
     <script type="text/javascript" src="<c:url value="/static/theme/js/dashboard.js"/>"></script>
     <%--<script type="text/javascript" src="<c:url value="/static/js/bootstrap.min.js"/>"></script>--%>
     <script type="text/javascript" src="<c:url value="/static/js/jquery-3.3.1.min.js"/>"></script>
+    <script type="text/javascript" src="<c:url value="/static/js/bootoast.js"/>"></script>
 </head>
 <body>
 

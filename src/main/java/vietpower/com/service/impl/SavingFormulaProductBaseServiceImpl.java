@@ -98,6 +98,9 @@ public class SavingFormulaProductBaseServiceImpl implements SavingFormulaProduct
         dbItem.setCollection(formula.getCollection());
         dbItem.setBaseOnCan(formula.getBaseOnCan());
         dbItem.setMachine(machine);
+        dbItem.setComment(formula.getComment());
+        dbItem.setSubstrate(formula.getSubstrate());
+        dbItem.setApproximateColor(formula.getApproximateColor());
         this.formulaDao.update(dbItem);
         return dbItem;
     }

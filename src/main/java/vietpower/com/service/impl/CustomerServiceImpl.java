@@ -7,10 +7,7 @@ import vietpower.com.dao.BaseDao;
 import vietpower.com.dao.CustomerDao;
 import vietpower.com.dao.MachineDao;
 import vietpower.com.dao.ProductBaseDao;
-import vietpower.com.model.Base;
-import vietpower.com.model.Customer;
-import vietpower.com.model.Machine;
-import vietpower.com.model.ProductBase;
+import vietpower.com.model.*;
 import vietpower.com.service.BaseService;
 import vietpower.com.service.CustomerService;
 
@@ -70,12 +67,17 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void delete(Customer customer) {
+    public ResponseMessage delete(Customer customer) {
         if(customer.getCustomerId() != null && customer.getCustomerId() > 0) {
             Customer dbItem = this.customerDao.findById(customer.getMachine().getMachineId(), customer.getCustomerId());
             if(dbItem.getMachine().getMachineId().equals(customer.getMachine().getMachineId())){
-                this.customerDao.delete(customer);
+                this.customerDao.delete(dbItem);
+                return new ResponseMessage(ResponseMessage.RESPONSE_SUCCESS_TYPE, "Delete successful!");
+            } else {
+                return new ResponseMessage(ResponseMessage.RESPONSE_ERROR_TYPE, "The customer not belong the shop.");
             }
+        } else {
+            return new ResponseMessage(ResponseMessage.RESPONSE_ERROR_TYPE, "Cannot find the customer!");
         }
     }
 }

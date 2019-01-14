@@ -243,8 +243,7 @@ public class RestAPIController implements Serializable{
     @RequestMapping(value = "/server/api/customer/delete", method = RequestMethod.POST)
     @ResponseBody
     public Object deleteCustomer(@RequestBody Customer customer){
-        customerService.delete(customer);
-        return "Delete customer Successful.";
+        return customerService.delete(customer);
     }
 
 }

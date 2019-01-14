@@ -1,6 +1,7 @@
 package vietpower.com.service;
 
 import vietpower.com.model.Customer;
+import vietpower.com.model.ResponseMessage;
 
 import java.util.List;
 
@@ -17,5 +18,5 @@ public interface CustomerService {
 
     Customer addOrUpdate(Customer customer);
 
-    void delete(Customer customer);
+    ResponseMessage delete(Customer customer);
 }

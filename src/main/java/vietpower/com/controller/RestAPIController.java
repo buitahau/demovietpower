@@ -50,6 +50,9 @@ public class RestAPIController implements Serializable{
     @Autowired
     MachineService machineService;
 
+    @Autowired
+    CustomerService customerService;
+
     @RequestMapping(value = "/server/api/formula/getAll", method = RequestMethod.GET)
     @ResponseBody
     public List getAllFormula(){
@@ -224,6 +227,24 @@ public class RestAPIController implements Serializable{
     @ResponseBody
     public Object updateMachineColourantAmount(@RequestBody SavingFormulaProductBase savingFormulaProductBase){
         return saveOrUpdateFormulaProductBase.saveOrUpdateFormulaProductBase(savingFormulaProductBase);
+    }
+
+    @RequestMapping(value = "/server/api/customer/findAll/{machineId}", method = RequestMethod.GET)
+    public Object findAllCustomerByMachine(@PathVariable Long machineId){
+        return customerService.findAll(machineId);
+    }
+
+    @RequestMapping(value = "/server/api/customer/save", method = RequestMethod.POST)
+    @ResponseBody
+    public Object saveOrUpdateCustomer(@RequestBody Customer customer){
+        return customerService.addOrUpdate(customer);
+    }
+
+    @RequestMapping(value = "/server/api/customer/delete", method = RequestMethod.POST)
+    @ResponseBody
+    public Object deleteCustomer(@RequestBody Customer customer){
+        customerService.delete(customer);
+        return "Delete customer Successful.";
     }
 
 }

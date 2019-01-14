@@ -10,6 +10,7 @@ import vietpower.com.model.Formula;
 import vietpower.com.service.CollectionService;
 import vietpower.com.service.FormulaService;
 import vietpower.com.service.MachineService;
+import vietpower.com.utils.SecurityUtils;
 
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class CollectionController {
 
     @RequestMapping(value = "/collection/list")
     public String listCollection(Collection collection, ModelMap modelMap){
+        Long userId = SecurityUtils.getPrincipal().getUserId();
         List<Collection> res = collectionService.find(collection);
         modelMap.addAttribute("listCollections", res);
         modelMap.addAttribute("listMachines", machineService.findAllMachine());

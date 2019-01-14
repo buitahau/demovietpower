@@ -8,7 +8,7 @@ import java.util.List;
  * Created by HauKute on 8/4/2018.
  */
 public interface UserService {
-    User findById(int id);
+    User findById(Long id);
 
     User findBySSO(String sso);
 
@@ -20,7 +20,7 @@ public interface UserService {
 
     List<User> findAllUsers();
 
-    boolean isUserSSOUnique(Integer id, String sso);
+    boolean isUserSSOUnique(Long id, String sso);
 
     User findByUserName(String userName);
 }

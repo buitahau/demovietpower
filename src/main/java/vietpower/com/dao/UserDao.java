@@ -8,7 +8,7 @@ import java.util.List;
  * Created by HauKute on 8/4/2018.
  */
 public interface UserDao {
-    User findById(int id);
+    User findById(Long id);
 
     User findBySSO(String sso);
 

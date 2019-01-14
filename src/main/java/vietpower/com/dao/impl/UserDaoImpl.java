@@ -16,8 +16,8 @@ import java.util.List;
 @Repository("userDao")
 public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
     @Override
-    public User findById(int id) {
-        User user = getByKey(id);
+    public User findById(Long id) {
+        User user = getByKey(id.intValue());
         return user;
     }
 

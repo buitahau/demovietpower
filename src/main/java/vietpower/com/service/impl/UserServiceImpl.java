@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     @Override
-    public User findById(int id) {
+    public User findById(Long id) {
         return userDao.findById(id);
     }
 
@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean isUserSSOUnique(Integer id, String sso) {
+    public boolean isUserSSOUnique(Long id, String sso) {
         User user = findBySSO(sso);
         return ( user == null || ((id != null) && (user.getUserId() == id)));
     }

@@ -1,6 +1,7 @@
 package vietpower.com.dao.impl;
 
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import vietpower.com.dao.AbstractDao;
@@ -19,6 +20,7 @@ public class MachineColourantLogDaoImpl extends AbstractDao<Integer, MachineColo
     public List<MachineColourantLog> getByMachineColourant(Long machineColourantLogId) {
         Criteria crit = createEntityCriteria();
         crit.add(Restrictions.eq("machineColourant.machineColourantId", machineColourantLogId));
+        crit.addOrder(Order.desc("createdDate"));
         List<MachineColourantLog> res = (List<MachineColourantLog>)crit.list();
         return res;
     }

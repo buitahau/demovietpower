@@ -29,6 +29,8 @@
                             <th>Action</th>
                             <th>Date</th>
                             <th>Quantity</th>
+                            <th>Formula</th>
+                            <th>Product</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -39,6 +41,8 @@
                                 <td>${l.action}</td>
                                 <td>${l.createdDate}</td>
                                 <td>${l.quantity}</td>
+                                <td>${l.machineFormulaProductBase.formulaProductBase.formula.formulaCode}</td>
+                                <td>${l.machineFormulaProductBase.formulaProductBase.productBase.product.productCode}</td>
                             </tr>
                         </c:forEach>
                         </tbody>

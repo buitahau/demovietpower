@@ -54,6 +54,11 @@ public class MachineServiceImpl implements MachineService{
         log.setAction("subtract");
         log.setCreatedDate(new Timestamp(System.currentTimeMillis()));
         log.setMachineColourant(machineColourant);
+        if(dto.getMachineFormulaProductBaseId() != null){
+            MachineFormulaProductBase mf = new MachineFormulaProductBase();
+            mf.setMachineFormulaProductBaseId(dto.getMachineFormulaProductBaseId());
+            log.setMachineFormulaProductBase(mf);
+        }
         machineColourantLogDao.persist(log);
 
         machineColourant.setQuantity(machineColourant.getQuantity() - dto.getQuantity());

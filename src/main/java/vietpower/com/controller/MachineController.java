@@ -33,7 +33,7 @@ public class MachineController {
     }
 
     @RequestMapping(value = "/machine/colour/detail/{machineColourId}")
-    public String machineColourDetail(@PathVariable Long machineColourId,  ModelMap modelMap){
+    public String machineColourDetail(@PathVariable Long machineColourId, ModelMap modelMap){
         List<MachineColourantLog> logs = machineService.getAllMachineColourantLog(machineColourId);
         modelMap.addAttribute("logs", logs);
         if(logs.size() > 0) {

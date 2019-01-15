@@ -27,6 +27,10 @@ public class MachineColourantLog {
     @Column
     private Timestamp createdDate;
 
+    @ManyToOne
+    @JoinColumn(name="machineFormulaId")
+    private MachineFormulaProductBase machineFormulaProductBase;
+
     public Long getMachineColourantLogId() {
         return machineColourantLogId;
     }
@@ -65,5 +69,14 @@ public class MachineColourantLog {
 
     public void setCreatedDate(Timestamp createdDate) {
         this.createdDate = createdDate;
+    }
+
+
+    public MachineFormulaProductBase getMachineFormulaProductBase() {
+        return machineFormulaProductBase;
+    }
+
+    public void setMachineFormulaProductBase(MachineFormulaProductBase machineFormulaProductBase) {
+        this.machineFormulaProductBase = machineFormulaProductBase;
     }
 }

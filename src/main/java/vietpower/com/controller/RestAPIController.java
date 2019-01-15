@@ -40,7 +40,6 @@ public class RestAPIController implements Serializable{
     @Autowired
     UserService userService;
 
-
     @Autowired
     MachineColourantService machineColourantService;
 
@@ -79,7 +78,6 @@ public class RestAPIController implements Serializable{
     public List getFormulaProductBaseByFormulaId(@PathVariable Long formulaId){
         return formulaService.findFormulaProductBaseByFormulaId(formulaId);
     }
-
 
     @RequestMapping(value = "/server/api/product_base_can/findById/{productBaseCanId}", method = RequestMethod.GET)
     public List getProductBaseCan(@PathVariable Long productBaseCanId){
@@ -143,7 +141,6 @@ public class RestAPIController implements Serializable{
         }
     }
 
-
     // tracking data pumping colourant data
     @RequestMapping(value = "/server/api/machine/getColourants/{machineId}", method = RequestMethod.GET)
     public List getMachineColourants(@PathVariable Long machineId){
@@ -164,9 +161,7 @@ public class RestAPIController implements Serializable{
         return machineColourantService.findByMachineId(machineColourant.getMachine().getMachineId());
     }
 
-
     // tracking Dispense task data
-
     @RequestMapping(value = "/server/api/machine_formula/record", method = RequestMethod.POST)
     @ResponseBody
     public Object machineFormula(@RequestBody MachineFormulaProductBase machineFormulaProductBase){
@@ -184,15 +179,12 @@ public class RestAPIController implements Serializable{
         return machineService.getMachineFormulaProductBaseLog(taskId);
     }
 
-
     // machine api
     @RequestMapping(value = "/server/api/machine/update", method = RequestMethod.POST)
     @ResponseBody
     public Object updateMachine(@RequestBody Machine machine){
         return machineService.updateMachine(machine);
     }
-
-
 
     @RequestMapping(value = "/server/api/collection/findById/{collectionId}", method = RequestMethod.GET)
     public Object findCollectionById(@PathVariable Long collectionId){
@@ -220,7 +212,6 @@ public class RestAPIController implements Serializable{
     public Object findBaseFromProduct(@PathVariable Long productId){
         return productBaseService.findByProductId(productId);
     }
-
 
 
     @RequestMapping(value = "/server/api/machine_formula/saveOrUpdate", method = RequestMethod.POST)

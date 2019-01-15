@@ -24,6 +24,9 @@ public class MachineColourant {
     @Column
     private Double quantity;
 
+    @Transient
+    private Long machineFormulaProductBaseId;
+
     public Long getMachineColourantId() {
         return machineColourantId;
     }
@@ -54,5 +57,13 @@ public class MachineColourant {
 
     public void setQuantity(Double quantity) {
         this.quantity = quantity;
+    }
+
+    public Long getMachineFormulaProductBaseId() {
+        return machineFormulaProductBaseId;
+    }
+
+    public void setMachineFormulaProductBaseId(Long machineFormulaProductBaseId) {
+        this.machineFormulaProductBaseId = machineFormulaProductBaseId;
     }
 }

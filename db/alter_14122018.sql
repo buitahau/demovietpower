@@ -117,7 +117,10 @@ ALTER TABLE Machine ADD COLUMN warningQuantity DOUBLE;
 UPDATE Machine SET warningQuantity = 800;
 
 
---
 ALTER TABLE Formula ADD COLUMN ApproximateColor VARCHAR(10);
 ALTER TABLE Formula ADD COLUMN Substrate TEXT;
 ALTER TABLE Formula ADD COLUMN Comment TEXT;
+
+--
+ALTER TABLE MachineColourantLog ADD COLUMN machineFormulaId BIGINT;
+ALTER TABLE MachineColourantLog ADD CONSTRAINT FK_MachineColourantLog_Formula FOREIGN KEY (machineFormulaId) REFERENCES MachineFormulaProductBase(machineFormulaId);

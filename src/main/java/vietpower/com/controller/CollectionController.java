@@ -48,4 +48,21 @@ public class CollectionController {
         modelMap.addAttribute("collection", collection);
         return "collection/collection_formula";
     }
+
+    @RequestMapping(value = {"/collection/add", "/collection/edit"})
+    public String addCollection(Collection collection, ModelMap modelMap){
+        if(collection.getCollectionId() != null && collection.getCollectionId() > 0){
+          collection = this.collectionService.findById(collection.getCollectionId());
+        }
+        modelMap.addAttribute("collection", collection);
+        return "collection/add";
+    }
+
+    @RequestMapping(value = "/collection/insert-or-update")
+    public String insertOrUpdate(Collection collection, ModelMap modelMap){
+        System.out.println(collection);
+        modelMap.addAttribute("collection", collection);
+        collection = collectionService.saveOrUpdate(collection);
+        return "redirect:/admin/collection/list";
+    }
 }

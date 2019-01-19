@@ -67,4 +67,15 @@ public class CollectionServiceImp implements CollectionService {
     public List<Collection> find(Collection collection) {
         return collectionDao.find(collection);
     }
+
+    @Override
+    public Collection saveOrUpdate(Collection collection) {
+        if(collection.getCollectionId() != null && collection.getCollectionId() > 0){
+            collectionDao.update(collection);
+        } else {
+            collection.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+            collectionDao.persist(collection);
+        }
+        return collection;
+    }
 }

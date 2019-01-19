@@ -42,7 +42,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-success mr-2">Search</button>
+                            <button type="submit" class="btn btn-success mr-2">Save</button>
                         </form:form>
                     </div>
                 </div>
@@ -54,7 +54,13 @@
     <div class="col-lg-12 grid-margin">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">List Collection</h4>
+                <h4 class="card-title">
+                    List Collection
+
+                    <div class="card-buttons">
+                        <a href="<c:url value="/admin/collection/add"/>" class="btn btn-success custom-width">Add</a>
+                    </div>
+                </h4>
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
@@ -71,7 +77,10 @@
                                 <td>${collection.collectionName}</td>
                                 <td>${collection.description}</td>
                                 <td>${collection.machine.name}</td>
-                                <td><a href="<c:url value='/admin/collection/${collection.collectionId}/formula' />" class="btn btn-success custom-width">Detail</a></td>
+                                <td>
+                                    <a href="<c:url value='/admin/collection/${collection.collectionId}/formula' />" class="btn btn-success custom-width">Detail</a>
+                                    <a href="<c:url value='/admin/collection//edit'/>?collectionId=${collection.collectionId}" class="btn btn-default custom-width">Edit</a>
+                                </td>
                             </tr>
                         </c:forEach>
                         </tbody>

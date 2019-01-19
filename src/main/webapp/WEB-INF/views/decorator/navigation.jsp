@@ -7,6 +7,14 @@
                 <span class="menu-title">Collections</span>
             </a>
         </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="<c:url value="/admin/formula/list"/>">
+                <i class="menu-icon mdi mdi-table"></i>
+                <span class="menu-title">Formulas</span>
+            </a>
+        </li>
+
         <li class="nav-item">
             <a class="nav-link" href="<c:url value="/admin/machine/list"/>">
                 <i class="menu-icon mdi mdi-television"></i>

@@ -88,4 +88,9 @@ public class FormulaServiceImpl implements FormulaService {
     public void update(Formula formula) {
         formulaDao.update(formula);
     }
+
+    @Override
+    public Formula findById(Long formulaId) {
+        return formulaDao.findById(formulaId);
+    }
 }

@@ -37,8 +37,8 @@
                             </div>
                         </div>
                     </div>
-                    <%--<form:input type="hidden" path="action" id="action" class="form-control" placeholder="Enter collection description"/>--%>
-                    <button class="btn btn-success mr-2" onclick="addCollection();">Search</button>
+                    <form:input type="hidden" path="collectionId" id="collectionId" class="form-control"/>
+                    <button class="btn btn-success mr-2" onclick="addCollection();">Save</button>
                 </form:form>
             </div>
         </div>

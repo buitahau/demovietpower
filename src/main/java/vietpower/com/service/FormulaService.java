@@ -33,4 +33,6 @@ public interface FormulaService {
     List<Formula> findByCollection(Long collectionId);
 
     void update(Formula formula);
+
+    Formula findById(Long formulaId);
 }

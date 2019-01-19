@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import vietpower.com.dao.AbstractDao;
 import vietpower.com.dao.FormulaDao;
 import vietpower.com.model.Formula;
+import vietpower.com.model.Machine;
 
 import java.util.List;
 
@@ -24,5 +25,13 @@ public class FormulaDaoImpl extends AbstractDao<Integer, Formula> implements For
         Criteria crit = createEntityCriteria();
         crit.add(Restrictions.eq("collection.collectionId", collectionId));
         return (List<Formula>) crit.list();
+    }
+
+    @Override
+    public Formula findById(Long formulaId) {
+        Criteria crit = createEntityCriteria();
+        crit.add(Restrictions.eq("formulaId", formulaId));
+        Formula formula = (Formula)crit.uniqueResult();
+        return formula;
     }
 }

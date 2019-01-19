@@ -15,4 +15,6 @@ public interface FormulaDao {
     List<Formula> findByCollection(Long collectionId);
 
     void update(Formula dbItem);
+
+    Formula findById(Long formulaId);
 }

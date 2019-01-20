@@ -84,7 +84,7 @@
                                 <td>${formula.approximateColor}</td>
                                 <td>${formula.substrate}</td>
                                 <td>
-                                    <a href="<c:url value='/admin/formula/edit'/>?formulaId=${formula.formulaId}" class="btn btn-default custom-width">Edit</a>
+                                    <a href="<c:url value='/admin/formula/edit'/>?formula.formulaId=${formula.formulaId}" class="btn btn-default custom-width">Edit</a>
                                 </td>
                             </tr>
                         </c:forEach>

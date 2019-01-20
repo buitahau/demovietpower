@@ -13,6 +13,7 @@ import vietpower.com.model.FormulaProductBase;
 import vietpower.com.model.ProductBaseCan;
 import vietpower.com.service.FormulaService;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -92,5 +93,46 @@ public class FormulaServiceImpl implements FormulaService {
     @Override
     public Formula findById(Long formulaId) {
         return formulaDao.findById(formulaId);
+    }
+
+    @Override
+    public Formula saveOrUpdate(Formula formula, List<FormulaColourant> listFormulaColourant) {
+        String mode = formula.getFormulaId() != null && formula.getFormulaId() > 0 ? "update": "save";
+
+        if(mode.equalsIgnoreCase("update")){
+            Formula dbItem = this.formulaDao.findById(formula.getFormulaId());
+            dbItem.setFormulaCode(formula.getFormulaCode());
+            dbItem.setFormulaName(formula.getFormulaName());
+            dbItem.setCollection(formula.getCollection());
+            dbItem.setBaseOnCan(formula.getBaseOnCan());
+            dbItem.setApproximateColor(formula.getApproximateColor());
+            dbItem.setSubstrate(formula.getSubstrate());
+            dbItem.setComment(formula.getComment());
+
+            this.formulaDao.update(dbItem);
+            formula = dbItem;
+        } else {
+            formula.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+            this.formulaDao.persist(formula);
+        }
+
+        if(mode.equalsIgnoreCase("update")){
+            List<FormulaColourant> formulaColourantListDBItems = this.formulaColourantDao.findByFormulaId(formula.getFormulaId());
+            for(FormulaColourant formulaColourant : formulaColourantListDBItems){
+                this.formulaColourantDao.delete(formulaColourant);
+            }
+        }
+
+        for(FormulaColourant formulaColourant : listFormulaColourant){
+            if(formulaColourant.getQuantity() != null && formulaColourant.getQuantity() > 0){
+                FormulaColourant formulaColourantDBItem = new FormulaColourant();
+                formulaColourantDBItem.setFormula(formula);
+                formulaColourantDBItem.setColourant(formulaColourant.getColourant());
+                formulaColourantDBItem.setQuantity(formulaColourant.getQuantity());
+                this.formulaColourantDao.persist(formulaColourantDBItem);
+            }
+        }
+
+        return formula;
     }
 }

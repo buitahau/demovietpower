@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import vietpower.com.model.Collection;
-import vietpower.com.model.Colourant;
-import vietpower.com.model.Formula;
-import vietpower.com.model.FormulaColourant;
+import vietpower.com.model.*;
 import vietpower.com.service.*;
 
 import java.util.HashMap;
@@ -48,13 +45,11 @@ public class FormulaController {
     }
 
     @RequestMapping(value = {"/formula/add", "/formula/edit"})
-    public String addCollection(Formula formula, ModelMap modelMap){
+    public String addCollection(FormulaModel formulaModel, ModelMap modelMap){
+        Formula formula = formulaModel.getFormula();
         if(formula.getFormulaId() != null && formula.getFormulaId() > 0){
           formula = this.formulaService.findById(formula.getFormulaId());
         }
-        modelMap.addAttribute("formula", formula);
-        modelMap.addAttribute("listProductBase", productBaseService.findAll());
-        modelMap.addAttribute("listCollection", collectionService.findAll());
 
         List<FormulaColourant> listFormulaColourant = formulaColorantService.findByFormulaId(formula.getFormulaId());
         Map<Long, Double> mapColourantQuantity = new HashMap<>();
@@ -73,16 +68,17 @@ public class FormulaController {
                 listFormulaColourant.add(formulaColourant);
             }
         }
-        modelMap.addAttribute("listFormulaColourant", listFormulaColourant);
 
+        formulaModel.setFormula(formula);
+        formulaModel.setListFormulaColourant(listFormulaColourant);
+        modelMap.addAttribute("listProductBase", productBaseService.findAll());
+        modelMap.addAttribute("listCollection", collectionService.findAll());
         return "formula/add";
     }
 
     @RequestMapping(value = "/formula/insert-or-update")
-    public String insertOrUpdate(Collection collection, ModelMap modelMap){
-        System.out.println(collection);
-        modelMap.addAttribute("collection", collection);
-        collection = collectionService.saveOrUpdate(collection);
+    public String insertOrUpdate(FormulaModel formulaModel, ModelMap modelMap){
+        formulaService.saveOrUpdate(formulaModel.getFormula(), formulaModel.getListFormulaColourant());
         return "redirect:/admin/formula/list";
     }
 }

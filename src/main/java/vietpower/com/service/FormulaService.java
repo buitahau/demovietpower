@@ -1,9 +1,6 @@
 package vietpower.com.service;
 
-import vietpower.com.model.Formula;
-import vietpower.com.model.FormulaColourant;
-import vietpower.com.model.FormulaProductBase;
-import vietpower.com.model.ProductBaseCan;
+import vietpower.com.model.*;
 
 import java.util.List;
 import java.util.Map;
@@ -35,4 +32,6 @@ public interface FormulaService {
     void update(Formula formula);
 
     Formula findById(Long formulaId);
+
+    Formula saveOrUpdate(Formula formula, List<FormulaColourant> listFormulaColourant);
 }

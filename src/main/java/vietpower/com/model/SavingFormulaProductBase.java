@@ -6,6 +6,7 @@ public class SavingFormulaProductBase {
     private FormulaProductBase formulaProductBase;
     private Machine machine;
     private List<FormulaColourant> formulaColourantList;
+    private List<Long> listCustomer;
 
     public FormulaProductBase getFormulaProductBase() {
         return formulaProductBase;
@@ -29,5 +30,13 @@ public class SavingFormulaProductBase {
 
     public void setFormulaColourantList(List<FormulaColourant> formulaColourantList) {
         this.formulaColourantList = formulaColourantList;
+    }
+
+    public List<Long> getListCustomer() {
+        return listCustomer;
+    }
+
+    public void setListCustomer(List<Long> listCustomer) {
+        this.listCustomer = listCustomer;
     }
 }

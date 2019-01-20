@@ -11,4 +11,6 @@ import java.util.List;
 public interface FormulaCustomerService {
 
     List<FormulaCustomer> findByFormulaId(Long formulaId);
+
+    List<FormulaCustomer> findByMachine(Long machineId);
 }

@@ -25,11 +25,34 @@ public class SavingFormulaProductBaseServiceImpl implements SavingFormulaProduct
     @Autowired
     FormulaColourantDao formulaColourantDao;
 
+    @Autowired
+    FormulaCustomerDao formulaCustomerDao;
+
     @Override
     public FormulaProductBase saveOrUpdateFormulaProductBase(SavingFormulaProductBase savingFormulaProductBase){
         FormulaProductBase savingItem = saveOrUpdateFormulaProductBase(savingFormulaProductBase.getFormulaProductBase(), savingFormulaProductBase.getMachine());
         saveOrUpdateListColourant(savingFormulaProductBase.getFormulaColourantList(), savingItem.getFormula());
+        saveOrUpdateListCustomer(savingItem, savingFormulaProductBase.getListCustomer());
         return savingItem;
+    }
+
+    private void saveOrUpdateListCustomer(FormulaProductBase savingItem, List<Long> listCustomer) {
+        List<FormulaCustomer> formulaCustomerList = this.formulaCustomerDao.findByFormulaId(savingItem.getFormula().getFormulaId());
+        if(formulaCustomerList != null && formulaCustomerList.size() > 0){
+            for(FormulaCustomer formulaCustomer : formulaCustomerList){
+                this.formulaCustomerDao.delete(formulaCustomer);
+            }
+        }
+
+        for(Long customerId : listCustomer){
+            Customer customer = new Customer();
+            customer.setCustomerId(customerId);
+            FormulaCustomer formulaCustomer = new FormulaCustomer();
+            formulaCustomer.setFormula(savingItem.getFormula());
+            formulaCustomer.setCustomer(customer);
+
+            this.formulaCustomerDao.persist(formulaCustomer);
+        }
     }
 
     private void saveOrUpdateListColourant(List<FormulaColourant> newFormulaColourants, Formula formula){

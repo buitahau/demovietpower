@@ -14,4 +14,6 @@ public interface FormulaCustomerDao {
     void delete(FormulaCustomer formulaCustomer);
 
     void persist(FormulaCustomer formulaCustomer);
+
+    List<FormulaCustomer> findByMachine(Long machineId);
 }

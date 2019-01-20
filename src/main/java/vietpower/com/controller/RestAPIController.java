@@ -38,6 +38,9 @@ public class RestAPIController implements Serializable{
     FormulaColorantService formulaColorantService;
 
     @Autowired
+    FormulaCustomerService formulaCustomerService;
+
+    @Autowired
     UserService userService;
 
     @Autowired
@@ -145,6 +148,12 @@ public class RestAPIController implements Serializable{
     @RequestMapping(value = "/server/api/machine/getColourants/{machineId}", method = RequestMethod.GET)
     public List getMachineColourants(@PathVariable Long machineId){
         return machineColourantService.findByMachineId(machineId);
+    }
+
+    @RequestMapping(value = "/server/api/formula-customer/getAll/{machineId}", method = RequestMethod.GET)
+    @ResponseBody
+    public List getAllFormulaCustomer(@PathVariable Long machineId){
+        return formulaCustomerService.findByMachine(machineId);
     }
 
     @RequestMapping(value = "/server/api/machine_colour/subtraction", method = RequestMethod.POST)

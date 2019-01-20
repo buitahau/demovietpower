@@ -40,4 +40,9 @@ public class ProductBaseServiceImpl implements ProductBaseService {
         }
         return new ArrayList<>(resultBase);
     }
+
+    @Override
+    public List<ProductBase> findAll() {
+        return this.productBaseDao.findAll();
+    }
 }

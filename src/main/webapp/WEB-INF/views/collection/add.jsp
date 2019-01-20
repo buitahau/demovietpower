@@ -17,7 +17,14 @@
     <div class="col-lg-12 grid-margin">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Add Collection</h4>
+                <h4 class="card-title">
+                    <c:choose>
+                        <c:when test="${collection.collectionId != null && collection.collectionId  > 0}">Edit</c:when>
+                        <c:otherwise>Add</c:otherwise>
+                    </c:choose>
+
+                    Collection
+                </h4>
 
                 <c:url value="/admin/collection/insert-or-update" var="insertOrUpdateURL" />
 
@@ -38,7 +45,12 @@
                         </div>
                     </div>
                     <form:input type="hidden" path="collectionId" id="collectionId" class="form-control"/>
-                    <button class="btn btn-success mr-2" onclick="addCollection();">Save</button>
+                    <button class="btn btn-success mr-2" onclick="addCollection();">
+                        <c:choose>
+                            <c:when test="${collection.collectionId != null && collection.collectionId  > 0}">Update</c:when>
+                            <c:otherwise>Save</c:otherwise>
+                        </c:choose>
+                    </button>
                 </form:form>
             </div>
         </div>

@@ -14,14 +14,19 @@
 </head>
 <body>
 <div class="row">
-    <div class="col-lg-12 grid-margin">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Add Collection</h4>
+    <c:url value="/admin/formula/insert-or-update" var="insertOrUpdateURL" />
+    <form:form method="POST" modelAttribute="formula" class="form-horizontal" id="editForm" action="${insertOrUpdateURL}">
+        <div class="col-lg-12 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">
+                        <c:choose>
+                            <c:when test="${formula.formulaId != null && formula.formulaId  > 0}">Edit</c:when>
+                            <c:otherwise>Add</c:otherwise>
+                        </c:choose>
+                        Collection
+                    </h4>
 
-                <c:url value="/admin/formula/insert-or-update" var="insertOrUpdateURL" />
-
-                <form:form method="POST" modelAttribute="formula" class="form-horizontal" id="editForm" action="${insertOrUpdateURL}">
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group">
@@ -82,15 +87,41 @@
                         </div>
                     </div>
 
-                    <form:input type="hidden" path="formulaId" id="formulaId" class="form-control"/>
 
-                    <button class="btn btn-success mr-2" onclick="addFormula();">
-                        Save
-                    </button>
-                </form:form>
+
+                <button class="btn btn-success mr-2" onclick="addFormula();">
+                    <c:choose>
+                        <c:when test="${formula.formulaId != null && formula.formulaId  > 0}">Update</c:when>
+                        <c:otherwise>Save</c:otherwise>
+                    </c:choose>
+                </button>
+                </div>
             </div>
         </div>
-    </div>
+
+        <div class="col-lg-12 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">
+                        List Formula Collection
+                    </h4>
+                </div>
+
+                <div class="row">
+                    <c:forEach items="${listFormulaColourant}" var="formulaColourant" varStatus="status">
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label>${formulaColourant.colourant.colourantCode}</label>
+                                <form:input type="number" path="listFormulaColourant[${status.index}}.quantity" class="form-control"/>
+                                <form:input type="hidden" path="listFormulaColourant[${status.index}}.colourant.colourantId" class="form-control"/>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </div>
+            </div>
+        </div>
+        <form:input type="hidden" path="formulaId" id="formulaId" class="form-control"/>
+    </form:form>
 </div>
 
 <script>

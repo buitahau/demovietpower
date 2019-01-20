@@ -3,17 +3,16 @@ package vietpower.com.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import vietpower.com.model.Collection;
+import vietpower.com.model.Colourant;
 import vietpower.com.model.Formula;
-import vietpower.com.service.CollectionService;
-import vietpower.com.service.FormulaService;
-import vietpower.com.service.MachineService;
-import vietpower.com.service.ProductService;
-import vietpower.com.utils.SecurityUtils;
+import vietpower.com.model.FormulaColourant;
+import vietpower.com.service.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by HauKute on 1/4/2019.
@@ -26,6 +25,15 @@ public class FormulaController {
 
     @Autowired
     ProductService productService;
+
+    @Autowired
+    ProductBaseService productBaseService;
+
+    @Autowired
+    ColourantService colourantService;
+
+    @Autowired
+    FormulaColorantService formulaColorantService;
 
     @Autowired
     FormulaService formulaService;
@@ -45,6 +53,28 @@ public class FormulaController {
           formula = this.formulaService.findById(formula.getFormulaId());
         }
         modelMap.addAttribute("formula", formula);
+        modelMap.addAttribute("listProductBase", productBaseService.findAll());
+        modelMap.addAttribute("listCollection", collectionService.findAll());
+
+        List<FormulaColourant> listFormulaColourant = formulaColorantService.findByFormulaId(formula.getFormulaId());
+        Map<Long, Double> mapColourantQuantity = new HashMap<>();
+        for(FormulaColourant formulaColourant : listFormulaColourant){
+            mapColourantQuantity.put(formulaColourant.getColourant().getColourantId(), formulaColourant.getQuantity());
+        }
+
+        List<Colourant> colourants = colourantService.findAll();
+        for(Colourant colourant : colourants){
+            if(mapColourantQuantity.get(colourant.getColourantId()) == null){
+                FormulaColourant formulaColourant = new FormulaColourant();
+                formulaColourant.setColourant(colourant);
+                formulaColourant.setFormula(formula);
+                formulaColourant.setQuantity(null);
+
+                listFormulaColourant.add(formulaColourant);
+            }
+        }
+        modelMap.addAttribute("listFormulaColourant", listFormulaColourant);
+
         return "formula/add";
     }
 

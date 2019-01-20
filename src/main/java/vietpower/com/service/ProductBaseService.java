@@ -13,4 +13,6 @@ public interface ProductBaseService {
     List<ProductBase> findByProductId (Long productId);
 
     List<Base> findByProduct (Long productId);
+
+    List<ProductBase> findAll();
 }

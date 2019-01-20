@@ -29,6 +29,7 @@ public class FormulaCustomerServiceImpl implements FormulaCustomerService {
 
     @Override
     public List<FormulaCustomer> findByMachine(Long machineId) {
-        return formulaCustomerDao.findByMachine(machineId);
+//        return formulaCustomerDao.findByMachine(machineId);
+        return formulaCustomerDao.findAll();
     }
 }

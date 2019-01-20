@@ -16,4 +16,6 @@ public interface FormulaCustomerDao {
     void persist(FormulaCustomer formulaCustomer);
 
     List<FormulaCustomer> findByMachine(Long machineId);
+
+    List<FormulaCustomer> findAll();
 }

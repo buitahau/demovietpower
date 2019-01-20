@@ -35,4 +35,9 @@ public class FormulaCustomerDaoImpl extends AbstractDao<Integer, FormulaCustomer
         }
         return (List<FormulaCustomer>) criteria.list();
     }
+
+    @Override
+    public List<FormulaCustomer> findAll() {
+        return (List<FormulaCustomer>) createEntityCriteria().list();
+    }
 }

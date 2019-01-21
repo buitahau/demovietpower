@@ -47,8 +47,10 @@ public class FormulaController {
     @RequestMapping(value = {"/formula/add", "/formula/edit"})
     public String addCollection(FormulaModel formulaModel, ModelMap modelMap){
         Formula formula = formulaModel.getFormula();
-        if(formula.getFormulaId() != null && formula.getFormulaId() > 0){
+        if(formula != null && formula.getFormulaId() != null && formula.getFormulaId() > 0){
           formula = this.formulaService.findById(formula.getFormulaId());
+        } else {
+            formula = new Formula();
         }
 
         List<FormulaColourant> listFormulaColourant = formulaColorantService.findByFormulaId(formula.getFormulaId());

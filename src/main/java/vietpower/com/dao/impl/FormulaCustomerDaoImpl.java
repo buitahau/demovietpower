@@ -28,10 +28,7 @@ public class FormulaCustomerDaoImpl extends AbstractDao<Integer, FormulaCustomer
     public List<FormulaCustomer> findByMachine(Long machineId) {
         Criteria criteria = createEntityCriteria();
         if(machineId != null) {
-            Machine machine = new Machine();
-            machine.setMachineId(machineId);
-            criteria.add(Restrictions.isNotNull("formula.machine"));
-            criteria.add(Restrictions.eq("formula.machine", machine));
+            criteria.add(Restrictions.eq("formula.machine.machineId", machineId));
         }
         return (List<FormulaCustomer>) criteria.list();
     }

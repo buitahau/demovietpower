@@ -123,3 +123,24 @@ ALTER TABLE Formula ADD COLUMN Comment TEXT;
 
 ALTER TABLE MachineColourantLog ADD COLUMN machineFormulaId BIGINT;
 ALTER TABLE MachineColourantLog ADD CONSTRAINT FK_MachineColourantLog_Formula FOREIGN KEY (machineFormulaId) REFERENCES MachineFormulaProductBase(machineFormulaId);
+
+
+CREATE TABLE Customer(
+  customerId BIGINT AUTO_INCREMENT PRIMARY KEY,
+  name TEXT,
+  phone VARCHAR(20) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  address TEXT NOT NULL,
+  Note TEXT,
+  machineId BIGINT NOT NULL,
+  FOREIGN KEY (machineId) REFERENCES Machine(machineId) ON UPDATE CASCADE ON DELETE RESTRICT
+);
+
+
+CREATE TABLE FormulaCustomer(
+  formulaCustomerId BIGINT AUTO_INCREMENT PRIMARY KEY,
+  formulaId BIGINT NOT NULL,
+  customerId BIGINT NOT NULL,
+  FOREIGN KEY (formulaId) REFERENCES Formula(formulaId) ON UPDATE CASCADE ON DELETE RESTRICT,
+  FOREIGN KEY (customerId) REFERENCES Customer(customerId) ON UPDATE CASCADE ON DELETE RESTRICT
+);

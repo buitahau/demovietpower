@@ -221,6 +221,10 @@ public class RestAPIController implements Serializable{
     public Object findBaseFromProduct(@PathVariable Long productId){
         return productBaseService.findByProductId(productId);
     }
+    @RequestMapping(value = "/server/api/product-base/findAll", method = RequestMethod.GET)
+    public List getAllProductBase(){
+        return productBaseService.findAll();
+    }
 
 
     @RequestMapping(value = "/server/api/machine_formula/saveOrUpdate", method = RequestMethod.POST)

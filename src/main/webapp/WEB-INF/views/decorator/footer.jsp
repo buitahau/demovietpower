@@ -47,6 +47,8 @@
             setActivePanel('/admin/formula/');
         } else if (currentURL.indexOf('/admin/machine/') > -1) {
             setActivePanel('/admin/machine/');
+        } else if(currentURL.indexOf('/admin/user/') > -1){
+            setActivePanel('/admin/user/');
         }
     });
 

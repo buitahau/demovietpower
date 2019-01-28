@@ -146,10 +146,10 @@
         <form:input type="hidden" path="formula.formulaId" id="formulaId" class="form-control"/>
     </form:form>
 
-<script>
-    function addFormula(){
-        $('#editForm').submit();
-    }
-</script>
+    <script>
+        function addFormula(){
+            $('#editForm').submit();
+        }
+    </script>
 </body>
 </html>

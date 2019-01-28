@@ -36,25 +36,7 @@ public class UserController {
     /**
      * This method will list all existing users.
      */
-    @RequestMapping(value = {"/list" }, method = RequestMethod.GET)
-    public String listUsers(ModelMap model) {
-        List<User> users = userService.findAllUsers();
-        model.addAttribute("users", users);
-        model.addAttribute("loggedinuser", getPrincipal());
-        return "users/userlist";
-    }
 
-    /**
-     * This method will provide the medium to add a new user.
-     */
-    @RequestMapping(value = { "/newuser" }, method = RequestMethod.GET)
-    public String newUser(ModelMap model) {
-        User user = new User();
-        model.addAttribute("user", user);
-        model.addAttribute("edit", false);
-        model.addAttribute("loggedinuser", getPrincipal());
-        return "users/registration";
-    }
 
     @RequestMapping(value = "/login")
     public String login(ModelMap model) {

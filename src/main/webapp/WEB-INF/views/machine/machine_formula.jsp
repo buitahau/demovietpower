@@ -14,33 +14,46 @@
     <%--<a href="<c:url value='/'/>">Back</a>--%>
 </head>
 <body>
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a href="<c:url value="/"/>">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a href="<c:url value="/admin/machine/list"/>">List Machine</a>
+    </li>
+
+    <li class="breadcrumb-item active">Detail Formula</li>
+</ol>
 <div class="row">
-    <div class="col-lg-12 grid-margin">
-        <div class="card">
+    <div class="col-12">
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fas fa-chart-area"></i>
+                Detail Formula
+            </div>
+
             <div class="card-body">
-                <h4 class="card-title">Detail Formula
-                </h4>
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
-                            <tr>
-                                <th>Formula</th>
-                                <th>Product</th>
-                                <th>Base</th>
-                                <th>Date</th>
-                                <th>Quantity</th>
-                            </tr>
+                        <tr>
+                            <th>Formula</th>
+                            <th>Product</th>
+                            <th>Base</th>
+                            <th>Date</th>
+                            <th>Quantity</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            <c:forEach items="${machinefpbs}" var="f">
-                                <tr>
-                                    <td>${f.formulaProductBase.formula.formulaCode}</td>
-                                    <td>${f.formulaProductBase.productBase.product.productCode}</td>
-                                    <td>${f.formulaProductBase.productBase.base.baseCode}</td>
-                                    <td>${f.createdDate}</td>
-                                    <td>${f.quantity}</td>
-                                </tr>
-                            </c:forEach>
+                        <c:forEach items="${machinefpbs}" var="f">
+                            <tr>
+                                <td>${f.formulaProductBase.formula.formulaCode}</td>
+                                <td>${f.formulaProductBase.productBase.product.productCode}</td>
+                                <td>${f.formulaProductBase.productBase.base.baseCode}</td>
+                                <td>${f.createdDate}</td>
+                                <td>${f.quantity}</td>
+                            </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </div>

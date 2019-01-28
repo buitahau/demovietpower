@@ -11,14 +11,26 @@
 <head>
     <title>Machine colour</title>
     <meta charset="utf-8">
-    <%--<a href="<c:url value='/'/>">Back</a>--%>
 </head>
 <body>
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a href="<c:url value="/"/>">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a href="<c:url value="/admin/machine/list"/>">List Machine</a>
+    </li>
+    <li class="breadcrumb-item active">Machine Colour</li>
+</ol>
 <div class="row">
-    <div class="col-lg-12 grid-margin">
-        <div class="card">
+    <div class="col-12">
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fas fa-chart-area"></i>
+                Machine Colour
+            </div>
+
             <div class="card-body">
-                <h4 class="card-title">Machine Colour</h4>
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>

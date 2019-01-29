@@ -2,16 +2,16 @@
 <!-- Sidebar -->
 <ul class="sidebar navbar-nav">
     <li class="nav-item">
-        <a class="nav-link" href="<c:url value="/admin/user/list"/>">
-            <i class="menu-icon mdi mdi-table"></i>
-            <span class="menu-title">User</span>
+        <a class="nav-link" href="<c:url value="/admin/machine/list"/>">
+            <i class="menu-icon mdi mdi-television"></i>
+            <span class="menu-title">List Machine</span>
         </a>
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="<c:url value="/admin/machine/list"/>">
-            <i class="menu-icon mdi mdi-television"></i>
-            <span class="menu-title">List Machine</span>
+        <a class="nav-link" href="<c:url value="/admin/user/list"/>">
+            <i class="menu-icon mdi mdi-table"></i>
+            <span class="menu-title">User</span>
         </a>
     </li>
 

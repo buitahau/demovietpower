@@ -14,4 +14,6 @@ public interface MachineDao {
     Machine findById(Long machineId);
 
     void update(Machine machine);
+
+    void persist(Machine machine);
 }

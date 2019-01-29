@@ -36,6 +36,7 @@
                         <tr>
                             <th>Code</th>
                             <th>Name</th>
+                            <th>Description</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -44,6 +45,7 @@
                             <tr>
                                 <td>${machine.code}</td>
                                 <td>${machine.name}</td>
+                                <td>${machine.description}</td>
                                 <td>
                                     <a href="<c:url value='/admin/machine/${machine.machineId}/colour' />" class="btn btn-success custom-width">Colour</a>
                                     <a href="<c:url value='/admin/machine/${machine.machineId}/formula' />" class="btn btn-primary custom-width">Formula</a>

@@ -13,11 +13,11 @@ public class Machine {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long machineId;
 
-    @Column(name = "name")
-    private String name;
-
     @Column(name = "code", unique = true)
     private String code;
+
+    @Column(name = "name")
+    private String name;
 
     @Column(name = "minQuantity")
     private Integer minQuantity;
@@ -27,6 +27,17 @@ public class Machine {
 
     @Column(name = "maxQuantity")
     private Integer maxQuantity;
+
+    @Column(name = "description")
+    private String description;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public Long getMachineId() {
         return machineId;

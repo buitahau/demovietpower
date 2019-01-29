@@ -60,7 +60,6 @@ public class CollectionController {
 
     @RequestMapping(value = "/collection/insert-or-update")
     public String insertOrUpdate(Collection collection, ModelMap modelMap){
-        System.out.println(collection);
         modelMap.addAttribute("collection", collection);
         collection = collectionService.saveOrUpdate(collection);
         return "redirect:/admin/collection/list";

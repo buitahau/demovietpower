@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import vietpower.com.model.FormulaModel;
+import vietpower.com.model.Machine;
 import vietpower.com.model.MachineColourantLog;
 import vietpower.com.service.MachineService;
 
@@ -24,6 +26,22 @@ public class MachineController {
     public String listMachine(ModelMap modelMap){
         modelMap.addAttribute("listMachines", machineService.findAllMachine());
         return "machine/list";
+    }
+
+    @RequestMapping(value = {"/machine/add", "/machine/edit"})
+    public String addCollection(Machine machine, ModelMap modelMap){
+        if(machine.getMachineId() != null && machine.getMachineId() > 0){
+            machine = this.machineService.findById(machine.getMachineId());
+        }
+        modelMap.addAttribute("machine", machine);
+        return  "machine/add";
+    }
+
+    @RequestMapping(value = "/machine/insert-or-update")
+    public String insertOrUpdate(Machine machine, ModelMap modelMap){
+        machine = machineService.saveOrUpdate(machine);
+        modelMap.addAttribute("machine", machine);
+        return "redirect:/admin/machine/list";
     }
 
     @RequestMapping(value = "/machine/{machineId}/colour")

@@ -2,6 +2,7 @@ package vietpower.com.dao.impl;
 
 import vietpower.com.dao.AbstractDao;
 import vietpower.com.dao.UserDao;
+import vietpower.com.model.Machine;
 import vietpower.com.model.User;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
@@ -16,8 +17,10 @@ import java.util.List;
 @Repository("userDao")
 public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
     @Override
-    public User findById(Long id) {
-        User user = getByKey(id.intValue());
+    public User findById(Long userId) {
+        Criteria crit = createEntityCriteria();
+        crit.add(Restrictions.eq("userId", userId));
+        User user = (User)crit.uniqueResult();
         return user;
     }
 

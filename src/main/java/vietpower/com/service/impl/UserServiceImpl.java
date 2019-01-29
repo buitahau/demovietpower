@@ -20,8 +20,8 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     @Override
-    public User findById(Long id) {
-        return userDao.findById(id);
+    public User findById(Long userId) {
+        return userDao.findById(userId);
     }
 
     @Override

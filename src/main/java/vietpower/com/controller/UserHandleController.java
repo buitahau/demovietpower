@@ -46,7 +46,7 @@ public class UserHandleController {
     /**
      * This method will provide the medium to add a new user.
      */
-    @RequestMapping(value = { "/user/add" })
+    @RequestMapping(value = {"/user/add" })
     public String newUser(ModelMap model) {
         User user = new User();
         model.addAttribute("user", user);
@@ -63,6 +63,8 @@ public class UserHandleController {
         model.addAttribute("user", user);
         model.addAttribute("edit", true);
         model.addAttribute("loggedinuser", getPrincipal());
+        model.addAttribute("listMachine", this.machineService.findAllMachine());
+        model.addAttribute("roles", this.roleService.findAll());
         return "users/add";
     }
 

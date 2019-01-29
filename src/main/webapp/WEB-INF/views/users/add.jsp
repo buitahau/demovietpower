@@ -38,7 +38,7 @@
 <c:url value="/admin/user/insert-or-update" var="insertOrUpdateURL" />
 <form:form method="POST" modelAttribute="user" class="form-horizontal" id="editForm" action="${insertOrUpdateURL}">
     <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-12">
             <div class="card mb-3">
                 <div class="card-header">
                     <i class="fas fa-chart-area"></i>

@@ -146,3 +146,4 @@ CREATE TABLE FormulaCustomer(
 );
 
 ALTER TABLE Machine ADD COLUMN description TEXT;
+ALTER TABLE MachineColourant ADD COLUMN refillFactor DOUBLE;

@@ -48,4 +48,16 @@ public class CompanyServiceImp implements CompanyService {
         }
         return company;
     }
+
+    @Override
+    public Company updateCompanyInfo(Company company) {
+        if(company.getCompanyId() != null && company.getCompanyId() > 0){
+            Company dbItem = this.companyDao.findById(company.getCompanyId());
+            if(dbItem != null){
+                companyDao.update(company);
+                return company;
+            }
+        }
+        return null;
+    }
 }

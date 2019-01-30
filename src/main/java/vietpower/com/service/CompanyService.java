@@ -15,4 +15,6 @@ public interface CompanyService {
     List<Company> searchByProperties(Company company);
 
     Company saveOrUpdate(Company company);
+
+    Company updateCompanyInfo(Company company);
 }

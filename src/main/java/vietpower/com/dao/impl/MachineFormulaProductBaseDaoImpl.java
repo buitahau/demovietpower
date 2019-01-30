@@ -1,6 +1,7 @@
 package vietpower.com.dao.impl;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import vietpower.com.dao.AbstractDao;
@@ -29,5 +30,11 @@ public class MachineFormulaProductBaseDaoImpl extends AbstractDao<Integer, Machi
         crit.add(Restrictions.eq("machineFormulaProductBaseId", taskId));
         MachineFormulaProductBase record = (MachineFormulaProductBase)crit.uniqueResult();
         return record;
+    }
+
+    @Override
+    public void deleteAll() {
+        Query query = getSession().createQuery("delete MachineFormulaProductBase");
+        query.executeUpdate();
     }
 }

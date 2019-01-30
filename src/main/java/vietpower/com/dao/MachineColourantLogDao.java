@@ -12,4 +12,6 @@ public interface MachineColourantLogDao {
     void persist(MachineColourantLog log);
 
     List<MachineColourantLog> getByMachineColourant(Long machineColourantLogId);
+
+    void deleteAll();
 }

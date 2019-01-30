@@ -19,4 +19,6 @@ public interface CollectionDao {
     void delete(Collection collection);
 
     List<Collection> find(Collection collection);
+
+    void deleteAll();
 }

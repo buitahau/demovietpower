@@ -15,4 +15,6 @@ public interface MachineColourantDao {
     void persist(MachineColourant machineColourant);
 
     void update(MachineColourant machineColourant);
+
+    void deleteAll();
 }

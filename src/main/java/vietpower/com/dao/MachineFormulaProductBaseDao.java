@@ -13,4 +13,6 @@ public interface MachineFormulaProductBaseDao {
     List<MachineFormulaProductBase> getByMachine(Long machineId);
 
     MachineFormulaProductBase findById(Long taskId);
+
+    void deleteAll();
 }

@@ -1,5 +1,6 @@
 package vietpower.com.dao.impl;
 
+import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 import vietpower.com.dao.AbstractDao;
 import vietpower.com.dao.BaseDao;
@@ -17,5 +18,11 @@ public class BaseDaoImpl extends AbstractDao<Integer, Base> implements BaseDao{
     public List<Base> findAll() {
         List<Base> listBases = (List<Base>) createEntityCriteria().list();
         return listBases;
+    }
+
+    @Override
+    public void deleteAll() {
+        Query query = getSession().createQuery("delete Base");
+        query.executeUpdate();
     }
 }

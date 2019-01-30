@@ -1,6 +1,7 @@
 package vietpower.com.dao.impl;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import vietpower.com.dao.AbstractDao;
@@ -19,5 +20,11 @@ public class FormulaColourantDaoImpl extends AbstractDao<Integer, FormulaColoura
         Criteria criteria = createEntityCriteria();
         criteria.add(Restrictions.eq("formula.formulaId", formulaId));
         return (List<FormulaColourant>) criteria.list();
+    }
+
+    @Override
+    public void deleteAll() {
+        Query query = getSession().createQuery("delete FormulaColourant");
+        query.executeUpdate();
     }
 }

@@ -17,4 +17,6 @@ public interface FormulaDao {
     void update(Formula dbItem);
 
     Formula findById(Long formulaId);
+
+    void deleteAll();
 }

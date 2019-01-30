@@ -1,5 +1,6 @@
 package vietpower.com.dao.impl;
 
+import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 import vietpower.com.dao.AbstractDao;
 import vietpower.com.dao.ProductDao;
@@ -17,5 +18,11 @@ public class ProductDaoImpl extends AbstractDao<Integer, Product> implements Pro
     public List<Product> findAll() {
         List<Product> listProducts = (List<Product>) createEntityCriteria().list();
         return listProducts;
+    }
+
+    @Override
+    public void deleteAll() {
+        Query query = getSession().createQuery("delete Product");
+        query.executeUpdate();
     }
 }

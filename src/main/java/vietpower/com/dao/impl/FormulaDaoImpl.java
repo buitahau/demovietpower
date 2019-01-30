@@ -1,6 +1,7 @@
 package vietpower.com.dao.impl;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import vietpower.com.dao.AbstractDao;
@@ -33,5 +34,11 @@ public class FormulaDaoImpl extends AbstractDao<Integer, Formula> implements For
         crit.add(Restrictions.eq("formulaId", formulaId));
         Formula formula = (Formula)crit.uniqueResult();
         return formula;
+    }
+
+    @Override
+    public void deleteAll() {
+        Query query = getSession().createQuery("delete Formula");
+        query.executeUpdate();
     }
 }

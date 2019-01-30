@@ -11,4 +11,6 @@ public interface ProductDao {
     List<Product> findAll();
 
     void persist(Product product);
+
+    void deleteAll();
 }

@@ -2,6 +2,7 @@ package vietpower.com.dao.impl;
 
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import vietpower.com.dao.AbstractDao;
@@ -44,5 +45,11 @@ public class CollectionDaoImpl extends AbstractDao<Integer, Collection> implemen
             }
         }
         return (List<Collection>) crit.list();
+    }
+
+    @Override
+    public void deleteAll() {
+        Query query = getSession().createQuery("delete Collection");
+        query.executeUpdate();
     }
 }

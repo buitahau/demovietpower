@@ -40,7 +40,13 @@ public class ImportController implements Serializable {
 
     @RequestMapping("/import/upload")
     public String uploadForm(){
+//        clearData();
         return "import/import";
+    }
+
+    @RequestMapping("/clearData")
+    public void clearData(){
+        formulaService.clearAllData();
     }
 
     @RequestMapping(value="/import/savefile", method=RequestMethod.POST )

@@ -1,6 +1,7 @@
 package vietpower.com.dao.impl;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import vietpower.com.dao.AbstractDao;
@@ -30,5 +31,11 @@ public class MachineColourantDaoImpl extends AbstractDao<Integer, MachineColoura
             criteria.add(Restrictions.eq("machine.machineId", machineId));
         }
         return (List<MachineColourant>) criteria.list();
+    }
+
+    @Override
+    public void deleteAll() {
+        Query query = getSession().createQuery("delete MachineColourant");
+        query.executeUpdate();
     }
 }

@@ -1,6 +1,7 @@
 package vietpower.com.dao.impl;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import vietpower.com.dao.AbstractDao;
@@ -35,5 +36,11 @@ public class FormulaProductBaseDaoImpl extends AbstractDao<Integer, FormulaProdu
         } else {
             return null;
         }
+    }
+
+    @Override
+    public void deleteAll() {
+        Query query = getSession().createQuery("delete FormulaProductBase");
+        query.executeUpdate();
     }
 }

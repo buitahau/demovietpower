@@ -21,7 +21,7 @@ public class CompanyController {
 
     @RequestMapping(value = "/company/list")
     public String listCollection(Company company, ModelMap modelMap){
-        List<Company> res = companyService.findAll();
+        List<Company> res = companyService.searchByProperties(company);
         modelMap.addAttribute("listCompany", res);
         modelMap.addAttribute("company", company);
         return "company/list";

@@ -44,6 +44,7 @@
                         <thead>
                         <tr>
                             <th>UserName</th>
+                            <th>Role</th>
                             <th>Company</th>
                             <th>Action</th>
                         </tr>
@@ -52,6 +53,7 @@
                         <c:forEach items="${users}" var="user">
                             <tr>
                                 <td>${user.userName}</td>
+                                <td>${user.role.roleName}</td>
                                 <td>
                                     <c:if test="${user.company != null && user.company.companyId != null && user.company.companyId > 0}">
                                         ${user.company.name}

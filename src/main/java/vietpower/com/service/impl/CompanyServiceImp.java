@@ -53,9 +53,15 @@ public class CompanyServiceImp implements CompanyService {
     public Company updateCompanyInfo(Company company) {
         if(company.getCompanyId() != null && company.getCompanyId() > 0){
             Company dbItem = this.companyDao.findById(company.getCompanyId());
-            if(dbItem != null){
-                companyDao.update(company);
-                return company;
+            if(dbItem != null && dbItem.getCode().equalsIgnoreCase(company.getCode())){
+                dbItem.setName(company.getName());
+                dbItem.setEmail(company.getEmail());
+                dbItem.setPhone(company.getPhone());
+                dbItem.setWebsite(company.getWebsite());
+                dbItem.setAddress(company.getAddress());
+                dbItem.setCity(company.getCity());
+                companyDao.update(dbItem);
+                return dbItem;
             }
         }
         return null;

@@ -95,7 +95,7 @@
                                 <form:select path="company.companyId" cssClass="form-control" id="companyId">
                                     <form:option value="-1" label="Select Company"/>
                                     <c:forEach items="${listCompany}" var="company">
-                                        <form:option value="${company.companyId}" label="${company.name} - ${company.website} "/>
+                                        <form:option value="${company.companyId}" label="${company.code} - ${company.name} "/>
                                     </c:forEach>
                                 </form:select>
                             </div>

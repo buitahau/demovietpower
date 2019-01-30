@@ -35,6 +35,10 @@ public class CompanyDaoImpl extends AbstractDao<Integer, Company> implements Com
     public List<Company> findByProperties(Company company) {
         Criteria crit = createEntityCriteria();
         if (company != null){
+            if(StringUtils.isNotBlank(company.getCode())){
+                crit.add(Restrictions.ilike("code", "%" + company.getCode() + "%"));
+            }
+
             if(StringUtils.isNotBlank(company.getName())){
                 crit.add(Restrictions.ilike("name", "%" + company.getName() + "%"));
             }

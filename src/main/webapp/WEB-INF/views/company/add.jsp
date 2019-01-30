@@ -41,6 +41,13 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="form-group">
+                            <label for="code">code</label>
+                            <form:input type="text" path="code" id="code" class="form-control" placeholder="Enter Company code"/>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="form-group">
                             <label for="name">Name</label>
                             <form:input type="text" path="name" id="name" class="form-control" placeholder="Enter Company name"/>
                         </div>

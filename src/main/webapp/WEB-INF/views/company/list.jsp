@@ -38,6 +38,15 @@
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
+                                <label for="code">code</label>
+                                <form:input type="text" path="code" id="code" class="form-control" placeholder="Enter Company code"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
                                 <label for="name">Name</label>
                                 <form:input type="text" path="name" id="name" class="form-control" placeholder="Enter Company name"/>
                             </div>
@@ -84,6 +93,7 @@
                     <table class="table table-hover">
                         <thead>
                         <tr>
+                            <th>code</th>
                             <th>name</th>
                             <th>phone</th>
                             <th>email</th>
@@ -96,6 +106,7 @@
                         <tbody>
                         <c:forEach items="${listCompany}" var="company">
                             <tr>
+                                <td>${company.code}</td>
                                 <td>${company.name}</td>
                                 <td>${company.phone}</td>
                                 <td>${company.email}</td>

@@ -15,7 +15,10 @@ public class Company {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long companyId;
 
-    @Column(name = "name", unique = true)
+    @Column(name = "code", unique = true)
+    private String code;
+
+    @Column(name = "name")
     private String name;
 
     @Column(name = "phone")
@@ -87,5 +90,13 @@ public class Company {
 
     public void setWebsite(String website) {
         this.website = website;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

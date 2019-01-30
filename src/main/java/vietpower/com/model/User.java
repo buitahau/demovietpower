@@ -28,6 +28,10 @@ public class User {
     @JoinColumn(name="machineId")
     private Machine machine;
 
+    @ManyToOne
+    @JoinColumn(name="companyId")
+    private Company company;
+
     public Long getUserId() {
         return userId;
     }
@@ -66,5 +70,13 @@ public class User {
 
     public void setMachine(Machine machine) {
         this.machine = machine;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }

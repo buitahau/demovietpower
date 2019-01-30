@@ -38,7 +38,7 @@
 <c:url value="/admin/user/insert-or-update" var="insertOrUpdateURL" />
 <form:form method="POST" modelAttribute="user" class="form-horizontal" id="editForm" action="${insertOrUpdateURL}">
     <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-12">
             <div class="card mb-3">
                 <div class="card-header">
                     <i class="fas fa-chart-area"></i>
@@ -84,6 +84,18 @@
                                     <form:option value="-1" label="Select Machine"/>
                                     <c:forEach items="${listMachine}" var="machine">
                                         <form:option value="${machine.machineId}" label="${machine.code} - ${machine.name}"/>
+                                    </c:forEach>
+                                </form:select>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="companyId">companyId</label>
+                                <form:select path="company.companyId" cssClass="form-control" id="companyId">
+                                    <form:option value="-1" label="Select Company"/>
+                                    <c:forEach items="${listCompany}" var="company">
+                                        <form:option value="${company.companyId}" label="${company.code} - ${company.name} "/>
                                     </c:forEach>
                                 </form:select>
                             </div>

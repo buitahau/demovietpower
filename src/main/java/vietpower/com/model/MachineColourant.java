@@ -24,6 +24,9 @@ public class MachineColourant {
     @Column
     private Double quantity;
 
+    @Column
+    private Double refillFactor;
+
     @Transient
     private Long machineFormulaProductBaseId;
 
@@ -65,5 +68,13 @@ public class MachineColourant {
 
     public void setMachineFormulaProductBaseId(Long machineFormulaProductBaseId) {
         this.machineFormulaProductBaseId = machineFormulaProductBaseId;
+    }
+
+    public Double getRefillFactor() {
+        return refillFactor;
+    }
+
+    public void setRefillFactor(Double refillFactor) {
+        this.refillFactor = refillFactor;
     }
 }

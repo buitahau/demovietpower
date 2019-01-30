@@ -143,4 +143,14 @@ public class MachineServiceImpl implements MachineService{
         machineDao.update(dbItem);
         return dbItem;
     }
+
+    @Override
+    public Machine saveOrUpdate(Machine machine) {
+        if(machine.getMachineId() != null && machine.getMachineId() > 0){
+            this.machineDao.update(machine);
+        } else {
+            this.machineDao.persist(machine);
+        }
+        return machine;
+    }
 }

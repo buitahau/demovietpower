@@ -44,14 +44,21 @@
                         <thead>
                         <tr>
                             <th>UserName</th>
-                            <th width="100"></th>
-                            <th width="100">Action</th>
+                            <th>Role</th>
+                            <th>Company</th>
+                            <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
                         <c:forEach items="${users}" var="user">
                             <tr>
                                 <td>${user.userName}</td>
+                                <td>${user.role.roleName}</td>
+                                <td>
+                                    <c:if test="${user.company != null && user.company.companyId != null && user.company.companyId > 0}">
+                                        ${user.company.name}
+                                    </c:if>
+                                </td>
                                 <td><a href="<c:url value='/admin/user/edit/${user.userId}'/>" class="btn btn-success">Edit</a></td>
                                 <td><a href="<c:url value='/admin/user/delete/${user.userId}'/>" class="btn btn-danger">Delete</a></td>
                             </tr>

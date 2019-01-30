@@ -53,6 +53,9 @@ public class RestAPIController implements Serializable{
     MachineService machineService;
 
     @Autowired
+    CompanyService companyService;
+
+    @Autowired
     CustomerService customerService;
 
     @RequestMapping(value = "/server/api/formula/getAll", method = RequestMethod.GET)
@@ -214,6 +217,12 @@ public class RestAPIController implements Serializable{
     @ResponseBody
     public Object addOrUpdateCollection(@RequestBody Collection collection){
         return collectionService.addOrUpdate(collection);
+    }
+
+    @RequestMapping(value = "/server/api/company/save", method = RequestMethod.POST)
+    @ResponseBody
+    public Object updateCompanyInfo(@RequestBody Company company){
+        return companyService.updateCompanyInfo(company);
     }
 
 

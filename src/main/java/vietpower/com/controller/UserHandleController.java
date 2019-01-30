@@ -33,6 +33,9 @@ public class UserHandleController {
     MachineService machineService;
 
     @Autowired
+    CompanyService companyService;
+
+    @Autowired
     MessageSource messageSource;
 
     @RequestMapping(value = {"/user/list" }, method = RequestMethod.GET)
@@ -53,6 +56,7 @@ public class UserHandleController {
         model.addAttribute("edit", false);
         model.addAttribute("loggedinuser", getPrincipal());
         model.addAttribute("listMachine", this.machineService.findAllMachine());
+        model.addAttribute("listCompany", this.companyService.findAll());
         model.addAttribute("roles", this.roleService.findAll());
         return "users/add";
     }
@@ -64,12 +68,21 @@ public class UserHandleController {
         model.addAttribute("edit", true);
         model.addAttribute("loggedinuser", getPrincipal());
         model.addAttribute("listMachine", this.machineService.findAllMachine());
+        model.addAttribute("listCompany", this.companyService.findAll());
         model.addAttribute("roles", this.roleService.findAll());
         return "users/add";
     }
 
     @RequestMapping(value = "/user/insert-or-update")
     public String insertOrUpdate(User user, ModelMap modelMap){
+        if(user.getMachine() != null && user.getMachine().getMachineId() != null && user.getMachine().getMachineId() < 0){
+            user.setMachine(null);
+        }
+
+        if(user.getCompany() != null && user.getCompany().getCompanyId() != null && user.getCompany().getCompanyId() < 0){
+            user.setCompany(null);
+        }
+
         if(user.getUserId() != null && user.getUserId() > 0){
             this.userService.updateUser(user);
         } else {

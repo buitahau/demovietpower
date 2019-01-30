@@ -147,3 +147,17 @@ CREATE TABLE FormulaCustomer(
 
 ALTER TABLE Machine ADD COLUMN description TEXT;
 ALTER TABLE MachineColourant ADD COLUMN refillFactor DOUBLE;
+
+CREATE TABLE Company (
+ companyId BIGINT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  phone VARCHAR(255) NOT NULL,
+  website VARCHAR (255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  address TEXT,
+  city TEXT
+);
+
+
+ALTER TABLE User ADD COLUMN companyId BIGINT DEFAULT NULL ;
+ALTER TABLE User ADD CONSTRAINT FK_User_Company FOREIGN KEY (companyId) REFERENCES Company(companyId);

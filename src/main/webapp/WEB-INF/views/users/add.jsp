@@ -88,6 +88,18 @@
                                 </form:select>
                             </div>
                         </div>
+
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="companyId">companyId</label>
+                                <form:select path="company.companyId" cssClass="form-control" id="companyId">
+                                    <form:option value="-1" label="Select Company"/>
+                                    <c:forEach items="${listCompany}" var="company">
+                                        <form:option value="${company.companyId}" label="${company.name} - ${company.website} "/>
+                                    </c:forEach>
+                                </form:select>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

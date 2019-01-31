@@ -1,6 +1,7 @@
 package vietpower.com.dao.impl;
 
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.Query;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;

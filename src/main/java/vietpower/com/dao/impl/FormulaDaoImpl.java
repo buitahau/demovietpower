@@ -7,6 +7,7 @@ import vietpower.com.dao.AbstractDao;
 import vietpower.com.dao.FormulaDao;
 import vietpower.com.model.Formula;
 import vietpower.com.model.Machine;
+import org.hibernate.Query;
 
 import java.util.List;
 

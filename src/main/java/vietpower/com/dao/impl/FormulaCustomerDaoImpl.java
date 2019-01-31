@@ -1,6 +1,7 @@
 package vietpower.com.dao.impl;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import vietpower.com.dao.AbstractDao;
@@ -36,5 +37,11 @@ public class FormulaCustomerDaoImpl extends AbstractDao<Integer, FormulaCustomer
     @Override
     public List<FormulaCustomer> findAll() {
         return (List<FormulaCustomer>) createEntityCriteria().list();
+    }
+
+    @Override
+    public void deleteAll() {
+        Query query = getSession().createQuery("delete FormulaCustomer");
+        query.executeUpdate();
     }
 }

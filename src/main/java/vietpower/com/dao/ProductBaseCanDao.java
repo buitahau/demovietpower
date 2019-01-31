@@ -15,4 +15,7 @@ public interface ProductBaseCanDao {
     List<ProductBaseCan> findByProductAndBase(Long productId, Long baseId);
 
     List<ProductBaseCan> findByProductBase(Long productBaseId);
+
+    void deleteAll();
+
 }

@@ -18,4 +18,6 @@ public interface ProductBaseDao {
     List<ProductBase> findByProductId(Long productId);
 
     List<ProductBase> findByProduct(Long productId);
+
+    void deleteAll();
 }

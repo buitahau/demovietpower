@@ -34,4 +34,6 @@ public interface FormulaService {
     Formula findById(Long formulaId);
 
     Formula saveOrUpdate(Formula formula, List<FormulaColourant> listFormulaColourant);
+
+    void clearAllData();
 }

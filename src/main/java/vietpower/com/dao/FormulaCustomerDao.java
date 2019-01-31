@@ -18,4 +18,7 @@ public interface FormulaCustomerDao {
     List<FormulaCustomer> findByMachine(Long machineId);
 
     List<FormulaCustomer> findAll();
+
+    void deleteAll();
+
 }

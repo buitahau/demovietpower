@@ -14,4 +14,6 @@ public interface BaseDao {
     void persist(Base base);
 
     void update(Base base);
+
+    void deleteAll();
 }

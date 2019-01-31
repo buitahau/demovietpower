@@ -3,10 +3,7 @@ package vietpower.com.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import vietpower.com.dao.FormulaColourantDao;
-import vietpower.com.dao.FormulaDao;
-import vietpower.com.dao.FormulaProductBaseDao;
-import vietpower.com.dao.ProductBaseCanDao;
+import vietpower.com.dao.*;
 import vietpower.com.model.Formula;
 import vietpower.com.model.FormulaColourant;
 import vietpower.com.model.FormulaProductBase;
@@ -34,6 +31,30 @@ public class FormulaServiceImpl implements FormulaService {
 
     @Autowired
     ProductBaseCanDao productBaseCanDao;
+
+    @Autowired
+    FormulaCustomerDao formulaCustomerDao;
+
+    @Autowired
+    MachineFormulaProductBaseDao machineFormulaProductBaseDao;
+
+    @Autowired
+    MachineColourantLogDao machineColourantLogDao;
+
+    @Autowired
+    MachineColourantDao machineColourantDao;
+
+    @Autowired
+    ProductBaseDao productBaseDao;
+
+    @Autowired
+    CollectionDao collectionDao;
+
+    @Autowired
+    BaseDao baseDao;
+
+    @Autowired
+    ProductDao productDao;
 
     @Override
     public List<Formula> findAll() {
@@ -134,5 +155,33 @@ public class FormulaServiceImpl implements FormulaService {
         }
 
         return formula;
+    }
+
+    @Override
+    public void clearAllData() {
+        // delete FormulaCustomer
+        formulaCustomerDao.deleteAll();
+        // delete MachineFormulaProductBase
+        machineFormulaProductBaseDao.deleteAll();
+        // delete MachineColourantLog
+        machineColourantLogDao.deleteAll();
+        // delete MachineColourant
+        machineColourantDao.deleteAll();
+        // delete FormulaProductBase
+        formulaProductBaseDao.deleteAll();
+        // delete FormulaColourant
+        formulaColourantDao.deleteAll();
+        // delete ProductBaseCan
+        productBaseCanDao.deleteAll();
+        // delete ProductBase
+        productBaseDao.deleteAll();
+        // delete Base
+        baseDao.deleteAll();
+        // delete Product
+        productDao.deleteAll();
+        // delete Formula
+        formulaDao.deleteAll();
+        // delete Collection
+        collectionDao.deleteAll();
     }
 }

@@ -18,5 +18,7 @@ public interface FormulaDao {
 
     Formula findById(Long formulaId);
 
+    void deleteAll();
+
     Formula findByCode(String formulaCode, Long machineId);
 }

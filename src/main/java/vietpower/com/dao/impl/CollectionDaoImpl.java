@@ -47,6 +47,12 @@ public class CollectionDaoImpl extends AbstractDao<Integer, Collection> implemen
     }
 
     @Override
+    public void deleteAll() {
+        Query query = getSession().createQuery("delete Collection");
+        query.executeUpdate();
+    }
+
+    @Override
     public Collection findByCodeAndMachine(String collectionName, Long machineId) {
         Criteria crit = createEntityCriteria();
         crit.add(Restrictions.eq("collectionName", collectionName));

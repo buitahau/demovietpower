@@ -36,6 +36,12 @@ public class FormulaDaoImpl extends AbstractDao<Integer, Formula> implements For
     }
 
     @Override
+    public void deleteAll() {
+        Query query = getSession().createQuery("delete Formula");
+        query.executeUpdate();
+    }
+
+    @Override
     public Formula findByCode(String formulaCode, Long machineId) {
         Criteria crit = createEntityCriteria();
         crit.add(Restrictions.eq("formulaCode", formulaCode));

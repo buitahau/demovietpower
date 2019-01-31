@@ -13,4 +13,6 @@ public interface FormulaColourantDao {
     void delete(FormulaColourant formulaColourant);
 
     void persist(FormulaColourant formulaColourant);
+
+    void deleteAll();
 }

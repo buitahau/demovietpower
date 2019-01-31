@@ -19,4 +19,6 @@ public interface CollectionDao {
     void delete(Collection collection);
 
     List<Collection> find(Collection collection);
+
+    Collection findByCodeAndMachine(String collectionName, Long machineId);
 }

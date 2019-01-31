@@ -45,4 +45,12 @@ public class CollectionDaoImpl extends AbstractDao<Integer, Collection> implemen
         }
         return (List<Collection>) crit.list();
     }
+
+    @Override
+    public Collection findByCodeAndMachine(String collectionName, Long machineId) {
+        Criteria crit = createEntityCriteria();
+        crit.add(Restrictions.eq("collectionName", collectionName));
+        crit.add(Restrictions.eq("machine.machineId", machineId));
+        return (Collection)crit.uniqueResult();
+    }
 }

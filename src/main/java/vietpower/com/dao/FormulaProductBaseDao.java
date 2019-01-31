@@ -17,4 +17,6 @@ public interface FormulaProductBaseDao {
     void delete(FormulaProductBase formulaProductBase);
 
     void update(FormulaProductBase dbItem);
+
+    FormulaProductBase findByFormulaIdAndProductBase(Long formulaId, Long productBaseId);
 }

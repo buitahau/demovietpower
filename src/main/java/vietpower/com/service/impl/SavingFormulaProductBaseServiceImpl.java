@@ -1,5 +1,6 @@
 package vietpower.com.service.impl;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,6 +9,7 @@ import vietpower.com.model.*;
 import vietpower.com.service.SavingFormulaProductBaseService;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,6 +20,9 @@ import java.util.List;
 public class SavingFormulaProductBaseServiceImpl implements SavingFormulaProductBaseService {
     @Autowired
     FormulaProductBaseDao formulaProductBaseDao;
+
+    @Autowired
+    CollectionDao collectionDao;
 
     @Autowired
     FormulaDao formulaDao;
@@ -85,26 +90,87 @@ public class SavingFormulaProductBaseServiceImpl implements SavingFormulaProduct
         ProductBase productBase = formulaProductBase.getProductBase();
 
         Formula newFormula = null;
-//        ProductBase newProductBase = null;
 
-        if(formulaProductBase.getFormulaProductBaseId() != null && formulaProductBase.getFormulaProductBaseId() > 0){
-            FormulaProductBase dbItem = this.formulaProductBaseDao.findById(formulaProductBase.getFormulaProductBaseId());
-            newFormula = updateFormula(formula, dbItem.getFormula(), machine);
-//            if(productBase.getProductBaseId() != null && productBase.getProductBaseId() > 0){
-//                newProductBase = productBase;
-//            } else {
-//                newProductBase = saveProductBase(productBase);
-//            }
-            dbItem.setFormula(newFormula);
-            dbItem.setProductBase(formulaProductBase.getProductBase());
-            formulaProductBaseDao.update(dbItem);
-            return dbItem;
+        if(formula.getFormulaCode().equalsIgnoreCase("TEMPLATE FORMULA")){
+            Collection collection = formula.getCollection();
+
+            if (collection == null || collection.getCollectionId() == null) {
+
+                Collection dbItemCollection = this.collectionDao.findByCodeAndMachine("TEMPLATE COLLECTION", machine.getMachineId());
+                if(dbItemCollection != null && dbItemCollection.getCollectionId() != null && dbItemCollection.getCollectionId() > 0){
+                    collection = dbItemCollection;
+                } else {
+                    collection = new Collection();
+                    collection.setCollectionName("TEMPLATE COLLECTION");
+                    collection.setDescription("TEMPLATE COLLECTION");
+                    collection.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+                    collection.setMachine(machine);
+                    this.collectionDao.persist(collection);
+                }
+            }
+
+            newFormula = this.formulaDao.findByCode(formula.getFormulaCode(), machine.getMachineId());
+
+            // update for template
+            if(newFormula != null && newFormula.getFormulaId() > 0){
+                newFormula.setFormulaName(StringUtils.isNotBlank(formula.getFormulaName()) ? formula.getFormulaName() : "TEMPLATE FORMULA");
+                newFormula.setCollection(collection);
+                newFormula.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+                newFormula.setBaseOnCan(formula.getBaseOnCan());
+                newFormula.setApproximateColor(formula.getApproximateColor());
+                newFormula.setSubstrate(formula.getSubstrate());
+                newFormula.setComment(formula.getComment());
+
+                this.formulaDao.update(newFormula);
+
+                FormulaProductBase dbItem = this.formulaProductBaseDao.findByFormulaIdAndProductBase(newFormula.getFormulaId(), productBase.getProductBaseId());
+                if(dbItem != null && dbItem.getFormulaProductBaseId() > 0){
+                    dbItem.setFormula(newFormula);
+                    dbItem.setProductBase(formulaProductBase.getProductBase());
+                    formulaProductBaseDao.update(dbItem);
+                    return dbItem;
+                } else {
+                    // save formula product base
+                    formulaProductBase.setFormula(newFormula);
+                    formulaProductBase.setProductBase(productBase);
+                    this.formulaProductBaseDao.persist(formulaProductBase);
+                    return formulaProductBase;
+                }
+            } else {
+                newFormula = formula;
+                if(StringUtils.isBlank(newFormula.getFormulaName())){
+                    newFormula.setFormulaName("TEMPLATE FORMULA");
+                }
+                newFormula.setCollection(collection);
+
+                // save formula
+                newFormula.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+                newFormula.setMachine(machine);
+                this.formulaDao.persist(newFormula);
+
+                // save formula product base
+                formulaProductBase.setFormula(newFormula);
+                formulaProductBase.setProductBase(productBase);
+                this.formulaProductBaseDao.persist(formulaProductBase);
+                return formulaProductBase;
+            }
+
         } else {
-            newFormula = saveFormula(formula, machine);
-            formulaProductBase.setFormula(newFormula);
-            formulaProductBase.setProductBase(productBase);
-            this.formulaProductBaseDao.persist(formulaProductBase);
-            return formulaProductBase;
+            if(formulaProductBase.getFormulaProductBaseId() != null && formulaProductBase.getFormulaProductBaseId() > 0){
+                FormulaProductBase dbItem = this.formulaProductBaseDao.findById(formulaProductBase.getFormulaProductBaseId());
+                newFormula = updateFormula(formula, dbItem.getFormula(), machine);
+
+                dbItem.setFormula(newFormula);
+                dbItem.setProductBase(formulaProductBase.getProductBase());
+                formulaProductBaseDao.update(dbItem);
+                return dbItem;
+            } else {
+                newFormula = saveFormula(formula, machine);
+                formulaProductBase.setFormula(newFormula);
+                formulaProductBase.setProductBase(productBase);
+                this.formulaProductBaseDao.persist(formulaProductBase);
+                return formulaProductBase;
+            }
         }
     }
 

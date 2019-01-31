@@ -34,4 +34,13 @@ public class FormulaDaoImpl extends AbstractDao<Integer, Formula> implements For
         Formula formula = (Formula)crit.uniqueResult();
         return formula;
     }
+
+    @Override
+    public Formula findByCode(String formulaCode, Long machineId) {
+        Criteria crit = createEntityCriteria();
+        crit.add(Restrictions.eq("formulaCode", formulaCode));
+        crit.add(Restrictions.eq("machine.machineId", machineId));
+        Formula formula = (Formula)crit.uniqueResult();
+        return formula;
+    }
 }

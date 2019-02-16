@@ -34,6 +34,18 @@ public class Colourant {
     @Column(name = "kind")
     private String kind;
 
+    public Colourant(){}
+
+    public Colourant(String colourantCode, String colourantName, String rbgHex, Double density, Double pricePerUnit, Integer surcharge, String kind) {
+        this.colourantCode = colourantCode;
+        this.colourantName = colourantName;
+        this.rbgHex = rbgHex;
+        this.density = density;
+        this.pricePerUnit = pricePerUnit;
+        this.surcharge = surcharge;
+        this.kind = kind;
+    }
+
     public Long getColourantId() {
         return colourantId;
     }

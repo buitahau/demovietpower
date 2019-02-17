@@ -57,13 +57,16 @@ public class ImportController implements Serializable {
             try {
                 File convFile = new File( file.getOriginalFilename());
                 file.transferTo(convFile);
-                validateFileExcel(convFile, modelMap, redirectAttributes);
+                return validateFileExcel(convFile, modelMap, redirectAttributes);
 
             } catch (Exception e) {
                 redirectAttributes.addFlashAttribute("error", true);
+
+                return "redirect:/admin/import/upload";
             }
+        } else {
+            return "redirect:/admin/import/upload";
         }
-        return "redirect:/admin/import/upload";
     }
 
     private void parseFileExcel(){
@@ -113,11 +116,14 @@ public class ImportController implements Serializable {
                 workbook.getSheetAt(3));
 
         if(colorantErrors.isEmpty() && productBaseErrors.isEmpty() && productBaseCanErrors.isEmpty() && formulaErrors.isEmpty()){
+            formulaService.clearAllData();
             parseFileExcel(file);
             redirectAttributes.addFlashAttribute("success", true);
             return "redirect:/admin/import/upload";
 
         } else {
+            modelMap.addAttribute("hasErrors", true);
+
             if(! colorantErrors.isEmpty()){
                 modelMap.addAttribute("colorantErrors", colorantErrors);
             }
@@ -151,147 +157,162 @@ public class ImportController implements Serializable {
         while (iterator.hasNext()) {
             Row currentRow = iterator.next();
             if (row > 0) {
-                String collectionName = currentRow.getCell(0).getStringCellValue();
-                String [] listProductCode = currentRow.getCell(1).getStringCellValue().split(",");
-                String formulaName = currentRow.getCell(2).getCellType() == CellType.NUMERIC
-                        ? String.valueOf(currentRow.getCell(2).getNumericCellValue()).replace(".0", "")
-                        : currentRow.getCell(2).getStringCellValue();
-                Double baseOnCan = currentRow.getCell(3).getNumericCellValue();
-                String baseCode = currentRow.getCell(5).getStringCellValue();
+                try{
+                    String collectionName = currentRow.getCell(0).getStringCellValue();
+                    String [] listProductCode = currentRow.getCell(1).getStringCellValue().split(",");
+                    String formulaName = currentRow.getCell(2).getCellType() == CellType.NUMERIC
+                            ? String.valueOf(currentRow.getCell(2).getNumericCellValue()).replace(".0", "")
+                            : currentRow.getCell(2).getStringCellValue();
+                    Double baseOnCan = currentRow.getCell(3).getNumericCellValue();
+                    String baseCode = currentRow.getCell(5).getStringCellValue();
 
-                List<FormulaColourant> colourantFormulaList = new ArrayList<>();
+                    List<FormulaColourant> colourantFormulaList = new ArrayList<>();
 
-                if(currentRow.getCell(6) != null && currentRow.getCell(7) != null) {
-                    FormulaColourant formulaColourant01 = getColourantFormula(currentRow.getCell(6).getStringCellValue(), currentRow.getCell(7).getNumericCellValue(), mapColourants);
-                    if(formulaColourant01 != null){
-                        colourantFormulaList.add(formulaColourant01);
-                    }
-                }
-
-                if(currentRow.getCell(8) != null && currentRow.getCell(9) != null) {
-                    FormulaColourant formulaColourant02 = getColourantFormula(currentRow.getCell(8).getStringCellValue(), currentRow.getCell(9).getNumericCellValue(), mapColourants);
-                    if(formulaColourant02 != null){
-                        colourantFormulaList.add(formulaColourant02);
-                    }
-                }
-
-                if(currentRow.getCell(10) != null && currentRow.getCell(11) != null) {
-                    FormulaColourant formulaColourant03 = getColourantFormula(currentRow.getCell(10).getStringCellValue(), currentRow.getCell(11).getNumericCellValue(), mapColourants);
-                    if(formulaColourant03 != null){
-                        colourantFormulaList.add(formulaColourant03);
-                    }
-                }
-
-                if(currentRow.getCell(12) != null && currentRow.getCell(13) != null) {
-                    FormulaColourant formulaColourant04 = getColourantFormula(currentRow.getCell(12).getStringCellValue(), currentRow.getCell(13).getNumericCellValue(), mapColourants);
-                    if(formulaColourant04 != null){
-                        colourantFormulaList.add(formulaColourant04);
-                    }
-                }
-
-                if(currentRow.getCell(14) != null && currentRow.getCell(15) != null) {
-                    FormulaColourant formulaColourant05 = getColourantFormula(currentRow.getCell(14).getStringCellValue(), currentRow.getCell(15).getNumericCellValue(), mapColourants);
-                    if(formulaColourant05 != null){
-                        colourantFormulaList.add(formulaColourant05);
-                    }
-                }
-
-                if(currentRow.getCell(16) != null && currentRow.getCell(17) != null) {
-                    FormulaColourant formulaColourant06 = getColourantFormula(currentRow.getCell(16).getStringCellValue(), currentRow.getCell(17).getNumericCellValue(), mapColourants);
-                    if(formulaColourant06 != null){
-                        colourantFormulaList.add(formulaColourant06);
-                    }
-                }
-
-                String createDate = currentRow.getCell(18).getStringCellValue();
-
-                String approximateColor = convertDecimalToColor((int) currentRow.getCell(20).getNumericCellValue());
-                String comment = currentRow.getCell(21).getStringCellValue();
-                String substrate = currentRow.getCell(22).getStringCellValue();
-
-
-                // add collection
-                Collection collection = mapCollection.get(collectionName);
-                if(collection == null){
-                    collection = new Collection();
-                    collection.setCollectionName(collectionName);
-                    collection.setDescription(collectionName);
-                    collection.setMachine(null);
-                    collection.setCreatedDate(new Timestamp(System.currentTimeMillis()));
-
-                    mapCollection.put(collectionName, collection);
-                }
-
-                Formula formula = new Formula();
-                formula.setCollection(collection);
-                formula.setFormulaCode(formulaName);
-                formula.setFormulaName(formulaName);
-
-                formula.setBaseOnCan(baseOnCan);
-                formula.setApproximateColor(approximateColor);
-                formula.setComment(comment);
-                formula.setSubstrate(substrate);
-
-                if(StringUtils.isNotBlank(createDate)){
-                    formula.setCreatedDate(new Timestamp(new Date(createDate).getTime()));
-                } else {
-                    formula.setCreatedDate(new Timestamp(System.currentTimeMillis()));
-                }
-
-                List<String> errorsMessage = new ArrayList<>();
-
-                if(mapFormula.get(formulaName) != null){
-                    errorsMessage.add("Formula " + formulaName + " have been exits !");
-                } else {
-                    mapFormula.put(formulaName, formula);
-                }
-
-                for(String productCode : listProductCode){
-                    String productBasKey  = buildProductBase(productCode, baseCode);
-                    ProductBase productBase = mapProductBase.get((productBasKey));
-
-                    if(productBase == null){
-                        errorsMessage.add("Formula " + formulaName + " have been exits !");
-                    } else {
-                        FormulaProductBase formulaProductBase = new FormulaProductBase();
-                        formulaProductBase.setFormula(formula);
-                        formulaProductBase.setProductBase(productBase);
-
-                        String formulaProductBaseKey = buildFormulaProductBase(formulaName, productBase.getProduct().getProductCode(), productBase.getBase().getBaseCode());
-                        if(mapFormulaProductBase.get(formulaProductBaseKey) != null){
-                            errorsMessage.add("Formula Product Base " + formulaName + " " + productBasKey + " " +" have been exits !");
-                        } else {
-                            mapFormulaProductBase.put(formulaProductBaseKey, formulaProductBase);
+                    if(currentRow.getCell(6) != null && currentRow.getCell(7) != null) {
+                        FormulaColourant formulaColourant01 = getColourantFormula(currentRow.getCell(6).getStringCellValue(), currentRow.getCell(7).getNumericCellValue());
+                        if(formulaColourant01 != null){
+                            colourantFormulaList.add(formulaColourant01);
                         }
                     }
-                }
 
-                for(FormulaColourant formulaColourant : colourantFormulaList){
-                    if(mapColourants.get(formulaColourant.getColourant().getColourantCode()) == null){
-                        errorsMessage.add("Colourant " + formulaColourant.getColourant().getColourantCode() + " in formula " + formulaName + " is not exits!");
-                    } else {
-                        formulaColourant.setColourant(mapColourants.get(formulaColourant.getColourant().getColourantCode()));
+                    if(currentRow.getCell(8) != null && currentRow.getCell(9) != null) {
+                        FormulaColourant formulaColourant02 = getColourantFormula(currentRow.getCell(8).getStringCellValue(), currentRow.getCell(9).getNumericCellValue());
+                        if(formulaColourant02 != null){
+                            colourantFormulaList.add(formulaColourant02);
+                        }
                     }
-                }
 
-                if(errorsMessage != null && errorsMessage.size() > 0){
+                    if(currentRow.getCell(10) != null && currentRow.getCell(11) != null) {
+                        FormulaColourant formulaColourant03 = getColourantFormula(currentRow.getCell(10).getStringCellValue(), currentRow.getCell(11).getNumericCellValue());
+                        if(formulaColourant03 != null){
+                            colourantFormulaList.add(formulaColourant03);
+                        }
+                    }
+
+                    if(currentRow.getCell(12) != null && currentRow.getCell(13) != null) {
+                        FormulaColourant formulaColourant04 = getColourantFormula(currentRow.getCell(12).getStringCellValue(), currentRow.getCell(13).getNumericCellValue());
+                        if(formulaColourant04 != null){
+                            colourantFormulaList.add(formulaColourant04);
+                        }
+                    }
+
+                    if(currentRow.getCell(14) != null && currentRow.getCell(15) != null) {
+                        FormulaColourant formulaColourant05 = getColourantFormula(currentRow.getCell(14).getStringCellValue(), currentRow.getCell(15).getNumericCellValue());
+                        if(formulaColourant05 != null){
+                            colourantFormulaList.add(formulaColourant05);
+                        }
+                    }
+
+                    if(currentRow.getCell(16) != null && currentRow.getCell(17) != null) {
+                        FormulaColourant formulaColourant06 = getColourantFormula(currentRow.getCell(16).getStringCellValue(), currentRow.getCell(17).getNumericCellValue());
+                        if(formulaColourant06 != null){
+                            colourantFormulaList.add(formulaColourant06);
+                        }
+                    }
+
+                    Date createDate = currentRow.getCell(18).getDateCellValue();
+
+                    String approximateColor = convertDecimalToColor((int) currentRow.getCell(20).getNumericCellValue());
+                    String comment = currentRow.getCell(21).getStringCellValue();
+                    String substrate = currentRow.getCell(22).getStringCellValue();
+
+
+                    // add collection
+                    Collection collection = mapCollection.get(collectionName);
+                    if(collection == null){
+                        collection = new Collection();
+                        collection.setCollectionName(collectionName);
+                        collection.setDescription(collectionName);
+                        collection.setMachine(null);
+                        collection.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+
+                        mapCollection.put(collectionName, collection);
+                    }
+
+                    Formula formula = new Formula();
+                    formula.setCollection(collection);
+                    formula.setFormulaCode(formulaName);
+                    formula.setFormulaName(formulaName);
+
+                    formula.setBaseOnCan(baseOnCan);
+                    formula.setApproximateColor(approximateColor);
+                    formula.setComment(comment);
+                    formula.setSubstrate(substrate);
+
+                    if(createDate != null ){
+                        formula.setCreatedDate(new Timestamp(createDate.getTime()));
+                    } else {
+                        formula.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+                    }
+
+                    List<String> errorsMessage = new ArrayList<>();
+
+                    if(mapFormula.get(formulaName) != null){
+                        errorsMessage.add("Formula " + formulaName + " have been exits !");
+                    } else {
+                        mapFormula.put(formulaName, formula);
+                    }
+
+                    for(String productCode : listProductCode){
+                        String productBasKey  = buildProductBase(baseCode, productCode);
+                        ProductBase productBase = mapProductBase.get((productBasKey));
+
+                        if(productBase == null){
+                            errorsMessage.add("Formula " + formulaName + " have been exits !");
+                        } else {
+                            FormulaProductBase formulaProductBase = new FormulaProductBase();
+                            formulaProductBase.setFormula(formula);
+                            formulaProductBase.setProductBase(productBase);
+
+                            String formulaProductBaseKey = buildFormulaProductBase(formulaName, productBase.getProduct().getProductCode(), productBase.getBase().getBaseCode());
+                            if(mapFormulaProductBase.get(formulaProductBaseKey) != null){
+                                errorsMessage.add("Formula Product Base " + formulaName + " " + productBasKey + " " +" have been exits !");
+                            } else {
+                                mapFormulaProductBase.put(formulaProductBaseKey, formulaProductBase);
+                            }
+                        }
+                    }
+
+                    for(FormulaColourant formulaColourant : colourantFormulaList){
+                        Colourant colourant = mapColourants.get(formulaColourant.getColourant().getColourantCode());
+
+                        if(colourant == null){
+                            errorsMessage.add("Colourant " + formulaColourant.getColourant().getColourantCode() + " in formula " + formulaName + " is not exits!");
+                        } else {
+                            formulaColourant.setColourant(colourant);
+                        }
+                    }
+
+                    if(errorsMessage != null && errorsMessage.size() > 0){
+                        ImportFormula error = new ImportFormula();
+                        error.setRow(row);
+                        error.setColumn(1);
+                        error.setErrors(StringUtils.join(errorsMessage, " <br /> "));
+                        listErrors.add(error);
+                    }
+                } catch(Exception e){
                     ImportFormula error = new ImportFormula();
                     error.setRow(row);
                     error.setColumn(1);
-                    error.setErrors(StringUtils.join(errorsMessage, " <br /> "));
+                    error.setErrors("Cannot parse data of the row. The format isn't correctly. <span style='display: none'>" + e.getMessage() + "</span>");
                     listErrors.add(error);
                 }
             }
             row ++;
         }
 
-        return null;
+        return listErrors;
     }
 
-    private FormulaColourant getColourantFormula(String colourantCode, Double quantity, Map<String, Colourant> mapColourants){
+    private FormulaColourant getColourantFormula(String colourantCode, Double quantity){
         if(StringUtils.isNotBlank(colourantCode) && quantity != null && quantity > 0){
             FormulaColourant formulaColourant = new FormulaColourant();
-            formulaColourant.setColourant(mapColourants.get(colourantCode));
+
+            Colourant colourant = new Colourant();
+            colourant.setColourantCode(colourantCode);
+            colourant.setColourantName(colourantCode);
+
+            formulaColourant.setColourant(colourant);
             formulaColourant.setQuantity(quantity);
 
             return formulaColourant;
@@ -314,50 +335,57 @@ public class ImportController implements Serializable {
         while (iterator.hasNext()) {
             Row currentRow = iterator.next();
             if (row > 0) {
-                String baseCode = currentRow.getCell(0).getStringCellValue();
-                String productCode = currentRow.getCell(1).getStringCellValue();
-                Double can = Double.valueOf(currentRow.getCell(2).getStringCellValue().toLowerCase().replace("lt", "").trim());
-                Double pricePerCan = currentRow.getCell(4).getNumericCellValue();
-                Integer percentage = Double.valueOf(currentRow.getCell(5).getNumericCellValue()).intValue();
-                String barCode = Double.valueOf(currentRow.getCell(6).getNumericCellValue()).toString();
+                try{
+                    String baseCode = currentRow.getCell(0).getStringCellValue();
+                    String productCode = currentRow.getCell(1).getStringCellValue();
+                    Double can = Double.valueOf(currentRow.getCell(2).getStringCellValue().toLowerCase().replace("lt", "").trim());
+                    Double pricePerCan = currentRow.getCell(4).getNumericCellValue();
+                    Integer percentage = Double.valueOf(currentRow.getCell(5).getNumericCellValue()).intValue();
+                    String barCode = Double.valueOf(currentRow.getCell(6).getNumericCellValue()).toString();
 
-                String productBaseKey = buildProductBase(baseCode, productCode);
+                    String productBaseKey = buildProductBase(baseCode, productCode);
 
-                ProductBaseCan productBaseCan = new ProductBaseCan();
-                productBaseCan.setProductBase(mapProductBase.get(productBaseKey));
-                productBaseCan.setCan(can);
-                productBaseCan.setPricePerCan(pricePerCan);
-                productBaseCan.setPercentage(percentage);
-                productBaseCan.setBarCode(barCode);
+                    ProductBaseCan productBaseCan = new ProductBaseCan();
+                    productBaseCan.setProductBase(mapProductBase.get(productBaseKey));
+                    productBaseCan.setCan(can);
+                    productBaseCan.setPricePerCan(pricePerCan);
+                    productBaseCan.setPercentage(percentage);
+                    productBaseCan.setBarCode(barCode);
 
-                String errorsMessage = null;
+                    String errorsMessage = null;
 
-                if(mapBases.get(baseCode) == null){
-                    errorsMessage = "The base " + baseCode + " isn't exits in sheet 2!";
-                }
+                    if(mapBases.get(baseCode) == null){
+                        errorsMessage = "The base " + baseCode + " isn't exits in sheet 2!";
+                    }
 
-                if(mapProducts.get(productCode) == null){
-                    errorsMessage = "The product " + productCode + " isn't exits in sheet 2!";
-                }
+                    if(mapProducts.get(productCode) == null){
+                        errorsMessage = "The product " + productCode + " isn't exits in sheet 2!";
+                    }
 
-                if(mapProductBase.get(productBaseKey) == null){
-                    errorsMessage = "The product base (" + baseCode + " " + productCode + ") isn't exits in sheet 2!";
-                }
+                    if(mapProductBase.get(productBaseKey) == null){
+                        errorsMessage = "The product base (" + baseCode + " " + productCode + ") isn't exits in sheet 2!";
+                    }
 
-                String productBaseCanKey = buildKey(productBaseCan);
-                if(mapProductBaseCan.get(productBaseCanKey) != null){
-                    errorsMessage = "The product base can (" + baseCode + " " + productCode + " " + can + ") is exits!";
-                }
+                    String productBaseCanKey = buildKey(productBaseCan);
+                    if(mapProductBaseCan.get(productBaseCanKey) != null){
+                        errorsMessage = "The product base can (" + baseCode + " " + productCode + " " + can + ") is exits!";
+                    }
 
-                if(StringUtils.isNotBlank(errorsMessage)){
+                    if(StringUtils.isNotBlank(errorsMessage)){
+                        ImportProductBaseCan error = new ImportProductBaseCan();
+                        error.setColumn(1);
+                        error.setRow(row);
+                        error.setErrors(errorsMessage);
+                        error.setProductBaseCan(productBaseCan);
+                        listErrors.add(error);
+                    } else {
+                        mapProductBaseCan.put(productBaseCanKey, productBaseCan);
+                    }
+                } catch(Exception e){
                     ImportProductBaseCan error = new ImportProductBaseCan();
-                    error.setColumn(1);
                     error.setRow(row);
-                    error.setErrors(errorsMessage);
-                    error.setProductBaseCan(productBaseCan);
+                    error.setErrors("Cannot parse data of the row. The format isn't correctly.<span style='display: none'>" + e.getMessage() + "</span>");
                     listErrors.add(error);
-                } else {
-                    mapProductBaseCan.put(productBaseCanKey, productBaseCan);
                 }
             }
 
@@ -378,47 +406,52 @@ public class ImportController implements Serializable {
         while (iterator.hasNext()) {
             Row currentRow = iterator.next();
             if (row > 0) { // bo qua row 1
-                String baseCode = currentRow.getCell(0).getStringCellValue();
-                String productCode = currentRow.getCell(1).getStringCellValue();
-                Double density = currentRow.getCell(2).getNumericCellValue();
-                String color = convertRBG2Hex(Double.valueOf(currentRow.getCell(3).getNumericCellValue()).intValue(),
-                        Double.valueOf(currentRow.getCell(4).getNumericCellValue()).intValue(),
-                        Double.valueOf(currentRow.getCell(5).getNumericCellValue()).intValue());
+                try{
+                    String baseCode = currentRow.getCell(0).getStringCellValue();
+                    String productCode = currentRow.getCell(1).getStringCellValue();
+                    Double density = currentRow.getCell(2).getNumericCellValue();
+                    String color = convertRBG2Hex(Double.valueOf(currentRow.getCell(3).getNumericCellValue()).intValue(),
+                            Double.valueOf(currentRow.getCell(4).getNumericCellValue()).intValue(),
+                            Double.valueOf(currentRow.getCell(5).getNumericCellValue()).intValue());
 
-                if(StringUtils.isNotBlank(baseCode) && StringUtils.isNotBlank(productCode) && density > 0 && StringUtils.isNotBlank(color)){
-                    Base base = new Base();
-                    base.setBaseCode(baseCode);
-                    base.setBaseName(baseCode);
-                    base.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+                    if(StringUtils.isNotBlank(baseCode) && StringUtils.isNotBlank(productCode) && density > 0 && StringUtils.isNotBlank(color)){
+                        Base base = new Base();
+                        base.setBaseCode(baseCode);
+                        base.setBaseName(baseCode);
+                        base.setCreatedDate(new Timestamp(System.currentTimeMillis()));
 
-                    Product product = new Product();
-                    product.setProductCode(productCode);
-                    product.setProductName(productCode);
-                    product.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+                        Product product = new Product();
+                        product.setProductCode(productCode);
+                        product.setProductName(productCode);
+                        product.setCreatedDate(new Timestamp(System.currentTimeMillis()));
 
-                    ProductBase productBase = new ProductBase();
-                    productBase.setBase(base);
-                    productBase.setProduct(product);
-                    productBase.setDensity(density);
-                    productBase.setRbgHex(color);
+                        ProductBase productBase = new ProductBase();
+                        productBase.setBase(base);
+                        productBase.setProduct(product);
+                        productBase.setDensity(density);
+                        productBase.setRbgHex(color);
 
-                    if(mapBases.get(baseCode) == null){
-                        mapBases.put(baseCode,  base);
+                        if(mapBases.get(baseCode) == null){
+                            mapBases.put(baseCode,  base);
+                        }
+
+                        if(mapProducts.get(productCode) == null){
+                            mapProducts.put(productCode, product);
+                        }
+
+                        String productBaseKey = buildProductBase(baseCode, productCode);
+
+                        if(mapProductBase.get(productBaseKey) != null){
+                            ImportProductBase errors = new ImportProductBase(row, 1,
+                                    "Product Base (" + baseCode + ", " + productCode + ") has been exits !", productBase);
+                            listErrors.add(errors);
+                        } else {
+                            mapProductBase.put(productBaseKey, productBase);
+                        }
                     }
-
-                    if(mapProducts.get(productCode) == null){
-                        mapProducts.put(productCode, product);
-                    }
-
-                    String productBaseKey = buildProductBase(baseCode, productCode);
-
-                    if(mapProductBase.get(productBaseKey) != null){
-                        ImportProductBase errors = new ImportProductBase(row, 1,
-                                "Product Base (" + baseCode + ", " + productCode + ") has been exits !", productBase);
-                        listErrors.add(errors);
-                    } else {
-                        mapProductBase.put(productBaseKey, productBase);
-                    }
+                } catch (Exception e){
+                    ImportProductBase error = new ImportProductBase(row, 0, "Cannot parse data of the row. The format isn't correctly.<span style='display: none'>" + e.getMessage() + "</span>", null);
+                    listErrors.add(error);
                 }
             }
             row++;
@@ -435,22 +468,27 @@ public class ImportController implements Serializable {
         while (iterator.hasNext()) {
             Row currentRow = iterator.next();
             if(row > 0) {
-                Colourant colorant = new Colourant(
-                        currentRow.getCell(0).getStringCellValue(),
-                        currentRow.getCell(1).getStringCellValue(),
-                        convertRBG2Hex(Double.valueOf(currentRow.getCell(3).getNumericCellValue()).intValue(),
-                                Double.valueOf(currentRow.getCell(4).getNumericCellValue()).intValue(),
-                                Double.valueOf(currentRow.getCell(5).getNumericCellValue()).intValue()),
-                        currentRow.getCell(2).getNumericCellValue(),
-                        currentRow.getCell(8).getNumericCellValue(),
-                        Double.valueOf(currentRow.getCell(9).getNumericCellValue()).intValue(),
-                        currentRow.getCell(10).getStringCellValue());
+                try{
+                    Colourant colorant = new Colourant(
+                            currentRow.getCell(0).getStringCellValue(),
+                            currentRow.getCell(1).getStringCellValue(),
+                            convertRBG2Hex(Double.valueOf(currentRow.getCell(3).getNumericCellValue()).intValue(),
+                                    Double.valueOf(currentRow.getCell(4).getNumericCellValue()).intValue(),
+                                    Double.valueOf(currentRow.getCell(5).getNumericCellValue()).intValue()),
+                            currentRow.getCell(2).getNumericCellValue(),
+                            currentRow.getCell(8).getNumericCellValue(),
+                            Double.valueOf(currentRow.getCell(9).getNumericCellValue()).intValue(),
+                            currentRow.getCell(10).getStringCellValue());
 
-                if(mapResult.get(colorant.getColourantCode()) != null){
-                    ImportColourant error = new ImportColourant(row, 0, "The colourant code has exist!", colorant);
+                    if(mapResult.get(colorant.getColourantCode()) != null){
+                        ImportColourant error = new ImportColourant(row, 0, "The colourant code " + colorant.getColourantCode() + "has exist!", colorant);
+                        listErrors.add(error);
+                    } else {
+                        mapResult.put(colorant.getColourantCode(), colorant);
+                    }
+                } catch(Exception e){
+                    ImportColourant error = new ImportColourant(row, 0, "Cannot parse data of the row. The format isn't correctly. <span style='display: none'>" + e.getMessage() + "</span>", null);
                     listErrors.add(error);
-                } else {
-                    mapResult.put(colorant.getColourantCode(), colorant);
                 }
             }
             row++;

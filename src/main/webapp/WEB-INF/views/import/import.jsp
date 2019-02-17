@@ -40,6 +40,153 @@
     </div>
 </div>
 
+<c:if test="${hasErrors}">
+    <c:if test="${not empty colorantErrors}">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-chart-area"></i>
+                    Colourant Errors  (Sheet 1)
+                </div>
+
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                    <%--<th>#</th>--%>
+                                <th style="width: 50px;">Row</th>
+                                <th>Errors</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <c:forEach items="${colorantErrors}" var="colourant">
+                                <tr>
+                                        <%--<td>${colourant.row}</td>--%>
+                                    <td>${colourant.row}</td>
+                                    <td>${colourant.errors}</td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </c:if>
+
+    <c:if test="${not empty productBaseErrors}">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-chart-area"></i>
+                        Product Base Errors (Sheet 2)
+                    </div>
+
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                        <%--<th>#</th>--%>
+                                    <th style="width: 50px;">Row</th>
+                                    <th>Errors</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <c:forEach items="${productBaseErrors}" var="pb">
+                                    <tr>
+                                            <%--<td>${pb.row}</td>--%>
+                                        <td>${pb.row}</td>
+                                        <td>${pb.errors}</td>
+                                    </tr>
+                                </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </c:if>
+
+
+    <c:if test="${not empty productBaseCanErrors}">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-chart-area"></i>
+                        Product Base Can Errors (Sheet 3)
+                    </div>
+
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                        <%--<th>#</th>--%>
+                                    <th style="width: 50px;">Row</th>
+                                    <th>Errors</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <c:forEach items="${productBaseCanErrors}" var="pbc">
+                                    <tr>
+                                            <%--<td>${pb.row}</td>--%>
+                                        <td>${pbc.row}</td>
+                                        <td>${pbc.errors}</td>
+                                    </tr>
+                                </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </c:if>
+
+    <c:if test="${not empty formulaErrors}">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-chart-area"></i>
+                        Formula Errors (Sheet 4)
+                    </div>
+
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                        <%--<th>#</th>--%>
+                                    <th style="width: 50px;">Row</th>
+                                    <th>Errors</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <c:forEach items="${formulaErrors}" var="formula">
+                                    <tr>
+                                            <%--<td>${pb.row}</td>--%>
+                                        <td>${formula.row}</td>
+                                        <td>${formula.errors}</td>
+                                    </tr>
+                                </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </c:if>
+</c:if>
+
 <script type="text/javascript">
     $(document).ready(function () {
         <c:if test="${success}">

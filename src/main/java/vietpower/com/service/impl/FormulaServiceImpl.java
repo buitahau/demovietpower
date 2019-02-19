@@ -161,10 +161,10 @@ public class FormulaServiceImpl implements FormulaService {
     public void clearAllData() {
         // delete FormulaCustomer
         formulaCustomerDao.deleteAll();
-        // delete MachineFormulaProductBase
-        machineFormulaProductBaseDao.deleteAll();
         // delete MachineColourantLog
         machineColourantLogDao.deleteAll();
+        // delete MachineFormulaProductBase
+        machineFormulaProductBaseDao.deleteAll();
         // delete MachineColourant
         machineColourantDao.deleteAll();
         // delete FormulaProductBase

@@ -18,4 +18,6 @@ public interface ColourantDao {
     void persist(Colourant colourant);
 
     Colourant findById(Long colourantId);
+
+    void deleteAll();
 }

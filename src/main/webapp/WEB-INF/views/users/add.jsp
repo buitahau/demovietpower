@@ -53,14 +53,14 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group">
-                                <label for="userName">userName</label>
+                                <label for="userName">UserName</label>
                                 <form:input type="text" path="userName" id="userName" class="form-control" placeholder="Enter username"/>
                             </div>
                         </div>
 
                         <div class="col-12">
                             <div class="form-group">
-                                <label for="password">password</label>
+                                <label for="password">Password</label>
                                 <form:input type="text" path="password" id="password" class="form-control" placeholder="Enter password"/>
                             </div>
                         </div>
@@ -79,7 +79,7 @@
 
                         <div class="col-12">
                             <div class="form-group">
-                                <label for="machineId">machine</label>
+                                <label for="machineId">Machine</label>
                                 <form:select path="machine.machineId" cssClass="form-control" id="machineId">
                                     <form:option value="-1" label="Select Machine"/>
                                     <c:forEach items="${listMachine}" var="machine">
@@ -91,7 +91,7 @@
 
                         <div class="col-12">
                             <div class="form-group">
-                                <label for="companyId">companyId</label>
+                                <label for="companyId">Company</label>
                                 <form:select path="company.companyId" cssClass="form-control" id="companyId">
                                     <form:option value="-1" label="Select Company"/>
                                     <c:forEach items="${listCompany}" var="company">

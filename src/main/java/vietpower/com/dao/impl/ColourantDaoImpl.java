@@ -1,6 +1,7 @@
 package vietpower.com.dao.impl;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -33,5 +34,11 @@ public class ColourantDaoImpl extends AbstractDao<Integer, Colourant> implements
         crit.add(Restrictions.eq("colourantId", colourantId));
         Colourant c = (Colourant)crit.uniqueResult();
         return c;
+    }
+
+    @Override
+    public void deleteAll() {
+        Query query = getSession().createQuery("delete Colourant");
+        query.executeUpdate();
     }
 }

@@ -115,6 +115,8 @@ public class MachineServiceImpl implements MachineService{
         }
 
         dbItem.setQuantity(dbItem.getQuantity() + machineColourant.getQuantity());
+        dbItem.setRefillFactor(machineColourant.getRefillFactor() != null && machineColourant.getRefillFactor() > 0 ? machineColourant.getRefillFactor()  : 100 );
+
         machineColourantDao.update(dbItem);
 
         MachineColourantLog log = new MachineColourantLog();

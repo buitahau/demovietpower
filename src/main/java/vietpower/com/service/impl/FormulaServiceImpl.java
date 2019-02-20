@@ -56,6 +56,9 @@ public class FormulaServiceImpl implements FormulaService {
     @Autowired
     ProductDao productDao;
 
+    @Autowired
+    ColourantDao colourantDao;
+
     @Override
     public List<Formula> findAll() {
         return formulaDao.findAll();
@@ -183,5 +186,7 @@ public class FormulaServiceImpl implements FormulaService {
         formulaDao.deleteAll();
         // delete Collection
         collectionDao.deleteAll();
+
+        colourantDao.deleteAll();
     }
 }

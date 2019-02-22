@@ -27,11 +27,23 @@
     <li class="breadcrumb-item active">List User</li>
 </ol>
 
+<c:if test="${not empty messsage}">
+    <div class="alert alert-danger">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+
+        ${messsage}
+    </div>
+</c:if>
+
 <div class="row">
     <div class="col-12">
         <div class="card mb-3">
             <div class="card-header">
                 <i class="fas fa-chart-area"></i> List User
+
+                <sec:authorize access="hasRole('SUPER_ADMIN')">
+                    <a class="btn btn-info btn-sm float-right" href="<c:url value="/admin/user/add"/>">Add New User</a>
+                </sec:authorize>
 
                 <sec:authorize access="hasRole('ADMIN')">
                     <a class="btn btn-info btn-sm float-right" href="<c:url value="/admin/user/add"/>">Add New User</a>
@@ -59,8 +71,32 @@
                                         ${user.company.name}
                                     </c:if>
                                 </td>
-                                <td><a href="<c:url value='/admin/user/edit/${user.userId}'/>" class="btn btn-success">Edit</a></td>
-                                <td><a href="<c:url value='/admin/user/delete/${user.userId}'/>" class="btn btn-danger">Delete</a></td>
+                                <td>
+                                    <c:choose>
+                                        <c:when test="${isSuperAdmin}">
+                                            <a href="<c:url value='/admin/user/edit/${user.userId}'/>" class="btn btn-success">Edit</a>
+                                        </c:when>
+
+                                        <c:otherwise>
+                                            <c:if test="${user.role.roleName eq 'SHOP' || user.role.roleName eq 'OPERATOR' || user.role.roleName eq 'MAINTENANCE'}">
+                                                <a href="<c:url value='/admin/user/edit/${user.userId}'/>" class="btn btn-success">Edit</a>
+                                            </c:if>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
+
+                                <td>
+                                    <c:choose>
+                                        <c:when test="${isSuperAdmin}">
+                                            <a href="<c:url value='/admin/user/delete/${user.userId}'/>" class="btn btn-danger">Delete</a>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <c:if test="${user.role.roleName eq 'SHOP' || user.role.roleName eq 'OPERATOR' || user.role.roleName eq 'MAINTENANCE'}">
+                                                <a href="<c:url value='/admin/user/delete/${user.userId}'/>" class="btn btn-danger">Delete</a>
+                                            </c:if>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
                             </tr>
                         </c:forEach>
                         </tbody>

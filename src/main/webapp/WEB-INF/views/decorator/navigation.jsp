@@ -2,6 +2,13 @@
 <!-- Sidebar -->
 <ul class="sidebar navbar-nav">
     <li class="nav-item">
+        <a class="nav-link" href="<c:url value="/admin/company/list"/>">
+            <i class="menu-icon mdi mdi-television"></i>
+            <span class="menu-title">List Company</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
         <a class="nav-link" href="<c:url value="/admin/machine/list"/>">
             <i class="menu-icon mdi mdi-television"></i>
             <span class="menu-title">List Machine</span>
@@ -12,13 +19,6 @@
         <a class="nav-link" href="<c:url value="/admin/user/list"/>">
             <i class="menu-icon mdi mdi-table"></i>
             <span class="menu-title">User</span>
-        </a>
-    </li>
-
-    <li class="nav-item">
-        <a class="nav-link" href="<c:url value="/admin/company/list"/>">
-            <i class="menu-icon mdi mdi-television"></i>
-            <span class="menu-title">List Company</span>
         </a>
     </li>
 
@@ -36,10 +36,12 @@
         </a>
     </li>
 
-    <li class="nav-item">
-        <a class="nav-link" href="<c:url value="/admin/import/upload"/>">
-            <i class="menu-icon mdi mdi-sticker"></i>
-            <span class="menu-title">Import</span>
-        </a>
-    </li>
+    <sec:authorize access="hasRole('SUPER_ADMIN')">
+        <li class="nav-item">
+            <a class="nav-link" href="<c:url value="/admin/import/upload"/>">
+                <i class="menu-icon mdi mdi-sticker"></i>
+                <span class="menu-title">Import</span>
+            </a>
+        </li>
+    </sec:authorize>
 </ul>

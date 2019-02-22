@@ -71,7 +71,7 @@
                                 <form:select path="role.roleId" cssClass="form-control" id="roleId">
                                     <form:option value="-1" label="Select Role"/>
                                     <c:forEach items="${roles}" var="role">
-                                        <form:option value="${role.roleId}" label="${role.roleId} - ${role.roleName}"/>
+                                        <form:option value="${role.roleId}" label="${role.roleName}"/>
                                     </c:forEach>
                                 </form:select>
                             </div>

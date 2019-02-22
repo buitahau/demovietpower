@@ -47,4 +47,16 @@ public class SecurityUtils {
         }
         return results;
     }
+
+    public static boolean isUserHasRole(String role){
+        java.util.Collection<GrantedAuthority> authorities = SecurityUtils.getPrincipal().getAuthorities();
+        Boolean iSUserHasRole = false;
+        for(GrantedAuthority grantedAuthority : authorities){
+            if(grantedAuthority.getAuthority().equalsIgnoreCase(role)){
+                iSUserHasRole = true;
+            }
+        }
+
+        return iSUserHasRole;
+    }
 }

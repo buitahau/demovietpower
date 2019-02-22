@@ -23,4 +23,6 @@ public interface UserService {
     boolean isUserSSOUnique(Long id, String sso);
 
     User findByUserName(String userName);
+
+    void deleteUserById(Long userId);
 }

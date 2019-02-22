@@ -21,4 +21,6 @@ public interface UserDao {
     List<User> findAllUsers();
 
     User findByUserName(String userName);
+
+    void delete(User dbUser);
 }

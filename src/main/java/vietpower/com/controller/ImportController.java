@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import vietpower.com.model.*;
 import vietpower.com.model.Collection;
 import vietpower.com.service.*;
+import vietpower.com.utils.SecurityUtils;
 
 import java.io.*;
 import java.sql.Array;
@@ -41,8 +42,10 @@ public class ImportController implements Serializable {
     FormulaService formulaService;
 
     @RequestMapping("/import/upload")
-    public String uploadForm(){
+    public String uploadForm(ModelMap modelMap){
 //        clearData();
+        Boolean isSuperAdmin = SecurityUtils.isUserHasRole("ROLE_SUPER-ADMIN");
+        modelMap.addAttribute("isSuperAdmin", isSuperAdmin);
         return "import/import";
     }
 

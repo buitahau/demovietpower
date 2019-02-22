@@ -41,14 +41,18 @@
     $(document).ready(function () {
         var currentURL = window.location.href;
 
-        if (currentURL.indexOf('/admin/collection/') > -1) {
+        if (currentURL.indexOf('/admin/company/') > -1) {
+            setActivePanel('/admin/company/');
+        } else if (currentURL.indexOf('/admin/machine/') > -1) {
+            setActivePanel('/admin/machine/');
+        } else if (currentURL.indexOf('/admin/user/') > -1) {
+            setActivePanel('/admin/user/');
+        } else if (currentURL.indexOf('/admin/collection/') > -1) {
             setActivePanel('/admin/collection/');
         } else if (currentURL.indexOf('/admin/formula/') > -1) {
             setActivePanel('/admin/formula/');
-        } else if (currentURL.indexOf('/admin/machine/') > -1) {
-            setActivePanel('/admin/machine/');
-        } else if(currentURL.indexOf('/admin/user/') > -1){
-            setActivePanel('/admin/user/');
+        } else if(currentURL.indexOf('/admin/import/') > -1){
+            setActivePanel('/admin/import/');
         }
     });
 

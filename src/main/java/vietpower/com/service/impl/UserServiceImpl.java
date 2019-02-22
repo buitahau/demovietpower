@@ -67,4 +67,12 @@ public class UserServiceImpl implements UserService {
     public User findByUserName(String userName) {
         return userDao.findByUserName(userName);
     }
+
+    @Override
+    public void deleteUserById(Long userId) {
+        User dbUser = userDao.findById(userId);
+        if(dbUser != null){
+            userDao.delete(dbUser);
+        }
+    }
 }

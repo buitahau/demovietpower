@@ -2,6 +2,7 @@ package vietpower.com.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -9,12 +10,15 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import vietpower.com.model.Collection;
 import vietpower.com.model.Formula;
+import vietpower.com.model.Role;
 import vietpower.com.model.User;
 import vietpower.com.service.*;
 import vietpower.com.utils.SecurityUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,6 +47,8 @@ public class UserHandleController {
         List<User> users = userService.findAllUsers();
         model.addAttribute("users", users);
         model.addAttribute("loggedinuser", getPrincipal());
+        Boolean isSuperAdmin = SecurityUtils.isUserHasRole("ROLE_SUPER_ADMIN");
+        model.addAttribute("isSuperAdmin", isSuperAdmin);
         return "users/list";
     }
 
@@ -57,7 +63,8 @@ public class UserHandleController {
         model.addAttribute("loggedinuser", getPrincipal());
         model.addAttribute("listMachine", this.machineService.findAllMachine());
         model.addAttribute("listCompany", this.companyService.findAll());
-        model.addAttribute("roles", this.roleService.findAll());
+
+        getRoleBaseUserLogin(model);
         return "users/add";
     }
 
@@ -69,8 +76,35 @@ public class UserHandleController {
         model.addAttribute("loggedinuser", getPrincipal());
         model.addAttribute("listMachine", this.machineService.findAllMachine());
         model.addAttribute("listCompany", this.companyService.findAll());
-        model.addAttribute("roles", this.roleService.findAll());
+        getRoleBaseUserLogin(model);
         return "users/add";
+    }
+
+    @RequestMapping(value = { "/user/delete/{userId}" })
+    public String deleteUser(@PathVariable Long userId, ModelMap model, RedirectAttributes redirectAttributes) {
+        try{
+            userService.deleteUserById(userId);
+        }catch(Exception e){
+            redirectAttributes.addFlashAttribute("messsage", "Cannot delete the user, please remove relative data before delete.");
+        }
+        return "redirect:/admin/user/list";
+    }
+
+    private void getRoleBaseUserLogin(ModelMap model){
+        List<Role> roles = this.roleService.findAll();
+        Boolean isSuperAdmin = SecurityUtils.userHasAuthority("SUPER_ADMIN");
+
+        if(! isSuperAdmin){
+            List<Role> newRoles = new ArrayList<>();
+            for(Role role : roles){
+                if(! role.getRoleName().equalsIgnoreCase("ADMIN") &&  ! role.getRoleName().equalsIgnoreCase("SUPER_ADMIN")){
+                    newRoles.add(role);
+                }
+            }
+            model.addAttribute("roles", newRoles);
+        } else {
+            model.addAttribute("roles", roles);
+        }
     }
 
     @RequestMapping(value = "/user/insert-or-update")

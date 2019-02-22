@@ -45,6 +45,10 @@
                     <a class="btn btn-info btn-sm float-right" href="<c:url value="/admin/user/add"/>">Add New User</a>
                 </sec:authorize>
 
+                <sec:authorize access="hasRole('SUPER-ADMIN')">
+                    <a class="btn btn-info btn-sm float-right" href="<c:url value="/admin/user/add"/>">Add New User</a>
+                </sec:authorize>
+
                 <sec:authorize access="hasRole('ADMIN')">
                     <a class="btn btn-info btn-sm float-right" href="<c:url value="/admin/user/add"/>">Add New User</a>
                 </sec:authorize>

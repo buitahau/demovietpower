@@ -44,8 +44,11 @@ public class ImportController implements Serializable {
     @RequestMapping("/import/upload")
     public String uploadForm(ModelMap modelMap){
 //        clearData();
-        Boolean isSuperAdmin = SecurityUtils.isUserHasRole("ROLE_SUPER-ADMIN");
+        Boolean isSuperAdmin = SecurityUtils.isUserHasRole("ROLE_SUPER_ADMIN");
         modelMap.addAttribute("isSuperAdmin", isSuperAdmin);
+        if(! isSuperAdmin){
+            return "redirect:/admin/formula/list";
+        }
         return "import/import";
     }
 

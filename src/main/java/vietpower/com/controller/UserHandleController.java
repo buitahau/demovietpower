@@ -92,7 +92,7 @@ public class UserHandleController {
 
     private void getRoleBaseUserLogin(ModelMap model){
         List<Role> roles = this.roleService.findAll();
-        Boolean isSuperAdmin = SecurityUtils.userHasAuthority("SUPER_ADMIN");
+        Boolean isSuperAdmin = SecurityUtils.userHasAuthority("ROLE_SUPER_ADMIN");
 
         if(! isSuperAdmin){
             List<Role> newRoles = new ArrayList<>();

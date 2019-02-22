@@ -36,12 +36,10 @@
         </a>
     </li>
 
-    <sec:authorize access="hasRole('SUPER_ADMIN')">
-        <li class="nav-item">
-            <a class="nav-link" href="<c:url value="/admin/import/upload"/>">
-                <i class="menu-icon mdi mdi-sticker"></i>
-                <span class="menu-title">Import</span>
-            </a>
-        </li>
-    </sec:authorize>
+    <li class="nav-item">
+        <a class="nav-link" href="<c:url value="/admin/import/upload"/>">
+            <i class="menu-icon mdi mdi-sticker"></i>
+            <span class="menu-title">Import</span>
+        </a>
+    </li>
 </ul>

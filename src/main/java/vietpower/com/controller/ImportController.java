@@ -484,7 +484,7 @@ public class ImportController implements Serializable {
                             currentRow.getCell(10).getStringCellValue());
 
                     if(mapResult.get(colorant.getColourantCode()) != null){
-                        ImportColourant error = new ImportColourant(row, 0, "The colourant code " + colorant.getColourantCode() + "has exist!", colorant);
+                        ImportColourant error = new ImportColourant(row, 0, "The colourant code " + colorant.getColourantCode() + " has been existed!", colorant);
                         listErrors.add(error);
                     } else {
                         mapResult.put(colorant.getColourantCode(), colorant);

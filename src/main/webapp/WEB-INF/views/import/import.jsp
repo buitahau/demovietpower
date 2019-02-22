@@ -13,27 +13,25 @@
 
     <li class="breadcrumb-item active">Import Metadata</li>
 </ol>
-<c:choose>
-    <c:when test="${isSuperAdmin}">
-        <div class="row">
-            <div class="col-12">
-                <form method="post" enctype="multipart/form-data" action="<c:url value="/admin/import/savefile"/>" class="">
-                    <div class="card mb-3">
-                        <div class="card-header">
-                            <i class="fas fa-chart-area"></i>
-                            Import
-                        </div>
 
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label>File upload. Please upload file excel (xls, xlsx).</label>
-                                        <input type="file" name="file" class="form-control file-upload-info" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
-                                    </div>
-                                </div>
+<div class="row">
+    <div class="col-12">
+        <form method="post" enctype="multipart/form-data" action="<c:url value="/admin/import/savefile"/>" class="">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <i class="fas fa-chart-area"></i>
+                    Import
+                </div>
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>File upload. Please upload file excel (xls, xlsx).</label>
+                                <input type="file" name="file" class="form-control file-upload-info" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
                             </div>
-
+                        </div>
+                    </div>
                     <button id="submitBtn" type="submit" class="btn btn-success mr-2">Upload</button>
                 </div>
             </div>
@@ -42,6 +40,11 @@
 </div>
 
 <c:if test="${hasErrors}">
+    <div class="alert alert-danger">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        Have some error in import file. Please revise them before update.
+    </div>
+
     <c:if test="${not empty colorantErrors}">
     <div class="row">
         <div class="col-12">

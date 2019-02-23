@@ -40,8 +40,18 @@ public class UserServiceImpl implements UserService {
         if(entity != null){
             entity.setUserName(user.getUserName());
             entity.setPassword(user.getPassword());
+            entity.setRole(user.getRole());
+
             if(user.getCompany() != null && user.getCompany().getCompanyId() != null && user.getCompany().getCompanyId() > 0){
                 entity.setCompany(user.getCompany());
+            } else {
+                entity.setCompany(null);
+            }
+
+            if(user.getMachine() != null && user.getMachine().getMachineId() != null && user.getMachine().getMachineId() > 0){
+                entity.setMachine(user.getMachine());
+            } else {
+                entity.setMachine(null);
             }
             this.userDao.update(entity);
         }

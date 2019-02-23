@@ -28,10 +28,26 @@ public class MachineController {
         return "machine/list";
     }
 
-    @RequestMapping(value = {"/machine/add", "/machine/edit"})
-    public String addCollection(Machine machine, ModelMap modelMap){
+    @RequestMapping(value = {"/machine/add"})
+    public String addMachine(Machine machine, ModelMap modelMap){
         if(machine.getMachineId() != null && machine.getMachineId() > 0){
             machine = this.machineService.findById(machine.getMachineId());
+        }
+        modelMap.addAttribute("machine", machine);
+        return  "machine/add";
+    }
+
+    @RequestMapping(value = {"/machine/edit/{machineId}"})
+    public String editMachine(@PathVariable Long machineId, ModelMap modelMap){
+        Machine machine = null;
+        if(machineId != null && machineId > 0){
+            machine = this.machineService.findById(machineId);
+        } else {
+            machine = new Machine();
+            // set default for machine
+            machine.setMaxQuantity(3000);
+            machine.setMinQuantity(400);
+            machine.setWarningQuantity(600);
         }
         modelMap.addAttribute("machine", machine);
         return  "machine/add";

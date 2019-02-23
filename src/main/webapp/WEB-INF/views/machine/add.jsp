@@ -46,53 +46,61 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="form-group">
-                            <label for="code">Name</label>
+                            <label for="code">Code</label>
                             <form:input type="text" path="code" id="code" class="form-control" placeholder="Enter machine code"/>
                         </div>
                     </div>
-
-
+                </div>
+                <div class="row">
                     <div class="col-12">
                         <div class="form-group">
                             <label for="name">Name</label>
                             <form:input type="text" path="name" id="name" class="form-control" placeholder="Enter machine name"/>
                         </div>
                     </div>
-
+                </div>
+                <div class="row">
                     <div class="col-12">
                         <div class="form-group">
                             <label for="description">Description</label>
                             <form:textarea type="text" path="description" id="description" class="form-control" placeholder="Enter machine description" rows="3"/>
                         </div>
                     </div>
+                </div>
 
+                <div class="row">
                     <div class="col-4">
                         <div class="form-group">
-                            <label for="maxQuantity">maxQuantity</label>
+                            <label for="maxQuantity">Max Quantity</label>
                             <form:input type="number" path="maxQuantity" id="maxQuantity" class="form-control"/>
                         </div>
                     </div>
+                </div>
 
+                <div class="row">
                     <div class="col-4">
                         <div class="form-group">
-                            <label for="warningQuantity">warningQuantity</label>
-                            <form:input type="number" path="warningQuantity" id="warningQuantity" class="form-control"/>
-                        </div>
-                    </div>
-
-                    <div class="col-4">
-                        <div class="form-group">
-                            <label for="minQuantity">minQuantity</label>
+                            <label for="minQuantity">Min Quantity</label>
                             <form:input type="number" path="minQuantity" id="minQuantity" class="form-control"/>
                         </div>
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="warningQuantity">Warning Quantity</label>
+                            <form:input type="number" path="warningQuantity" id="warningQuantity" class="form-control"/>
+                        </div>
+                    </div>
+                </div>
+
                 <form:input type="hidden" path="machineId" id="machineId" class="form-control"/>
             </div>
 
             <div class="card-footer small text-muted">
                 <div class="row">
-                    <button class="btn btn-success mr-2" onclick="addCollection();">
+                    <button class="btn btn-success mr-2">
                         ${buttonLabel}
                     </button>
                 </div>
@@ -101,9 +109,66 @@
         </div>
     </div>
 </div>
+
 <script>
-    function addCollection(){
-        $('#editForm').submit();
+    $(document).ready(function(){
+        $('.btn-success').click(function(e){
+            addCollection(e);
+        })
+    });
+
+    function addCollection(e){
+        e.preventDefault();
+        e.stopPropagation();
+
+        $('.error').remove();
+
+        var valid = true;
+
+        var maxQuantity = parseFloat($('#maxQuantity').val());
+        var minQuantity = parseFloat($('#minQuantity').val());
+        var warningQuantity = parseFloat($('#warningQuantity').val());
+
+        if($('#code').val().trim() == ""){
+            valid = false;
+
+            var errorMessage = $('<span class="error">The code  is not correct, please update!!!</span>');
+            errorMessage.insertAfter($('#code'));
+        }
+
+        if($('#name').val().trim() == ""){
+            valid = false;
+
+            var errorMessage = $('<span class="error">The name  is not correct, please update!!!</span>');
+            errorMessage.insertAfter($('#name'));
+        }
+
+        if($('#maxQuantity').val().trim() == "" || minQuantity > maxQuantity || minQuantity > warningQuantity){
+            valid = false;
+
+            var errorMessage = $('<span class="error">The Min quantity is not correct, please update!!!</span>');
+            errorMessage.insertAfter($('#minQuantity'));
+        }
+
+        if($('#warningQuantity').val().trim() == "" ||  warningQuantity >= maxQuantity){
+            valid = false;
+
+            var errorMessage = $('<span class="error">The warning quantity is not correct, please update!!!</span>');
+            errorMessage.insertAfter($('#warningQuantity'));
+        }
+
+        if($('#maxQuantity').val().trim() == ""){
+            valid = false;
+
+            var errorMessage = $('<span class="error">The max quantity is not correct, please update!!!</span>');
+            errorMessage.insertAfter($('#maxQuantity'));
+        }
+
+        if(valid){
+            $('#editForm').submit();
+        } else {
+            return false;
+        }
     }
 </script>
 </body>

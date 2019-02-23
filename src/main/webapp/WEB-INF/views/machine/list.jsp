@@ -47,8 +47,9 @@
                                 <td>${machine.name}</td>
                                 <td>${machine.description}</td>
                                 <td>
-                                    <a href="<c:url value='/admin/machine/${machine.machineId}/colour' />" class="btn btn-success custom-width">Colour</a>
-                                    <a href="<c:url value='/admin/machine/${machine.machineId}/formula' />" class="btn btn-primary custom-width">Formula</a>
+                                    <a href="<c:url value='/admin/machine/edit/${machine.machineId}' />" class="btn btn-primary custom-width">Edit Machine</a>
+                                    <a href="<c:url value='/admin/machine/${machine.machineId}/colour' />" class="btn btn-info custom-width">View Colour</a>
+                                    <a href="<c:url value='/admin/machine/${machine.machineId}/formula' />" class="btn btn-info custom-width">View Formula</a>
                                 </td>
                             </tr>
                         </c:forEach>

@@ -66,13 +66,11 @@ public class MachineController {
         return "machine/machine_colour";
     }
 
-    @RequestMapping(value = "/machine/colour/detail/{machineColourId}")
-    public String machineColourDetail(@PathVariable Long machineColourId, ModelMap modelMap){
+    @RequestMapping(value = "/machine/colour/detail/{machineColourId}/{machineId}")
+    public String machineColourDetail(@PathVariable Long machineColourId, @PathVariable Long machineId, ModelMap modelMap){
         List<MachineColourantLog> logs = machineService.getAllMachineColourantLog(machineColourId);
         modelMap.addAttribute("logs", logs);
-        if(logs.size() > 0) {
-            modelMap.addAttribute("machineId", logs.get(0).getMachineColourant().getMachine().getMachineId());
-        }
+        modelMap.addAttribute("machineId", machineId);
         return "machine/machine_colour_detail";
     }
 

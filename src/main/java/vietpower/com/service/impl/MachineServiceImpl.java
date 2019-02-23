@@ -152,6 +152,16 @@ public class MachineServiceImpl implements MachineService{
             this.machineDao.update(machine);
         } else {
             this.machineDao.persist(machine);
+            List<Colourant> colourants = this.colourantDao.findAll();
+            for(Colourant colourant : colourants){
+                MachineColourant machineColourant = new MachineColourant();
+                machineColourant.setMachine(machine);
+                machineColourant.setColourant(colourant);
+                machineColourant.setQuantity(0d);
+                machineColourant.setRefillFactor(100d);
+
+                this.machineColourantDao.persist(machineColourant);
+            }
         }
         return machine;
     }
